@@ -27,7 +27,7 @@ function Themed({ cfg, children }: { cfg: DashConfig; children: any }) {
   const dark = cfg.theme.mode === "dark" || (cfg.theme.mode === "auto" && !!h.themes?.darkMode);
   return (
     <div
-      class={`df-root ${dark ? "dark" : "light"} cards-${cfg.theme.cardStyle} density-${cfg.theme.density} layout-${cfg.layout} ${editMode.value ? "editing" : ""}`}
+      class={`df-root ${dark ? "dark" : "light"} cards-${cfg.theme.cardStyle} density-${cfg.theme.density} ${editMode.value ? "editing" : ""}`}
       style={themeStyle(cfg, dark)}
     >
       {children}

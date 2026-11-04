@@ -299,35 +299,49 @@ function CoverBig(p: BodyProps) {
   );
 }
 
+/**
+ * Target temperature with debounced − / + buttons. Handles a single target
+ * ("temperature") and a heat/cool range ("target_temp_low" / "target_temp_high").
+ */
 export function useTargetTemp(h: Hass, entityId: string) {
   const s = h.states[entityId];
-  const actual: number | undefined = s?.attributes.temperature;
-  const [pending, setPending] = useState<number | null>(null);
+  const a = s?.attributes ?? {};
+  const [pending, setPending] = useState<[number, number] | null>(null);
   const timer = useRef<number | undefined>(undefined);
-  const step: number =
-    s?.attributes.target_temp_step ?? (h.config.unit_system.temperature === "°F" ? 1 : 0.5);
-  const min: number = s?.attributes.min_temp ?? 7;
-  const max: number = s?.attributes.max_temp ?? 35;
+  const step: number = a.target_temp_step ?? (h.config.unit_system.temperature === "°F" ? 1 : 0.5);
+  const min: number = a.min_temp ?? 7;
+  const max: number = a.max_temp ?? 35;
+  const isRange = a.temperature == null && a.target_temp_low != null && a.target_temp_high != null;
+  const actual: [number, number] | null = isRange
+    ? [a.target_temp_low, a.target_temp_high]
+    : a.temperature != null
+      ? [a.temperature, a.temperature]
+      : null;
   const shown = pending ?? actual;
+  const clamp = (v: number) => Math.min(max, Math.max(min, Math.round(v / step) * step));
   const nudge = (dir: 1 | -1) => {
-    if (shown == null) return;
-    const next = Math.min(max, Math.max(min, Math.round((shown + dir * step) / step) * step));
+    if (!shown) return;
+    const next: [number, number] = [clamp(shown[0] + dir * step), clamp(shown[1] + dir * step)];
     setPending(next);
     clearTimeout(timer.current);
     timer.current = window.setTimeout(() => {
-      call("climate", "set_temperature", { entity_id: entityId, temperature: next }).then(() =>
-        window.setTimeout(() => setPending(null), 1500),
-      );
+      const data = isRange
+        ? { entity_id: entityId, target_temp_low: next[0], target_temp_high: next[1] }
+        : { entity_id: entityId, temperature: next[0] };
+      call("climate", "set_temperature", data).then(() => window.setTimeout(() => setPending(null), 1500));
     }, 800);
   };
-  return { shown, nudge, min, max };
+  const label = !shown ? "—" : isRange ? `${shown[0]}–${shown[1]}°` : `${shown[0]}°`;
+  return { shown, label, isRange, nudge, min, max };
 }
 
 export function ClimateRing({ h, entityId, big }: { h: Hass; entityId: string; big?: boolean }) {
   const s = h.states[entityId];
-  const { shown, nudge, min, max } = useTargetTemp(h, entityId);
+  const { shown, label, isRange, nudge, min, max } = useTargetTemp(h, entityId);
   const cur = s?.attributes.current_temperature;
-  const ratio = shown != null ? (shown - min) / (max - min) : 0;
+  const pos = (v: number) => Math.min(1, Math.max(0, (v - min) / (max - min)));
+  const from = shown && isRange ? pos(shown[0]) : 0;
+  const to = shown ? pos(shown[1]) : 0;
   const r = 52;
   const circ = 2 * Math.PI * r;
   const arc = circ * 0.75;
@@ -349,18 +363,21 @@ export function ClimateRing({ h, entityId, big }: { h: Hass; entityId: string; b
           r={r}
           class="ring-value"
           style={`stroke:${color}`}
-          stroke-dasharray={`${arc * ratio} ${circ}`}
+          stroke-dasharray={`${Math.max(0.01, arc * (to - from))} ${circ}`}
+          stroke-dashoffset={`${-arc * from}`}
           transform="rotate(135 64 64)"
         />
       </svg>
       <div class="ring-center">
-        <div class="ring-target">{shown != null ? `${shown}°` : "—"}</div>
+        <div class={`ring-target ${isRange ? "range" : ""}`}>{label}</div>
         {cur != null && <div class="ring-current">Now {cur}°</div>}
       </div>
-      <div class="ring-buttons">
-        <IconButton icon="mdi:minus" label="Lower temperature" onClick={() => nudge(-1)} />
-        <IconButton icon="mdi:plus" label="Raise temperature" onClick={() => nudge(1)} />
-      </div>
+      {shown && (
+        <div class="ring-buttons">
+          <IconButton icon="mdi:minus" label="Lower temperature" onClick={() => nudge(-1)} />
+          <IconButton icon="mdi:plus" label="Raise temperature" onClick={() => nudge(1)} />
+        </div>
+      )}
     </div>
   );
 }
@@ -413,7 +430,16 @@ function MediaBig(p: BodyProps) {
       {art && <div class="media-art-bg" style={`background-image:url("${art}")`} />}
       <div class="big-top">
         <div class="tile-icon">
-          {art ? <img src={art} alt="" class="media-art" /> : <Icon icon={entityIcon(p.h, p.card.entity, p.card)} />}
+          {art ? (
+            <img
+              src={art}
+              alt=""
+              class="media-art"
+              onError={(e) => ((e.target as HTMLImageElement).style.visibility = "hidden")}
+            />
+          ) : (
+            <Icon icon={entityIcon(p.h, p.card.entity, p.card)} />
+          )}
         </div>
         <div class="tile-text">
           <div class="tile-name">{s?.attributes.media_title ?? p.name}</div>

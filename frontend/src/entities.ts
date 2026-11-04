@@ -241,10 +241,12 @@ export function stateLabel(hass: Hass, s?: HassEntityState): string {
     return `Open · ${s.attributes.current_position}%`;
   }
   if (d === "climate") {
-    const t = s.attributes.temperature;
-    const cur = s.attributes.current_temperature;
-    const mode = titleCase(s.attributes.hvac_action ?? s.state);
-    return t != null ? `${mode} · ${t}°` : cur != null ? `${mode} · ${cur}°` : mode;
+    const a = s.attributes;
+    const mode = titleCase(a.hvac_action ?? s.state);
+    if (a.temperature != null) return `${mode} · ${a.temperature}°`;
+    if (a.target_temp_low != null && a.target_temp_high != null)
+      return `${mode} · ${a.target_temp_low}–${a.target_temp_high}°`;
+    return a.current_temperature != null ? `${mode} · ${a.current_temperature}°` : mode;
   }
   if (d === "media_player" && s.attributes.media_title) {
     return s.attributes.media_artist

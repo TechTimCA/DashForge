@@ -530,6 +530,8 @@ ha-icon {
 }
 
 .clock {
+  flex: none;
+  white-space: nowrap;
   font-size: 2rem;
   font-weight: 300;
   font-variant-numeric: tabular-nums;
@@ -969,6 +971,14 @@ ha-icon {
 
 .climate-ring.big .ring-target {
   font-size: 2.6rem;
+}
+
+.ring-target.range {
+  font-size: 1.4rem;
+}
+
+.climate-ring.big .ring-target.range {
+  font-size: 2rem;
 }
 
 .ring-current {
@@ -1436,7 +1446,7 @@ ha-icon {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  aspect-ratio: 1.2;
+  height: 46px;
   border: none;
   border-radius: 12px;
   background: var(--surface-2);
@@ -1763,6 +1773,14 @@ ha-icon {
   min-width: 80px;
 }
 
+.room-row > .small {
+  flex: none;
+  width: 96px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: right;
+}
+
 .accordion {
   display: flex;
   flex-direction: column;
@@ -2072,5 +2090,36 @@ ha-icon {
   .edit-bar {
     bottom: 8px;
     border-radius: 18px;
+  }
+
+  .header-right {
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+  }
+
+  .header-chips {
+    flex-wrap: nowrap;
+    min-width: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .chip-btn,
+  .header-chips .icon-btn {
+    flex: none;
+  }
+
+  .event-chip {
+    max-width: 180px;
+  }
+
+  .room-row > .small {
+    display: none;
+  }
+
+  .room-row .icon-btn {
+    width: 36px;
+    height: 36px;
   }
 }
