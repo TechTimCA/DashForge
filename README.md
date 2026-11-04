@@ -4,7 +4,7 @@
 
 DashForge adds a beautiful, touch-friendly dashboard to your Home Assistant sidebar. A step-by-step setup wizard asks you about your rooms, devices, layout and look, so nothing is decided for you, and every choice can be changed afterwards. There are no paid tiers, no device limits, no license keys and no cloud.
 
-[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=TechTimCA&repository=dashforge&category=integration)
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=TechTimCA&repository=DashForge&category=integration)
 
 ## Features
 
@@ -56,7 +56,7 @@ Everything is included, for everyone, with no limits on rooms or devices.
 ### With HACS (recommended)
 
 1. In Home Assistant, open **HACS**.
-2. From the **⋮** menu choose **Custom repositories**, add `https://github.com/TechTimCA/dashforge` with the type **Integration**.
+2. From the **⋮** menu choose **Custom repositories**, add `https://github.com/TechTimCA/DashForge` with the type **Integration**.
 3. Search for **DashForge**, open it and choose **Download**.
 4. Restart Home Assistant.
 5. Go to **Settings → Devices & services → Add integration** and add **DashForge**.
@@ -64,7 +64,7 @@ Everything is included, for everyone, with no limits on rooms or devices.
 
 ### Manual
 
-1. Download `dashforge.zip` from the [latest release](https://github.com/TechTimCA/dashforge/releases/latest).
+1. Download `dashforge.zip` from the [latest release](https://github.com/TechTimCA/DashForge/releases/latest).
 2. Extract it into `config/custom_components/dashforge`.
 3. Restart Home Assistant and add the integration as in step 5 above.
 
@@ -101,7 +101,7 @@ The build writes `custom_components/dashforge/frontend/dashforge-panel.js`, whic
 
 The frontend is written in TypeScript with [Preact](https://preactjs.com/) and [Vite](https://vitejs.dev/), and renders inside its own shadow DOM so it never clashes with Home Assistant's styles. The integration in `custom_components/dashforge` registers the sidebar panel, stores the dashboard and provides a small websocket API (`dashforge/info`, `dashforge/config/get`, `dashforge/config/save`, `dashforge/config/subscribe`).
 
-Contributions, bug reports and translations are welcome. Please open an [issue](https://github.com/TechTimCA/dashforge/issues) or a pull request.
+Contributions, bug reports and translations are welcome. Please open an [issue](https://github.com/TechTimCA/DashForge/issues) or a pull request.
 
 ## License
 
