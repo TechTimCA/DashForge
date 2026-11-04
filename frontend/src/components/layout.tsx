@@ -1,5 +1,5 @@
 import { useRef, useState } from "preact/hooks";
-import { domainOf, entityIcon, entityName, isActive, isDashboardEntity, stateLabel } from "../entities";
+import { domainOf, entityIcon, entityName, isDashboardEntity } from "../entities";
 import {
   call,
   editMode,
@@ -7,6 +7,7 @@ import {
   info,
   narrow,
   panelElement,
+  width,
   startEditing,
   updateDraft,
   view,
@@ -16,6 +17,8 @@ import type { CardConfig, CardSize, DashConfig, SectionConfig } from "../types";
 import { Tile } from "./cards";
 import { cardEditor, pickerFor } from "./edit";
 import { openSettings } from "./wizard";
+import { HomeView, RoomControls, floorGroups, hasFloors, roomStatus } from "./home";
+import { IrrigationView } from "./irrigation";
 import {
   conditionIcon,
   eventTime,
@@ -36,22 +39,35 @@ export interface NavItem {
   view: View;
   name: string;
   icon: string;
+  group?: string; // floor name, shown as a heading in the sidebar and list layouts
 }
 
 export function navItems(cfg: DashConfig): NavItem[] {
-  const items: NavItem[] = cfg.sections.map((s) => ({
-    key: s.id,
-    view: { type: "section", id: s.id },
-    name: s.name,
-    icon: s.icon,
-  }));
+  const h = hass.value!;
+  const items: NavItem[] = [];
+  if (cfg.builtinPages.home && !editMode.value) {
+    items.push({ key: "home", view: { type: "home" }, name: "Home", icon: "mdi:home-variant" });
+  }
+  const rooms = cfg.sections.filter((s) => s.kind === "room");
+  const pages = cfg.sections.filter((s) => s.kind === "page");
+  const floors = hasFloors(h, rooms);
+  for (const g of floorGroups(h, rooms)) {
+    for (const s of g.sections) {
+      items.push({ key: s.id, view: { type: "section", id: s.id }, name: s.name, icon: s.icon, group: floors ? g.name : undefined });
+    }
+  }
+  for (const s of pages) {
+    items.push({ key: s.id, view: { type: "section", id: s.id }, name: s.name, icon: s.icon, group: floors ? "Pages" : undefined });
+  }
   if (!editMode.value) {
+    if (cfg.builtinPages.irrigation && cfg.irrigation.zones.length)
+      items.push({ key: "irrigation", view: { type: "irrigation" }, name: "Irrigation", icon: "mdi:sprinkler-variant", group: floors ? "Pages" : undefined });
     if (cfg.builtinPages.media && mediaEntities(cfg).length)
-      items.push({ key: "media", view: { type: "media" }, name: "Media", icon: "mdi:music-box-multiple" });
+      items.push({ key: "media", view: { type: "media" }, name: "Media", icon: "mdi:music-box-multiple", group: floors ? "Pages" : undefined });
     if (cfg.builtinPages.security && securityEntities(cfg).length)
-      items.push({ key: "security", view: { type: "security" }, name: "Security", icon: "mdi:shield-home" });
+      items.push({ key: "security", view: { type: "security" }, name: "Security", icon: "mdi:shield-home", group: floors ? "Pages" : undefined });
     if (cfg.builtinPages.scenes && sceneEntities(cfg).length)
-      items.push({ key: "scenes", view: { type: "scenes" }, name: "Scenes", icon: "mdi:palette" });
+      items.push({ key: "scenes", view: { type: "scenes" }, name: "Scenes", icon: "mdi:palette", group: floors ? "Pages" : undefined });
   }
   return items;
 }
@@ -191,25 +207,18 @@ export function SceneStrip({ cfg }: { cfg: DashConfig }) {
 
 // ---------- Nav ----------
 
-function sectionStatus(s: SectionConfig): string {
-  const h = hass.value!;
-  const on = s.cards.filter((c) => !c.hidden && ["light", "switch", "fan"].includes(domainOf(c.entity)) && isActive(h.states[c.entity])).length;
-  const temp = s.cards.find((c) => h.states[c.entity]?.attributes.device_class === "temperature" && domainOf(c.entity) === "sensor");
-  const parts = [];
-  if (temp) parts.push(stateLabel(h, h.states[temp.entity]));
-  if (on) parts.push(`${on} on`);
-  return parts.join(" · ");
-}
-
-export function Nav({ cfg, vertical }: { cfg: DashConfig; vertical?: boolean }) {
+export function Nav({ cfg, vertical, current: cur }: { cfg: DashConfig; vertical?: boolean; current?: string }) {
   const items = navItems(cfg);
-  const current = viewKey(view.value);
+  const current = cur ?? viewKey(view.value);
   return (
     <nav class={vertical ? "nav-vertical" : "nav-pills"} aria-label="Rooms and pages">
-      {items.map((it) => {
+      {items.map((it, i) => {
         const section = cfg.sections.find((s) => s.id === it.key);
-        const status = section && vertical ? sectionStatus(section) : "";
+        const status = section && vertical ? roomStatus(hass.value!, section) : "";
+        const heading = vertical && it.group && it.group !== items[i - 1]?.group;
         return (
+          <>
+          {heading && <div class="nav-group">{it.group}</div>}
           <button
             type="button"
             class={`nav-item ${current === it.key ? "selected" : ""}`}
@@ -222,6 +231,7 @@ export function Nav({ cfg, vertical }: { cfg: DashConfig; vertical?: boolean }) 
               {status && <span class="nav-status">{status}</span>}
             </span>
           </button>
+          </>
         );
       })}
     </nav>
@@ -328,10 +338,20 @@ export function CardGrid({ section, cards, room, list }: { section?: SectionConf
 const asCards = (ids: string[], size: CardSize = "sm"): CardConfig[] => ids.map((e) => ({ id: e, entity: e, size }));
 
 export function ViewContent({ cfg, v, list }: { cfg: DashConfig; v: View; list?: boolean }) {
+  if (v.type === "home") {
+    const c = list ? { ...cfg, home: { ...cfg.home, rooms: false } } : cfg;
+    return <HomeView cfg={c} renderCards={(cards) => <CardGrid cards={cards} list={list} />} />;
+  }
+  if (v.type === "irrigation") return <IrrigationView cfg={cfg} />;
   if (v.type === "section") {
     const s = cfg.sections.find((x) => x.id === v.id);
     if (!s) return null;
-    return <CardGrid section={s} cards={s.cards} room={s.kind === "room" ? s.name : undefined} list={list} />;
+    return (
+      <>
+        {!editMode.value && <RoomControls section={s} />}
+        <CardGrid section={s} cards={s.cards} room={s.kind === "room" ? s.name : undefined} list={list} />
+      </>
+    );
   }
   if (v.type === "media") return <CardGrid cards={asCards(mediaEntities(cfg), list ? "sm" : "wide")} list={list} />;
   if (v.type === "security") {
@@ -345,7 +365,18 @@ export function ViewContent({ cfg, v, list }: { cfg: DashConfig; v: View; list?:
 
 export function viewTitle(cfg: DashConfig, v: View) {
   if (v.type === "section") return cfg.sections.find((s) => s.id === v.id)?.name ?? "";
+  if (v.type === "home") return cfg.title || "Home";
+  if (v.type === "irrigation") return "Irrigation";
   return v.type === "media" ? "Media" : v.type === "security" ? "Security" : "Scenes";
+}
+
+/**
+ * One dashboard for every screen. "Auto" picks tabs on phones and tablets and a
+ * side list on big screens; any layout still adapts its grid to the space it has.
+ */
+export function effectiveLayout(cfg: DashConfig) {
+  if (cfg.layout !== "auto") return cfg.layout;
+  return width.value >= 1100 ? "sidebar" : "grid";
 }
 
 export function Layout({ cfg }: { cfg: DashConfig }) {
@@ -360,27 +391,39 @@ export function Layout({ cfg }: { cfg: DashConfig }) {
       </div>
     );
   }
-  const layout = cfg.layout;
+  const layout = effectiveLayout(cfg);
+  const current = viewKey(v);
+  const wallpaperSection = v.type === "section" ? cfg.sections.find((s) => s.id === v.id) : undefined;
+  const wallpaper =
+    layout !== "list" && wallpaperSection?.background ? (
+      <div class="room-wallpaper" style={`background-image:url("${wallpaperSection.background.replace(/["\\]/g, "")}")`} />
+    ) : null;
 
   if (layout === "list") {
     return (
       <div class="layout-list">
-        {items.map((it) => (
-          <section class="list-section" key={it.key}>
-            <h2 class="section-title">
-              <Icon icon={it.icon} size={20} /> {it.name}
-            </h2>
-            <ViewContent cfg={cfg} v={it.view} list />
-          </section>
+        {items.map((it, i) => (
+          <>
+            {it.group && it.group !== items[i - 1]?.group && <h2 class="floor-title list-floor">{it.group}</h2>}
+            <section class="list-section" key={it.key}>
+              {it.key !== "home" && (
+                <h2 class="section-title">
+                  <Icon icon={it.icon} size={20} /> {it.name}
+                </h2>
+              )}
+              <ViewContent cfg={cfg} v={it.view} list />
+            </section>
+          </>
         ))}
       </div>
     );
   }
 
-  if (layout === "sidebar" && !narrow.value) {
+  if (layout === "sidebar" && !narrow.value && width.value >= 720) {
     return (
       <div class="layout-sidebar">
-        <Nav cfg={cfg} vertical />
+        {wallpaper}
+        <Nav cfg={cfg} vertical current={current} />
         <main class="content">
           <h2 class="section-title">{viewTitle(cfg, v)}</h2>
           <ViewContent cfg={cfg} v={v} />
@@ -392,12 +435,18 @@ export function Layout({ cfg }: { cfg: DashConfig }) {
   if (layout === "focus") {
     const idx = items.findIndex((i) => i.key === viewKey(v));
     const go = (n: number) => (view.value = items[(idx + n + items.length) % items.length].view);
-    return <FocusLayout cfg={cfg} v={v} idx={idx} count={items.length} go={go} items={items} />;
+    return (
+      <>
+        {wallpaper}
+        <FocusLayout cfg={cfg} v={v} idx={idx} count={items.length} go={go} items={items} />
+      </>
+    );
   }
 
   return (
     <div class="layout-grid">
-      <Nav cfg={cfg} />
+      {wallpaper}
+      <Nav cfg={cfg} current={current} />
       <main class="content">
         <ViewContent cfg={cfg} v={v} />
       </main>

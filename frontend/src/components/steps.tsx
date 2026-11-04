@@ -1,5 +1,5 @@
 import { useState } from "preact/hooks";
-import { ACCENTS, BACKGROUNDS, clone, newCard, newSection } from "../config";
+import { ACCENTS, BACKGROUNDS, STYLE_PRESETS, clone, newCard, newSection } from "../config";
 import {
   DOMAIN_LABELS,
   defaultCardSize,
@@ -7,10 +7,12 @@ import {
   entitiesInArea,
   entitiesWithoutArea,
   entityName,
+  isIrrigationCandidate,
   isRecommended,
 } from "../entities";
+import { floorGroups } from "./home";
 import { hass } from "../store";
-import type { CardSize, DashConfig, Hass, LayoutId, SectionConfig } from "../types";
+import type { CardSize, DashConfig, Hass, LayoutId, SectionConfig, StyleId } from "../types";
 import { EntityRow, EntitySearch } from "./edit";
 import { Button, Checkbox, Field, Icon, IconButton, IconPicker, Modal, Row, Segmented, Slider, TextInput, Toggle } from "./ui";
 
@@ -118,8 +120,16 @@ export function RoomsStep({ cfg, set }: StepProps) {
       <p class="lead">Which rooms should be on your dashboard, and in what order? Areas from Home Assistant that have devices are suggested; remove any you don't want.</p>
       <div class="labeled-label">Your rooms ({rooms.length})</div>
       {rooms.length === 0 && <p class="muted">No rooms yet. Add one below.</p>}
+      {floorGroups(h, rooms).map((g) => (
       <div class="room-list">
-        {rooms.map((r, i) => (
+        {(g.id !== null || Object.keys(h.floors ?? {}).length > 0) && (
+          <div class="floor-label">
+            <Icon icon={g.icon} size={18} /> {g.name}
+          </div>
+        )}
+        {g.sections.map((r) => {
+          const i = rooms.indexOf(r);
+          return (
           <div class="room-item">
             <div class="room-row">
               <button type="button" class="icon-choice" aria-label="Change icon" onClick={() => setEditing(editing === r.id ? null : r.id)}>
@@ -139,10 +149,30 @@ export function RoomsStep({ cfg, set }: StepProps) {
               <IconButton icon="mdi:arrow-down" label="Move down" disabled={i === rooms.length - 1} onClick={() => move(r.id, 1)} />
               <IconButton icon="mdi:close" label={`Remove ${r.name}`} onClick={() => set((c) => (c.sections = c.sections.filter((s) => s.id !== r.id)))} />
             </div>
+            {Object.keys(h.floors ?? {}).length > 0 && (
+              <select
+                class="input floor-select"
+                aria-label={`Floor for ${r.name}`}
+                value={r.floorId ?? ""}
+                onChange={(e) => {
+                  const v = (e.target as HTMLSelectElement).value || undefined;
+                  set((c) => (c.sections.find((s) => s.id === r.id)!.floorId = v));
+                }}
+              >
+                <option value="">{r.areaId && h.areas?.[r.areaId]?.floor_id ? `Floor: same as area` : "No floor"}</option>
+                {Object.values(h.floors ?? {})
+                  .sort((a, b) => (a.level ?? 0) - (b.level ?? 0))
+                  .map((fl) => (
+                    <option value={fl.floor_id}>Floor: {fl.name}</option>
+                  ))}
+              </select>
+            )}
             {editing === r.id && <IconPicker value={r.icon} onChange={(v) => set((c) => (c.sections.find((s) => s.id === r.id)!.icon = v))} />}
           </div>
-        ))}
+          );
+        })}
       </div>
+      ))}
       {available.length > 0 && (
         <>
           <div class="labeled-label">Add an area from Home Assistant</div>
@@ -393,6 +423,7 @@ export function WidgetsStep({ cfg, set }: StepProps) {
 // ---------- 6. Layout ----------
 
 const LAYOUTS: { id: LayoutId; name: string; desc: string }[] = [
+  { id: "auto", name: "Auto", desc: "Recommended. One dashboard that fits every screen: tabs on phones and tablets, a side list on big screens." },
   { id: "grid", name: "Grid", desc: "Rooms as tabs along the top, cards in a grid. Great all-rounder." },
   { id: "sidebar", name: "Sidebar", desc: "Rooms in a side list with live status. Best on tablets and desktops." },
   { id: "list", name: "List", desc: "Every room on one scrolling page in compact rows. Best on phones." },
@@ -404,6 +435,17 @@ function LayoutPreview({ id }: { id: LayoutId }) {
   return (
     <svg viewBox="0 0 100 64" class="layout-preview" aria-hidden="true">
       <rect x="0" y="0" width="100" height="64" rx="6" class="pv-bg" />
+      {id === "auto" && (
+        <>
+          <rect x="6" y="10" width="20" height="44" rx="3" class="pv-tile" />
+          <rect x="9" y="16" width="14" height="6" rx="1.5" class="pv-accent" />
+          <rect x="9" y="25" width="14" height="6" rx="1.5" class="pv-bg" />
+          <rect x="32" y="8" width="62" height="48" rx="4" class="pv-tile" />
+          <rect x="36" y="12" width="14" height="5" rx="2" class="pv-accent" />
+          {[0, 1, 2].map((i) => <rect x={36 + i * 19} y="21" width="16" height="12" rx="2" class="pv-bg" />)}
+          {[0, 1, 2].map((i) => <rect x={36 + i * 19} y="36" width="16" height="12" rx="2" class="pv-bg" />)}
+        </>
+      )}
       {id === "grid" && (
         <>
           <rect x="6" y="6" width="18" height="6" rx="3" class="pv-accent" />
@@ -469,11 +511,125 @@ export function LayoutStep({ cfg, set }: StepProps) {
 
 // ---------- 7. Look & feel ----------
 
+function StylePreview({ id }: { id: StyleId }) {
+  if (id === "vivid") {
+    const g: [string, string][] = [
+      ["#fbbf24", "#f97316"],
+      ["#22d3ee", "#3b82f6"],
+      ["#a855f7", "#ec4899"],
+    ];
+    return (
+      <svg viewBox="0 0 100 64" class="layout-preview" aria-hidden="true">
+        <defs>
+          {g.map(([a, b], i) => (
+            <linearGradient id={`pv-v${i}`} x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color={a} />
+              <stop offset="1" stop-color={b} />
+            </linearGradient>
+          ))}
+        </defs>
+        <rect width="100" height="64" rx="6" fill="#121319" />
+        <rect x="6" y="7" width="27" height="23" rx="5" fill="url(#pv-v0)" />
+        <rect x="36" y="7" width="27" height="23" rx="5" fill="#1c1e26" />
+        <rect x="66" y="7" width="28" height="23" rx="5" fill="url(#pv-v1)" />
+        <rect x="6" y="34" width="57" height="23" rx="5" fill="url(#pv-v2)" />
+        <rect x="66" y="34" width="28" height="23" rx="5" fill="#1c1e26" />
+        <circle cx="13" cy="14" r="3.5" fill="rgba(255,255,255,.45)" />
+        <circle cx="43" cy="14" r="3.5" fill="#22c55e" opacity=".7" />
+        <circle cx="73" cy="14" r="3.5" fill="rgba(255,255,255,.45)" />
+        <path d="M69 52 L74 47 L78 50 L83 42 L90 45" fill="none" stroke="#38bdf8" stroke-width="1.6" />
+      </svg>
+    );
+  }
+  if (id === "apple") {
+    return (
+      <svg viewBox="0 0 100 64" class="layout-preview" aria-hidden="true">
+        <defs>
+          <linearGradient id="pv-apple" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#f7c9b0" />
+            <stop offset="1" stop-color="#b9c6ee" />
+          </linearGradient>
+        </defs>
+        <rect width="100" height="64" rx="6" fill="url(#pv-apple)" />
+        <rect x="6" y="6" width="34" height="5" rx="2" fill="#1c1c1e" opacity=".75" />
+        {[0, 1, 2].map((r) =>
+          [0, 1].map((c) => (
+            <g>
+              <rect x={6 + c * 45} y={16 + r * 15} width="42" height="12" rx="4" fill={r === 0 && c === 0 ? "#fff" : "rgba(255,255,255,.45)"} />
+              <circle cx={12 + c * 45} cy={22 + r * 15} r="3.2" fill={r === 0 && c === 0 ? "#ff9f0a" : "rgba(60,60,67,.35)"} />
+              <rect x={18 + c * 45} y={20 + r * 15} width="18" height="2.5" rx="1" fill="#1c1c1e" opacity=".6" />
+            </g>
+          )),
+        )}
+      </svg>
+    );
+  }
+  if (id === "homey") {
+    const cols = ["#f5b400", "#22c55e", "#f97316", "#3b82f6", "#a855f7", "#ef4444"];
+    return (
+      <svg viewBox="0 0 100 64" class="layout-preview" aria-hidden="true">
+        <rect width="100" height="64" rx="6" fill="#121318" />
+        {cols.map((col, i) => (
+          <g>
+            <rect x={6 + (i % 3) * 30} y={7 + Math.floor(i / 3) * 28} width="27" height="24" rx="5" fill="#1e2027" />
+            <circle cx={19.5 + (i % 3) * 30} cy={16 + Math.floor(i / 3) * 28} r="5" fill={i < 3 ? col : "none"} stroke={col} stroke-width="1.4" />
+            <rect x={13 + (i % 3) * 30} y={24 + Math.floor(i / 3) * 28} width="13" height="2" rx="1" fill="#e5e7eb" opacity=".7" />
+          </g>
+        ))}
+      </svg>
+    );
+  }
+  if (id === "minimal") {
+    return (
+      <svg viewBox="0 0 100 64" class="layout-preview" aria-hidden="true">
+        <rect width="100" height="64" rx="6" fill="#fafafa" />
+        {[0, 1, 2, 3, 4, 5].map((i) => (
+          <rect x={6 + (i % 3) * 30} y={8 + Math.floor(i / 3) * 27} width="27" height="23" rx="3" fill="#fff" stroke={i === 0 ? "#18181b" : "#e4e4e7"} />
+        ))}
+      </svg>
+    );
+  }
+  return (
+    <svg viewBox="0 0 100 64" class="layout-preview" aria-hidden="true">
+      <defs>
+        <linearGradient id="pv-df" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#dbeafe" />
+          <stop offset=".5" stop-color="#ede9fe" />
+          <stop offset="1" stop-color="#fce7f3" />
+        </linearGradient>
+      </defs>
+      <rect width="100" height="64" rx="6" fill="url(#pv-df)" />
+      {[0, 1, 2, 3, 4, 5].map((i) => (
+        <g>
+          <rect x={6 + (i % 3) * 30} y={8 + Math.floor(i / 3) * 27} width="27" height="23" rx="5" fill={i === 1 ? "#dbe6fe" : "rgba(255,255,255,.75)"} />
+          <circle cx={13 + (i % 3) * 30} cy={15 + Math.floor(i / 3) * 27} r="3.5" fill={i === 1 ? "#3b82f6" : "#e2e8f0"} />
+        </g>
+      ))}
+    </svg>
+  );
+}
+
 export function ThemeStep({ cfg, set }: StepProps) {
   const t = cfg.theme;
   return (
     <div class="step">
-      <p class="lead">Make it yours. The preview updates as you choose.</p>
+      <p class="lead">Make it yours. Start from a style, then change anything you like. The preview updates as you choose.</p>
+      <Field label="Style">
+        <div class="choice-grid">
+          {STYLE_PRESETS.map((p) => (
+            <button
+              type="button"
+              class={`choice ${t.style === p.id ? "selected" : ""}`}
+              aria-pressed={t.style === p.id}
+              onClick={() => set((c) => Object.assign(c.theme, p.theme))}
+            >
+              <StylePreview id={p.id} />
+              <strong>{p.name}</strong>
+              <span class="muted small">{p.desc}</span>
+            </button>
+          ))}
+        </div>
+      </Field>
       <Field label="Appearance">
         <Segmented
           value={t.mode}
@@ -543,6 +699,25 @@ export function PagesStep({ cfg, set }: StepProps) {
   return (
     <div class="step">
       <p class="lead">Besides rooms, DashForge can show pages that gather devices from all over your home.</p>
+      <Row label="Home" hint="A start screen with status at a glance, your favourite cards and every room by floor">
+        <Toggle checked={cfg.builtinPages.home} onChange={(v) => set((c) => (c.builtinPages.home = v))} />
+      </Row>
+      {cfg.builtinPages.home && (
+        <div class="sub-options">
+          <label class="check-item">
+            <Checkbox checked={cfg.home.summary} onChange={(v) => set((c) => (c.home.summary = v))} />
+            <span>Status chips (climate, lights, security, media, watering)</span>
+          </label>
+          <label class="check-item">
+            <Checkbox checked={cfg.home.favorites} onChange={(v) => set((c) => (c.home.favorites = v))} />
+            <span>Favourite cards</span>
+          </label>
+          <label class="check-item">
+            <Checkbox checked={cfg.home.rooms} onChange={(v) => set((c) => (c.home.rooms = v))} />
+            <span>Room tiles grouped by floor</span>
+          </label>
+        </div>
+      )}
       <Row label="Media" hint="Every media player on your dashboard in one place">
         <Toggle checked={cfg.builtinPages.media} onChange={(v) => set((c) => (c.builtinPages.media = v))} />
       </Row>
@@ -552,6 +727,7 @@ export function PagesStep({ cfg, set }: StepProps) {
       <Row label="Scenes" hint="All your scenes and scripts">
         <Toggle checked={cfg.builtinPages.scenes} onChange={(v) => set((c) => (c.builtinPages.scenes = v))} />
       </Row>
+      <IrrigationOptions cfg={cfg} set={set} />
       <div class="labeled-label">Your own pages</div>
       <p class="muted small">Make a page for anything: the garden, the garage, energy, a hobby. Add its devices in edit mode afterwards.</p>
       {pages.map((p) => (
@@ -572,6 +748,88 @@ export function PagesStep({ cfg, set }: StepProps) {
         <Button icon="mdi:plus" disabled={!name.trim()} onClick={add}>Add page</Button>
       </form>
     </div>
+  );
+}
+
+function PresetInput({ value, onCommit }: { value: number[]; onCommit: (v: number[]) => void }) {
+  const [text, setText] = useState(value.join(", "));
+  const commit = () => {
+    const list = text
+      .split(/[,\s]+/)
+      .map((x) => Number(x))
+      .filter((n) => n > 0 && n <= 240);
+    if (list.length) {
+      const clean = [...new Set(list)].slice(0, 6);
+      onCommit(clean);
+      setText(clean.join(", "));
+    } else setText(value.join(", "));
+  };
+  return (
+    <input
+      class="input"
+      value={text}
+      inputMode="numeric"
+      onInput={(e) => setText((e.target as HTMLInputElement).value)}
+      onBlur={commit}
+      onKeyDown={(e) => e.key === "Enter" && commit()}
+    />
+  );
+}
+
+function IrrigationOptions({ cfg, set }: StepProps) {
+  const h = hass.value!;
+  const candidates = Object.keys(h.states).filter((id) => isIrrigationCandidate(h, id));
+  const zones = cfg.irrigation.zones;
+  const toggleZone = (id: string) =>
+    set((c) => {
+      c.irrigation.zones = c.irrigation.zones.includes(id) ? c.irrigation.zones.filter((z) => z !== id) : [...c.irrigation.zones, id];
+    });
+  return (
+    <>
+      <Row label="Irrigation" hint="Water zones with one tap. Timers run inside Home Assistant, so a sleeping tablet never leaves the water on.">
+        <Toggle
+          checked={cfg.builtinPages.irrigation}
+          onChange={(v) =>
+            set((c) => {
+              c.builtinPages.irrigation = v;
+              if (v && !c.irrigation.zones.length) c.irrigation.zones = candidates;
+            })
+          }
+        />
+      </Row>
+      {cfg.builtinPages.irrigation && (
+        <div class="sub-options">
+          <div class="labeled-label">Watering zones, in the order they run ({zones.length})</div>
+          {zones.map((z, i) => (
+            <div class="room-row">
+              <span class="zone-num">{i + 1}</span>
+              <span class="grow">{entityName(h, z)}</span>
+              <IconButton
+                icon="mdi:arrow-up"
+                label="Run earlier"
+                disabled={i === 0}
+                onClick={() => set((c) => ([c.irrigation.zones[i - 1], c.irrigation.zones[i]] = [c.irrigation.zones[i], c.irrigation.zones[i - 1]]))}
+              />
+              <IconButton icon="mdi:close" label={`Remove ${entityName(h, z)}`} onClick={() => toggleZone(z)} />
+            </div>
+          ))}
+          {candidates.length > 0 && zones.length === 0 && <p class="muted small">No zones chosen yet.</p>}
+          <div class="labeled-label">Add zones (switches and valves)</div>
+          <div class="picker-box">
+            <EntitySearch domains={["switch", "valve", "input_boolean"]} isSelected={(id) => zones.includes(id)} onToggle={toggleZone} />
+          </div>
+          <Field label="Usual run time per zone">
+            <Slider value={cfg.irrigation.minutes} min={1} max={60} format={(v) => `${v} min`} onCommit={(v) => set((c) => (c.irrigation.minutes = v))} />
+          </Field>
+          <Field label="Quick buttons (minutes)" hint="Comma separated, e.g. 5, 10, 15, 30">
+            <PresetInput
+              value={cfg.irrigation.presets}
+              onCommit={(list) => set((c) => (c.irrigation.presets = list))}
+            />
+          </Field>
+        </div>
+      )}
+    </>
   );
 }
 
@@ -631,8 +889,9 @@ export function ReviewStep({ cfg }: StepProps) {
   const lines: [string, string][] = [
     ["Rooms", rooms.map((r) => r.name).join(", ") || "None"],
     ["Devices", `${cards} cards`],
-    ["Layout", LAYOUTS.find((l) => l.id === cfg.layout)!.name],
-    ["Pages", [cfg.builtinPages.media && "Media", cfg.builtinPages.security && "Security", cfg.builtinPages.scenes && "Scenes", ...pages.map((p) => p.name)].filter(Boolean).join(", ") || "None"],
+    ["Layout", LAYOUTS.find((l) => l.id === cfg.layout)?.name ?? cfg.layout],
+    ["Style", STYLE_PRESETS.find((p) => p.id === cfg.theme.style)?.name ?? "Custom"],
+    ["Pages", [cfg.builtinPages.home && "Home", cfg.builtinPages.irrigation && `Irrigation (${cfg.irrigation.zones.length} zones)`, cfg.builtinPages.media && "Media", cfg.builtinPages.security && "Security", cfg.builtinPages.scenes && "Scenes", ...pages.map((p) => p.name)].filter(Boolean).join(", ") || "None"],
     ["Weather", cfg.header.weatherEntity ? "Home Assistant" : cfg.header.weatherFallback ? "Open-Meteo" : "Off"],
     ["Calendars", String(cfg.header.calendars.length)],
     ["Wall tablet", cfg.tablet.screensaver ? `Screensaver after ${cfg.tablet.screensaverMinutes} min` : "Screensaver off"],

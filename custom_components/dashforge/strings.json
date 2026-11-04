@@ -26,5 +26,29 @@
         }
       }
     }
+  },
+  "services": {
+    "run_zones": {
+      "name": "Run irrigation zones",
+      "description": "Runs each zone in turn for the given number of minutes, then turns it off. Replaces any run in progress.",
+      "fields": {
+        "entity_id": {
+          "name": "Zones",
+          "description": "Switches or valves to run, in order."
+        },
+        "minutes": {
+          "name": "Minutes per zone",
+          "description": "How long each zone runs."
+        }
+      }
+    },
+    "stop_irrigation": {
+      "name": "Stop irrigation",
+      "description": "Turns off the running zone and clears the queue."
+    },
+    "skip_zone": {
+      "name": "Skip zone",
+      "description": "Turns off the running zone and starts the next one."
+    }
   }
 }

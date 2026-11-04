@@ -2,12 +2,16 @@
 
 from __future__ import annotations
 
+import voluptuous as vol
+
 from homeassistant.components import frontend, panel_custom
 from homeassistant.components.http import StaticPathConfig
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.core import HomeAssistant
+from homeassistant.core import HomeAssistant, ServiceCall
+from homeassistant.helpers import config_validation as cv
 
 from . import websocket
+from .irrigation import MAX_MINUTES, IrrigationController
 from .const import (
     CONF_SIDEBAR_ICON,
     CONF_SIDEBAR_TITLE,
@@ -29,7 +33,9 @@ from .storage import DashForgeStore
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     store = DashForgeStore(hass)
     await store.async_load()
-    hass.data[DOMAIN] = {"store": store}
+    irrigation = IrrigationController(hass)
+    hass.data[DOMAIN] = {"store": store, "irrigation": irrigation}
+    _register_services(hass, irrigation)
 
     # Static paths and websocket commands cannot be unregistered, so they are
     # registered once per Home Assistant run and survive integration reloads.
@@ -62,9 +68,38 @@ async def _async_options_updated(hass: HomeAssistant, entry: ConfigEntry) -> Non
     await hass.config_entries.async_reload(entry.entry_id)
 
 
+RUN_SCHEMA = vol.Schema(
+    {
+        vol.Required("entity_id"): cv.entity_ids,
+        vol.Required("minutes"): vol.All(vol.Coerce(float), vol.Range(min=0.1, max=MAX_MINUTES)),
+    }
+)
+
+
+def _register_services(hass: HomeAssistant, irrigation: IrrigationController) -> None:
+    """Services so automations can run the same irrigation programs."""
+
+    async def run(call: ServiceCall) -> None:
+        await irrigation.async_run(call.data["entity_id"], call.data["minutes"])
+
+    async def stop(call: ServiceCall) -> None:
+        await irrigation.async_stop()
+
+    async def skip(call: ServiceCall) -> None:
+        await irrigation.async_skip()
+
+    hass.services.async_register(DOMAIN, "run_zones", run, schema=RUN_SCHEMA)
+    hass.services.async_register(DOMAIN, "stop_irrigation", stop)
+    hass.services.async_register(DOMAIN, "skip_zone", skip)
+
+
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     frontend.async_remove_panel(hass, PANEL_URL_PATH)
-    hass.data.pop(DOMAIN, None)
+    data = hass.data.pop(DOMAIN, None)
+    if data:
+        data["irrigation"].async_shutdown()
+    for service in ("run_zones", "stop_irrigation", "skip_zone"):
+        hass.services.async_remove(DOMAIN, service)
     return True
 
 

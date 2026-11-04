@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.2.0
+
+- New styles: Vivid (the new default), Apple Home style, Homey style and Minimal.
+- Auto layout: one dashboard that adapts to phones, tablets and big screens.
+- Home screen with status chips, favourites and rooms grouped by floor.
+- Floors in the wizard, navigation and room settings; room wallpapers and all-lights button.
+- Irrigation page with server-side zone timers, run-all, skip and stop, plus `dashforge.run_zones`, `dashforge.skip_zone` and `dashforge.stop_irrigation` actions.
+- Live camera video, live 24-hour sensor graphs, weather, calendar and to-do cards.
+- Water heaters, humidifiers, lawn mowers, remotes, counters, timers, text, updates, images, groups and device trackers.
+- Per-card colour, tap action and "Show on Home".
+
 ## 0.1.0 – first release
 
 - Setup wizard with ten steps: rooms, devices, scenes and media, header widgets, layout, look and feel, pages, wall tablet and review.

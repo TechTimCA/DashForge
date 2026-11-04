@@ -5,6 +5,12 @@ export const uid = (): string =>
 
 export const BACKGROUNDS: { id: string; name: string; light: string; dark: string }[] = [
   {
+    id: "midnight",
+    name: "Midnight",
+    light: "linear-gradient(180deg,#eef0f6 0%,#e3e6ef 100%)",
+    dark: "radial-gradient(circle at 20% -10%,#1d2030 0%,#121319 50%,#0c0d11 100%)",
+  },
+  {
     id: "aurora",
     name: "Aurora",
     light: "linear-gradient(135deg,#e0f2fe 0%,#ede9fe 50%,#fce7f3 100%)",
@@ -35,6 +41,57 @@ export const BACKGROUNDS: { id: string; name: string; light: string; dark: strin
     dark: "linear-gradient(180deg,#09090b 0%,#18181b 100%)",
   },
   { id: "plain", name: "Plain", light: "#f4f4f5", dark: "#111113" },
+  {
+    id: "dusk",
+    name: "Dusk",
+    light: "linear-gradient(160deg,#f7d9c9 0%,#d5dcf2 55%,#ece3f6 100%)",
+    dark: "linear-gradient(160deg,#1c2541 0%,#3a2d52 55%,#5b3448 100%)",
+  },
+  {
+    id: "homey",
+    name: "Charcoal",
+    light: "linear-gradient(180deg,#f3f4f7 0%,#e6e8ee 100%)",
+    dark: "radial-gradient(circle at 15% 0%,#262a33 0%,#14161b 55%,#0d0e12 100%)",
+  },
+];
+
+/** One tap to a complete look; every part can still be changed afterwards. */
+export const STYLE_PRESETS: {
+  id: import("./types").StyleId;
+  name: string;
+  desc: string;
+  theme: Partial<import("./types").ThemeConfig>;
+}[] = [
+  {
+    id: "vivid",
+    name: "Vivid",
+    desc: "Dark and colourful: bright gradient tiles that pop when devices are on.",
+    theme: { style: "vivid", mode: "dark", background: "midnight", cardStyle: "solid", radius: 22, accent: "#6366f1" },
+  },
+  {
+    id: "dashforge",
+    name: "DashForge",
+    desc: "Soft gradients and frosted cards with live colour.",
+    theme: { style: "dashforge", background: "aurora", cardStyle: "glass", radius: 20, accent: "#3b82f6" },
+  },
+  {
+    id: "apple",
+    name: "Apple Home style",
+    desc: "Compact frosted tiles that turn white when on, over a wallpaper.",
+    theme: { style: "apple", background: "dusk", cardStyle: "glass", radius: 18, accent: "#ff9f0a" },
+  },
+  {
+    id: "homey",
+    name: "Homey style",
+    desc: "Dark, square tiles with colour-coded device icons.",
+    theme: { style: "homey", mode: "dark", background: "homey", cardStyle: "solid", radius: 22, accent: "#3b82f6" },
+  },
+  {
+    id: "minimal",
+    name: "Minimal",
+    desc: "Flat, quiet and high contrast. Lots of space.",
+    theme: { style: "minimal", background: "plain", cardStyle: "solid", radius: 12, accent: "#18181b" },
+  },
 ];
 
 export const ACCENTS = [
@@ -54,13 +111,14 @@ export function defaultConfig(): DashConfig {
     setupComplete: false,
     title: "Home",
     userName: "",
-    layout: "grid",
+    layout: "auto",
     theme: {
-      mode: "auto",
-      accent: ACCENTS[0],
-      background: "aurora",
-      cardStyle: "glass",
-      radius: 20,
+      style: "vivid",
+      mode: "dark",
+      accent: "#6366f1",
+      background: "midnight",
+      cardStyle: "solid",
+      radius: 22,
       density: "comfortable",
     },
     header: {
@@ -80,7 +138,9 @@ export function defaultConfig(): DashConfig {
       hideSidebar: false,
       returnHomeMinutes: 0,
     },
-    builtinPages: { media: true, security: true, scenes: true },
+    builtinPages: { home: true, media: true, security: true, scenes: true, irrigation: false },
+    home: { summary: true, favorites: true, rooms: true },
+    irrigation: { zones: [], minutes: 10, presets: [5, 10, 15, 30] },
     sections: [],
   };
 }
@@ -98,6 +158,8 @@ export function normalizeConfig(raw: unknown): DashConfig {
     header: { ...base.header, ...(c.header ?? {}) },
     tablet: { ...base.tablet, ...(c.tablet ?? {}) },
     builtinPages: { ...base.builtinPages, ...(c.builtinPages ?? {}) },
+    home: { ...base.home, ...(c.home ?? {}) },
+    irrigation: { ...base.irrigation, ...(c.irrigation ?? {}) },
     sections: Array.isArray(c.sections)
       ? c.sections.map((s) => ({
           ...s,

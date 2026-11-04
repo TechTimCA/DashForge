@@ -17,12 +17,18 @@ from .const import (
     SIGNAL_CONFIG_UPDATED,
     VERSION,
 )
+from .irrigation import MAX_MINUTES, SIGNAL_IRRIGATION_UPDATED, IrrigationController
 from .storage import ConfigTooLarge, DashForgeStore, RevisionConflict
 
 
 def _store(hass: HomeAssistant) -> DashForgeStore | None:
     data = hass.data.get(DOMAIN)
     return data["store"] if data else None
+
+
+def _irrigation(hass: HomeAssistant) -> IrrigationController | None:
+    data = hass.data.get(DOMAIN)
+    return data["irrigation"] if data else None
 
 
 def _can_edit(hass: HomeAssistant, connection: websocket_api.ActiveConnection) -> bool:
@@ -41,6 +47,9 @@ def async_register(hass: HomeAssistant) -> None:
     websocket_api.async_register_command(hass, ws_get)
     websocket_api.async_register_command(hass, ws_save)
     websocket_api.async_register_command(hass, ws_subscribe)
+    websocket_api.async_register_command(hass, ws_irrigation_subscribe)
+    websocket_api.async_register_command(hass, ws_irrigation_run)
+    websocket_api.async_register_command(hass, ws_irrigation_stop)
 
 
 @websocket_api.websocket_command({vol.Required("type"): "dashforge/info"})
@@ -121,3 +130,64 @@ def ws_subscribe(
         hass, SIGNAL_CONFIG_UPDATED, forward
     )
     connection.send_result(msg["id"])
+
+
+@websocket_api.websocket_command({vol.Required("type"): "dashforge/irrigation/subscribe"})
+@callback
+def ws_irrigation_subscribe(
+    hass: HomeAssistant, connection: websocket_api.ActiveConnection, msg: dict[str, Any]
+) -> None:
+    ctrl = _irrigation(hass)
+    if ctrl is None:
+        connection.send_error(msg["id"], "not_loaded", "DashForge is not set up")
+        return
+
+    @callback
+    def forward(data: dict[str, Any]) -> None:
+        connection.send_message(websocket_api.event_message(msg["id"], data))
+
+    connection.subscriptions[msg["id"]] = async_dispatcher_connect(
+        hass, SIGNAL_IRRIGATION_UPDATED, forward
+    )
+    connection.send_result(msg["id"])
+    forward(ctrl.status())
+
+
+@websocket_api.websocket_command(
+    {
+        vol.Required("type"): "dashforge/irrigation/run",
+        vol.Required("entity_ids"): [str],
+        vol.Required("minutes"): vol.All(vol.Coerce(float), vol.Range(min=0.1, max=MAX_MINUTES)),
+    }
+)
+@websocket_api.async_response
+async def ws_irrigation_run(
+    hass: HomeAssistant, connection: websocket_api.ActiveConnection, msg: dict[str, Any]
+) -> None:
+    ctrl = _irrigation(hass)
+    if ctrl is None:
+        connection.send_error(msg["id"], "not_loaded", "DashForge is not set up")
+        return
+    await ctrl.async_run(msg["entity_ids"], msg["minutes"])
+    connection.send_result(msg["id"], ctrl.status())
+
+
+@websocket_api.websocket_command(
+    {
+        vol.Required("type"): "dashforge/irrigation/stop",
+        vol.Optional("skip", default=False): bool,
+    }
+)
+@websocket_api.async_response
+async def ws_irrigation_stop(
+    hass: HomeAssistant, connection: websocket_api.ActiveConnection, msg: dict[str, Any]
+) -> None:
+    ctrl = _irrigation(hass)
+    if ctrl is None:
+        connection.send_error(msg["id"], "not_loaded", "DashForge is not set up")
+        return
+    if msg["skip"]:
+        await ctrl.async_skip()
+    else:
+        await ctrl.async_stop()
+    connection.send_result(msg["id"], ctrl.status())

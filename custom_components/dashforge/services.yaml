@@ -1,0 +1,23 @@
+run_zones:
+  fields:
+    entity_id:
+      required: true
+      example: switch.front_lawn
+      selector:
+        entity:
+          multiple: true
+          domain:
+            - switch
+            - valve
+            - input_boolean
+    minutes:
+      required: true
+      default: 10
+      selector:
+        number:
+          min: 0.5
+          max: 240
+          step: 0.5
+          unit_of_measurement: min
+stop_irrigation:
+skip_zone:

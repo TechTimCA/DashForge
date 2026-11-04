@@ -6,30 +6,74 @@ DashForge adds a beautiful, touch-friendly dashboard to your Home Assistant side
 
 [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=TechTimCA&repository=DashForge&category=integration)
 
+## Screenshots
+
+Real screenshots of DashForge running in Home Assistant 2026.2. The devices come from Home Assistant's built-in demo.
+
+![Vivid style on a desktop: Home screen with status chips, favourites and rooms by floor](docs/screenshots/vivid-home.webp)
+
+| Vivid: a room | Apple Home style |
+| --- | --- |
+| ![Living room in the Vivid style](docs/screenshots/vivid-room.webp) | ![Living room in the Apple Home style](docs/screenshots/apple-style.webp) |
+| **Homey style** | **Minimal** |
+| ![Living room in the Homey style](docs/screenshots/homey-style.webp) | ![Living room in the Minimal style](docs/screenshots/minimal-style.webp) |
+| **Irrigation** | **Light controls** |
+| ![Irrigation page with a zone running](docs/screenshots/irrigation.webp) | ![Light details with brightness and colours](docs/screenshots/light-controls.webp) |
+| **Edit mode** | **Pick a style** |
+| ![Edit mode with drag, hide and resize](docs/screenshots/edit-mode.webp) | ![Style picker in Settings](docs/screenshots/style-picker.webp) |
+
+One dashboard adapts to every screen, with nothing extra to build:
+
+| Tablet | Phone | Phone: a room |
+| --- | --- | --- |
+| ![Tablet in portrait](docs/screenshots/tablet.webp) | ![Phone Home screen](docs/screenshots/phone.webp) | ![Phone garage view](docs/screenshots/phone-room.webp) |
+
 ## Features
 
 Everything is included, for everyone, with no limits on rooms or devices.
 
 **Setup wizard**
 - Ten short steps: welcome, rooms, devices, scenes and media, header widgets, layout, look and feel, pages, wall tablet, review.
-- Your Home Assistant areas and their devices are offered as suggestions you confirm, untick or rearrange. Rooms without an area and devices from anywhere can be added too.
+- Your Home Assistant areas, floors and devices are offered as suggestions you confirm, untick or rearrange. Rooms without an area and devices from anywhere can be added too.
 - Run it again at any time from Settings.
 
-**Four layouts**: Grid, Sidebar, List and Focus. Every screen follows the one you pick.
+**Looks like you want it to**
+- Five styles to start from: **Vivid** (dark with bright gradient tiles), **Apple Home style** (frosted tiles that turn white when on), **Homey style** (dark with colour-coded device icons), **DashForge** (soft gradients) and **Minimal**.
+- Then change anything: light, dark or match Home Assistant; any accent colour; eight backgrounds or your own image; frosted or solid cards; corner roundness; spacing.
+- Per card: colour, icon, name, size, what a tap does, and whether it shows on Home. Per room: icon, floor and wallpaper.
+
+**One dashboard for every screen**
+- The **Auto** layout gives phones and tablets tabs and big screens a side list. Cards reflow to the space available, and pop-ups become bottom sheets on phones.
+- Or pick Grid, Sidebar, List or Focus (one room at a time, swipe between rooms). Every layout still adapts to the screen.
+
+**Home screen**
+- Status chips at a glance: climate, lights on (tap to turn them all off), security (unlocked doors, open windows), what's playing, and watering.
+- Your favourite cards, and every room as a tile grouped by floor, with a one-tap lights button and live status.
+
+**Rooms and floors**
+- Rooms follow your Home Assistant floors and areas, or set the floor per room.
+- Each room shows its temperature, humidity and lights, with an all-lights on/off button.
 
 **Edit mode**
-- Drag cards to reorder, tap − to hide, tap ↔ to cycle the size, tap a card to rename it, change its icon or move it to another room.
+- Drag cards to reorder, tap − to hide, tap ↔ to cycle the size, tap a card to change its name, icon, colour, tap action or room.
 - Add any device to any room or page, create rooms and custom pages, reorder them.
 - Nothing is ever deleted from Home Assistant.
 
-**Cards that do the right thing**
-- Lights (brightness, colour temperature, colour, effects), switches, fans (speed, oscillation, presets), blinds and covers (open/stop/close, position, tilt), valves.
-- Climate ring with − / + and modes, presets and fan modes.
-- Media players with artwork, transport controls, volume and sources. Works with Spotify, Sonos, Cast and anything else Home Assistant supports.
-- Locks (unlocking asks for confirmation), alarm panels with code entry, cameras with live snapshots, vacuums, numbers, selects, scenes, scripts and buttons.
-- Sensors with a 24-hour history chart.
-- Four card sizes: small, medium, large and wide.
-- Tap to use, press and hold for details.
+**Cards for nearly everything in Home Assistant**
+- Lights (brightness, colour temperature, colour, effects), switches, groups, fans (speed, oscillation, presets).
+- Climate ring with − / + (single target or heat/cool range), modes, presets and fan modes. Water heaters and humidifiers.
+- Blinds, curtains, garage doors and gates (open/stop/close, position, tilt), and valves.
+- Cameras with snapshots or **live video**. Locks (unlocking asks first) and alarm panels with code entry.
+- Media players with artwork, controls, volume and sources: Spotify, Sonos, Cast and anything else Home Assistant supports.
+- Sensors with **live 24-hour graphs**, binary sensors with friendly words (Open, Motion, Wet…).
+- Vacuums, lawn mowers, remotes, counters, timers, text inputs, numbers, selects, updates, images, people and device trackers.
+- Weather, calendar and to-do list cards that open their forecast, month view or list.
+- Scenes, scripts and buttons. Four card sizes. Tap to use, press and hold for details.
+
+**Irrigation**
+- An Irrigation page with your zones (switches or valves): run one zone with a tap (5, 10, 15, 30 minutes or your own), run every zone in turn, skip or stop.
+- The timers run inside Home Assistant, not in the browser, so watering always stops on time even if the tablet sleeps. Zones turn off when Home Assistant shuts down.
+- Automations can run the same programs with the `dashforge.run_zones`, `dashforge.skip_zone` and `dashforge.stop_irrigation` actions.
 
 **Header and widgets**
 - Greeting, date and clock (12 or 24 hours).
@@ -38,9 +82,7 @@ Everything is included, for everyone, with no limits on rooms or devices.
 - Reminders from Home Assistant to-do lists: add, tick off, untick.
 - One-tap scene strip, and a now-playing chip for your main media player.
 
-**Built-in pages**: Media, Security (locks, alarm, cameras, doors, windows, motion) and Scenes, plus your own pages for anything.
-
-**Look and feel**: light, dark or match Home Assistant; any accent colour; six background presets or your own image; frosted-glass or solid cards; adjustable corner roundness; comfortable or compact spacing.
+**Built-in pages**: Home, Media, Security (locks, alarm, cameras, doors, windows, motion), Scenes and Irrigation, plus your own pages for anything.
 
 **Wall tablets**
 - Screensaver with a drifting clock, weather and next event, a dim clock, or a black screen.
@@ -76,6 +118,23 @@ Under **Settings → Devices & services → DashForge → Configure** you can ch
 
 - **Sidebar title** and **icon**.
 - **Only administrators can edit the dashboard** (on by default). Turn it off if a non-admin account on a wall tablet should be able to edit.
+
+## Irrigation actions
+
+| Action | What it does |
+| --- | --- |
+| `dashforge.run_zones` | Runs the listed zones one after another for `minutes` each, then turns each off. Replaces any run in progress. |
+| `dashforge.skip_zone` | Turns off the running zone and starts the next one. |
+| `dashforge.stop_irrigation` | Turns off the running zone and clears the queue. |
+
+```yaml
+action: dashforge.run_zones
+data:
+  entity_id:
+    - switch.front_lawn
+    - switch.back_lawn
+  minutes: 12
+```
 
 ## Privacy
 

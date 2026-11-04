@@ -4,7 +4,10 @@ import { DetailSheet, LockConfirm } from "./components/details";
 import { Header, Layout, SceneStrip } from "./components/layout";
 import { TabletBehaviour } from "./components/tablet";
 import { Button, Icon } from "./components/ui";
-import { CalendarModal, TodoModal, WeatherModal, openWidget, useWeather } from "./components/widgets";
+import { CalendarModal, TodoModal, WeatherModal, openWidget, useWeather, useWeatherFor } from "./components/widgets";
+import { entityWidget } from "./components/cards";
+import { LightsOffConfirm } from "./components/home";
+import { IrrigationSync } from "./components/irrigation";
 import { SettingsModal, Wizard, previewConfig, startWizard } from "./components/wizard";
 import { config, editMode, hass, info, loadAll, loadError, saved, settingsOpen, toast, wizardOpen } from "./store";
 import type { DashConfig, Hass } from "./types";
@@ -27,7 +30,7 @@ function Themed({ cfg, children }: { cfg: DashConfig; children: any }) {
   const dark = cfg.theme.mode === "dark" || (cfg.theme.mode === "auto" && !!h.themes?.darkMode);
   return (
     <div
-      class={`df-root ${dark ? "dark" : "light"} cards-${cfg.theme.cardStyle} density-${cfg.theme.density} ${editMode.value ? "editing" : ""}`}
+      class={`df-root ${dark ? "dark" : "light"} style-${cfg.theme.style ?? "dashforge"} cards-${cfg.theme.cardStyle} density-${cfg.theme.density} ${editMode.value ? "editing" : ""}`}
       style={themeStyle(cfg, dark)}
     >
       {children}
@@ -44,11 +47,23 @@ function Centered({ children }: { children: any }) {
   return <div class="centered">{children}</div>;
 }
 
+function EntityWidget({ cfg, h }: { cfg: DashConfig; h: Hass }) {
+  const w = entityWidget.value;
+  const lang = h.locale?.language ?? h.language;
+  const weather = useWeatherFor(h, w?.kind === "weather" ? w.entity : undefined, false);
+  if (!w) return null;
+  const close = () => (entityWidget.value = null);
+  if (w.kind === "weather") return weather ? <WeatherModal data={weather} lang={lang} h24={cfg.header.clock24h} onClose={close} /> : null;
+  if (w.kind === "calendar") return <CalendarModal cfg={cfg} lang={lang} calendars={[w.entity]} onClose={close} />;
+  return <TodoModal cfg={cfg} lists={[w.entity]} onClose={close} />;
+}
+
 function Widgets({ cfg, h }: { cfg: DashConfig; h: Hass }) {
   const weather = useWeather(h, cfg);
   const lang = h.locale?.language ?? h.language;
   return (
     <>
+      <EntityWidget cfg={cfg} h={h} />
       {openWidget.value === "weather" && weather && <WeatherModal data={weather} lang={lang} h24={cfg.header.clock24h} />}
       {openWidget.value === "calendar" && <CalendarModal cfg={cfg} lang={lang} />}
       {openWidget.value === "todo" && <TodoModal cfg={cfg} />}
@@ -131,6 +146,8 @@ export function App() {
       <CardEditorModal />
       <SectionEditorModal />
       <HiddenTray />
+      <LightsOffConfirm />
+      <IrrigationSync />
       <Widgets cfg={live} h={h} />
       {settingsOpen.value && <SettingsModal />}
       {!editMode.value && <TabletBehaviour cfg={live} />}

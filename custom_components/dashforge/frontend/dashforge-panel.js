@@ -124,14 +124,14 @@ function se(t) {
 	};
 }
 function ce(t, n, r, i, a, o, s, c, l, u) {
-	var f, m, g, y, b, te, ne, C, w, T, ie, ae, oe, se, ce, de, E, he, D = n.type;
+	var f, m, g, y, b, te, ne, C, w, T, ie, ae, oe, se, ce, de, E, he, ge = n.type;
 	if (n.constructor !== d) return null;
 	128 & r.__u && (l = 32 & r.__u, f = r.__c.__z) && (n.__u |= l, m = o = [], f.nodeType == 8 ? c = le(f, o) : o.push(f), c = o[0] || c), (f = e.__b) && f(n);
-	n: if (typeof D == "function") {
+	n: if (typeof ge == "function") {
 		g = s.length;
 		try {
-			if (C = n.props, w = (f = D.prototype) && f.render, T = (f = D.contextType) && i[f.__c], ie = f ? T ? T.props.value : f.__ : i, (y = r.__c) ? (n.__c = y, 2 & y.__g && (y.__g |= 1)) : (w ? n.__c = y = new D(C, ie) : (n.__c = y = new S(C, ie), y.constructor = D, y.render = me), T && T.sub(y), y.state || (y.state = {}), y.__n = i, y.__g |= 8, y.__h = [], y.__k = []), w && (y.__s || (y.__s = y.state), D.getDerivedStateFromProps && (y.__s == y.state && (y.__s = _({}, y.__s)), _(y.__s, D.getDerivedStateFromProps(C, y.__s)))), b = y.props, te = y.state, y.__v = n, r.__c) {
-				if (C !== b && w && !D.getDerivedStateFromProps && y.componentWillReceiveProps && y.componentWillReceiveProps(C, ie), n.__v == r.__v && !(8 & y.__g) || !(4 & y.__g) && y.shouldComponentUpdate && !1 === y.shouldComponentUpdate(C, y.__s, ie)) {
+			if (C = n.props, w = (f = ge.prototype) && f.render, T = (f = ge.contextType) && i[f.__c], ie = f ? T ? T.props.value : f.__ : i, (y = r.__c) ? (n.__c = y, 2 & y.__g && (y.__g |= 1)) : (w ? n.__c = y = new ge(C, ie) : (n.__c = y = new S(C, ie), y.constructor = ge, y.render = me), T && T.sub(y), y.state || (y.state = {}), y.__n = i, y.__g |= 8, y.__h = [], y.__k = []), w && (y.__s || (y.__s = y.state), ge.getDerivedStateFromProps && (y.__s == y.state && (y.__s = _({}, y.__s)), _(y.__s, ge.getDerivedStateFromProps(C, y.__s)))), b = y.props, te = y.state, y.__v = n, r.__c) {
+				if (C !== b && w && !ge.getDerivedStateFromProps && y.componentWillReceiveProps && y.componentWillReceiveProps(C, ie), n.__v == r.__v && !(8 & y.__g) || !(4 & y.__g) && y.shouldComponentUpdate && !1 === y.shouldComponentUpdate(C, y.__s, ie)) {
 					n.__v != r.__v && (y.props = C, y.state = y.__s, y.__g &= -9), n.__e = r.__e, n.__k = r.__k, n.__k.some(function(e) {
 						e && (e.__ = n);
 					}), p.push.apply(y.__h, y.__k), y.__k = [], y.__h.length && s.push(y), c = ee(r);
@@ -140,7 +140,7 @@ function ce(t, n, r, i, a, o, s, c, l, u) {
 				y.componentWillUpdate && y.componentWillUpdate(C, y.__s, ie), w && y.componentDidUpdate && y.__h.push(function() {
 					y.componentDidUpdate(b, te, ne);
 				});
-			} else w && !D.getDerivedStateFromProps && y.componentWillMount && y.componentWillMount(), w && y.componentDidMount && y.__h.push(y.componentDidMount);
+			} else w && !ge.getDerivedStateFromProps && y.componentWillMount && y.componentWillMount(), w && y.componentDidMount && y.__h.push(y.componentDidMount);
 			if (y.context = ie, y.props = C, y.__P = t, y.__g &= -5, ae = e.__r, oe = 0, w) y.state = y.__s, y.__g &= -9, ae && ae(n), f = y.render(y.props, y.state, y.context), p.push.apply(y.__h, y.__k), y.__k = [];
 			else do
 				y.__g &= -9, ae && ae(n), f = y.render(y.props, y.state, y.context), y.state = y.__s;
@@ -264,7 +264,13 @@ e = { __e: function(e, t, n, r) {
 	return e.__v.__b - t.__v.__b;
 }, s = Symbol(), c = /(PointerCapture)$|Capture$/i, l = 0, u = {};
 // src/config.ts
-var D = () => Math.random().toString(36).slice(2, 8) + Date.now().toString(36).slice(-4), ge = [
+var ge = () => Math.random().toString(36).slice(2, 8) + Date.now().toString(36).slice(-4), _e = [
+	{
+		id: "midnight",
+		name: "Midnight",
+		light: "linear-gradient(180deg,#eef0f6 0%,#e3e6ef 100%)",
+		dark: "radial-gradient(circle at 20% -10%,#1d2030 0%,#121319 50%,#0c0d11 100%)"
+	},
 	{
 		id: "aurora",
 		name: "Aurora",
@@ -300,8 +306,83 @@ var D = () => Math.random().toString(36).slice(2, 8) + Date.now().toString(36).s
 		name: "Plain",
 		light: "#f4f4f5",
 		dark: "#111113"
+	},
+	{
+		id: "dusk",
+		name: "Dusk",
+		light: "linear-gradient(160deg,#f7d9c9 0%,#d5dcf2 55%,#ece3f6 100%)",
+		dark: "linear-gradient(160deg,#1c2541 0%,#3a2d52 55%,#5b3448 100%)"
+	},
+	{
+		id: "homey",
+		name: "Charcoal",
+		light: "linear-gradient(180deg,#f3f4f7 0%,#e6e8ee 100%)",
+		dark: "radial-gradient(circle at 15% 0%,#262a33 0%,#14161b 55%,#0d0e12 100%)"
 	}
-], _e = [
+], ve = [
+	{
+		id: "vivid",
+		name: "Vivid",
+		desc: "Dark and colourful: bright gradient tiles that pop when devices are on.",
+		theme: {
+			style: "vivid",
+			mode: "dark",
+			background: "midnight",
+			cardStyle: "solid",
+			radius: 22,
+			accent: "#6366f1"
+		}
+	},
+	{
+		id: "dashforge",
+		name: "DashForge",
+		desc: "Soft gradients and frosted cards with live colour.",
+		theme: {
+			style: "dashforge",
+			background: "aurora",
+			cardStyle: "glass",
+			radius: 20,
+			accent: "#3b82f6"
+		}
+	},
+	{
+		id: "apple",
+		name: "Apple Home style",
+		desc: "Compact frosted tiles that turn white when on, over a wallpaper.",
+		theme: {
+			style: "apple",
+			background: "dusk",
+			cardStyle: "glass",
+			radius: 18,
+			accent: "#ff9f0a"
+		}
+	},
+	{
+		id: "homey",
+		name: "Homey style",
+		desc: "Dark, square tiles with colour-coded device icons.",
+		theme: {
+			style: "homey",
+			mode: "dark",
+			background: "homey",
+			cardStyle: "solid",
+			radius: 22,
+			accent: "#3b82f6"
+		}
+	},
+	{
+		id: "minimal",
+		name: "Minimal",
+		desc: "Flat, quiet and high contrast. Lots of space.",
+		theme: {
+			style: "minimal",
+			background: "plain",
+			cardStyle: "solid",
+			radius: 12,
+			accent: "#18181b"
+		}
+	}
+], ye = [
 	"#3b82f6",
 	"#8b5cf6",
 	"#ec4899",
@@ -311,19 +392,20 @@ var D = () => Math.random().toString(36).slice(2, 8) + Date.now().toString(36).s
 	"#14b8a6",
 	"#64748b"
 ];
-function ve() {
+function be() {
 	return {
 		schema: 1,
 		setupComplete: !1,
 		title: "Home",
 		userName: "",
-		layout: "grid",
+		layout: "auto",
 		theme: {
-			mode: "auto",
-			accent: _e[0],
-			background: "aurora",
-			cardStyle: "glass",
-			radius: 20,
+			style: "vivid",
+			mode: "dark",
+			accent: "#6366f1",
+			background: "midnight",
+			cardStyle: "solid",
+			radius: 22,
 			density: "comfortable"
 		},
 		header: {
@@ -344,15 +426,32 @@ function ve() {
 			returnHomeMinutes: 0
 		},
 		builtinPages: {
+			home: !0,
 			media: !0,
 			security: !0,
-			scenes: !0
+			scenes: !0,
+			irrigation: !1
+		},
+		home: {
+			summary: !0,
+			favorites: !0,
+			rooms: !0
+		},
+		irrigation: {
+			zones: [],
+			minutes: 10,
+			presets: [
+				5,
+				10,
+				15,
+				30
+			]
 		},
 		sections: []
 	};
 }
-function ye(e) {
-	let t = ve();
+function xe(e) {
+	let t = be();
 	if (!e || typeof e != "object") return t;
 	let n = e;
 	return {
@@ -375,23 +474,31 @@ function ye(e) {
 			...t.builtinPages,
 			...n.builtinPages ?? {}
 		},
+		home: {
+			...t.home,
+			...n.home ?? {}
+		},
+		irrigation: {
+			...t.irrigation,
+			...n.irrigation ?? {}
+		},
 		sections: Array.isArray(n.sections) ? n.sections.map((e) => ({
 			...e,
 			cards: Array.isArray(e.cards) ? e.cards.filter((e) => e && e.entity) : []
 		})) : []
 	};
 }
-var be = (e) => JSON.parse(JSON.stringify(e));
-function xe(e, t = "sm") {
+var Se = (e) => JSON.parse(JSON.stringify(e));
+function Ce(e, t = "sm") {
 	return {
-		id: D(),
+		id: ge(),
 		entity: e,
 		size: t
 	};
 }
-function Se(e, t, n, r) {
+function we(e, t, n, r) {
 	return {
-		id: D(),
+		id: ge(),
 		kind: e,
 		name: t,
 		icon: n,
@@ -400,32 +507,32 @@ function Se(e, t, n, r) {
 	};
 }
 // node_modules/preact/hooks/dist/hooks.mjs
-var Ce, O, we, Te, Ee = Object.is, De = 0, Oe = [], ke = [], k = e, Ae = k.__b, je = k.__r, Me = k.diffed, Ne = k.__c, Pe = k.unmount, Fe = k.__;
-function Ie(e, t) {
-	k.__h && k.__h(O, e, De || t), De = 0;
-	var n = O.__H || (O.__H = {
+var Te, D, Ee, De, Oe = Object.is, ke = 0, Ae = [], je = [], O = e, Me = O.__b, Ne = O.__r, Pe = O.diffed, Fe = O.__c, Ie = O.unmount, Le = O.__;
+function Re(e, t) {
+	O.__h && O.__h(D, e, ke || t), ke = 0;
+	var n = D.__H || (D.__H = {
 		__: [],
 		__h: []
 	});
 	return e >= n.__.length && n.__.push({}), n.__[e];
 }
-function A(e) {
-	return De = 1, Le(qe, e);
+function k(e) {
+	return ke = 1, ze(Ye, e);
 }
-function Le(e, t, n) {
-	var r = Ie(Ce++, 2);
-	if (r.t = e, !r.__c && (r.__ = [n ? n(t) : qe(void 0, t), function(e) {
+function ze(e, t, n) {
+	var r = Re(Te++, 2);
+	if (r.t = e, !r.__c && (r.__ = [n ? n(t) : Ye(void 0, t), function(e) {
 		var t = r.__N ? r.__N[0] : r.__[0], n = r.t(t, e);
-		Ee(t, n) || (r.__N = [n, r.__[1]], r.__c.setState({}));
-	}], r.__c = O, !O.__f)) {
-		O.__f = !0;
-		var i = O.shouldComponentUpdate;
-		O.shouldComponentUpdate = function(e, t, n) {
+		Oe(t, n) || (r.__N = [n, r.__[1]], r.__c.setState({}));
+	}], r.__c = D, !D.__f)) {
+		D.__f = !0;
+		var i = D.shouldComponentUpdate;
+		D.shouldComponentUpdate = function(e, t, n) {
 			var r = this.__H;
 			if (!r) return !0;
 			var a = !1, o = this.props != e;
 			if (r.__.some(function(e) {
-				e.__N && (a = !0, Ee(e.__[0], e.__N[0]) || (o = !0));
+				e.__N && (a = !0, Oe(e.__[0], e.__N[0]) || (o = !0));
 			}), i) {
 				var s = i.call(this, e, t, n);
 				return a ? s || o : s;
@@ -435,67 +542,67 @@ function Le(e, t, n) {
 	}
 	return r.__;
 }
-function j(e, t) {
-	var n = Ie(Ce++, 3);
-	!k.__s && Ke(n.__H, t) && (n.__P = !0, n.__ = e, n.u = t, O.__H.__h.push(n));
+function A(e, t) {
+	var n = Re(Te++, 3);
+	!O.__s && Je(n.__H, t) && (n.__P = !0, n.__ = e, n.u = t, D.__H.__h.push(n));
 }
-function Re(e) {
-	return De = 5, ze(function() {
+function Be(e) {
+	return ke = 5, Ve(function() {
 		return { current: e };
 	}, []);
 }
-function ze(e, t) {
-	var n = Ie(Ce++, 7);
-	return Ke(n.__H, t) && (n.__ = e(), n.__H = t), n.__;
+function Ve(e, t) {
+	var n = Re(Te++, 7);
+	return Je(n.__H, t) && (n.__ = e(), n.__H = t), n.__;
 }
-function Be() {
+function He() {
 	var e;
 	do {
-		for (; e = ke.shift();) try {
-			We(e);
+		for (; e = je.shift();) try {
+			Ke(e);
 		} catch (t) {
-			k.__e(t, { __: (e = e.__P) && e.__v });
+			O.__e(t, { __: (e = e.__P) && e.__v });
 		}
-		for (; e = Oe.shift();) {
+		for (; e = Ae.shift();) {
 			var t = e.__H;
 			if (e.__P && t) try {
-				t.__h.some(We), t.__h.some(Ge), t.__h = [];
+				t.__h.some(Ke), t.__h.some(qe), t.__h = [];
 			} catch (n) {
-				t.__h = [], k.__e(n, e.__v);
+				t.__h = [], O.__e(n, e.__v);
 			}
 		}
-	} while (ke.length);
+	} while (je.length);
 }
-k.__b = function(e) {
-	O = null, Ae && Ae(e);
-}, k.__ = function(e, t) {
-	e && t.__k && t.__k.__m && (e.__m = t.__k.__m), Fe && Fe(e, t);
-}, k.__r = function(e) {
-	je && je(e), Ce = 0;
-	var t = (O = e.__c).__H;
-	t && (we == O ? O.__h = [] : (t.__h.some(We), t.__h.some(Ge), Ce = 0), t.__h = [], t.__.some(function(e) {
+O.__b = function(e) {
+	D = null, Me && Me(e);
+}, O.__ = function(e, t) {
+	e && t.__k && t.__k.__m && (e.__m = t.__k.__m), Le && Le(e, t);
+}, O.__r = function(e) {
+	Ne && Ne(e), Te = 0;
+	var t = (D = e.__c).__H;
+	t && (Ee == D ? D.__h = [] : (t.__h.some(Ke), t.__h.some(qe), Te = 0), t.__h = [], t.__.some(function(e) {
 		e.__N && (e.__ = e.__N), e.u = e.__N = void 0;
-	})), we = O;
-}, k.diffed = function(e) {
-	Me && Me(e);
+	})), Ee = D;
+}, O.diffed = function(e) {
+	Pe && Pe(e);
 	var t = e.__c;
-	t && t.__H && (t.__H.__h.length && Ue(Oe.push(t)), t.__H.__.some(function(e) {
+	t && t.__H && (t.__H.__h.length && Ge(Ae.push(t)), t.__H.__.some(function(e) {
 		e.u && (e.__H = e.u);
-	})), we = O = null;
-}, k.__c = function(e, t) {
+	})), Ee = D = null;
+}, O.__c = function(e, t) {
 	t.some(function(e) {
 		try {
-			e.__h.some(We), e.__h = e.__h.filter(function(e) {
-				return !e.__ || Ge(e);
+			e.__h.some(Ke), e.__h = e.__h.filter(function(e) {
+				return !e.__ || qe(e);
 			});
 		} catch (t) {
 			e.__h = [function() {
 				throw t;
 			}];
 		}
-	}), Ne && Ne(e, t);
-}, k.unmount = function(e) {
-	Pe && Pe(e);
+	}), Fe && Fe(e, t);
+}, O.unmount = function(e) {
+	Ie && Ie(e);
 	var t, n, r = e.__c;
 	r && r.__H && (r.__H.__.some(function(r) {
 		try {
@@ -504,57 +611,57 @@ k.__b = function(e) {
 					for (n = e.__; n && (!n.__c || !n.__c.__P);) n = n.__;
 					n &&= n.__c;
 				}
-				r.__P = n, Ue(ke.push(r));
-			} else We(r);
+				r.__P = n, Ge(je.push(r));
+			} else Ke(r);
 		} catch (e) {
 			t = e;
 		}
-	}), r.__H = void 0, t && k.__e(t, r.__v));
+	}), r.__H = void 0, t && O.__e(t, r.__v));
 };
-var Ve = typeof requestAnimationFrame == "function";
-function He(e) {
-	var t, n = function() {
-		clearTimeout(r), Ve && cancelAnimationFrame(t), setTimeout(e);
-	}, r = setTimeout(n, 35);
-	Ve && (t = requestAnimationFrame(n));
-}
-function Ue(e) {
-	e != 1 && Te == k.requestAnimationFrame || ((Te = k.requestAnimationFrame) || He)(Be);
-}
+var Ue = typeof requestAnimationFrame == "function";
 function We(e) {
-	var t = O, n = e.__c;
-	typeof n == "function" && (e.__c = void 0, n()), O = t;
+	var t, n = function() {
+		clearTimeout(r), Ue && cancelAnimationFrame(t), setTimeout(e);
+	}, r = setTimeout(n, 35);
+	Ue && (t = requestAnimationFrame(n));
 }
 function Ge(e) {
-	var t = O;
-	e.__c = e.__(), O = t;
+	e != 1 && De == O.requestAnimationFrame || ((De = O.requestAnimationFrame) || We)(He);
 }
-function Ke(e, t) {
+function Ke(e) {
+	var t = D, n = e.__c;
+	typeof n == "function" && (e.__c = void 0, n()), D = t;
+}
+function qe(e) {
+	var t = D;
+	e.__c = e.__(), D = t;
+}
+function Je(e, t) {
 	return !e || e.length != t.length || t.some(function(t, n) {
-		return !Ee(t, e[n]);
+		return !Oe(t, e[n]);
 	});
 }
-function qe(e, t) {
+function Ye(e, t) {
 	return typeof t == "function" ? t(e) : t;
 }
 // node_modules/@preact/signals-core/dist/signals-core.module.js
-var Je = Symbol.for("preact-signals");
-function Ye() {
-	if (et > 1) et--;
+var Xe = Symbol.for("preact-signals");
+function Ze() {
+	if (nt > 1) nt--;
 	else {
 		var e, t = !1;
 		for ((function() {
-			var e = it;
-			for (it = void 0; e !== void 0;) {
+			var e = ot;
+			for (ot = void 0; e !== void 0;) {
 				var t = e.S;
 				if (t.v === e.v) for (var n = t.t; n !== void 0; n = n.x) n.i === e.i && (n.i = t.i);
 				e = e.o;
 			}
-		})(); $e !== void 0;) {
-			var n = $e;
-			for ($e = void 0, tt++; n !== void 0;) {
+		})(); tt !== void 0;) {
+			var n = tt;
+			for (tt = void 0, rt++; n !== void 0;) {
 				var r = n.u;
-				if (n.u = void 0, n.f &= -3, !(8 & n.f) && st(n)) try {
+				if (n.u = void 0, n.f &= -3, !(8 & n.f) && lt(n)) try {
 					n.c();
 				} catch (n) {
 					t ||= (e = n, !0);
@@ -562,116 +669,116 @@ function Ye() {
 				n = r;
 			}
 		}
-		if (tt = 0, et--, t) throw e;
+		if (rt = 0, nt--, t) throw e;
 	}
 }
-function Xe(e) {
-	if (et > 0) return e();
-	rt = ++nt, et++;
-	try {
-		return e();
-	} finally {
-		Ye();
-	}
-}
-var Ze, M = void 0;
 function Qe(e) {
-	var t = M, n = Ze;
-	M = void 0, Ze = void 0;
+	if (nt > 0) return e();
+	at = ++it, nt++;
 	try {
 		return e();
 	} finally {
-		M = t, Ze = n;
+		Ze();
 	}
 }
-var $e = void 0, et = 0, tt = 0, nt = 0, rt = 0, it = void 0, at = 0;
-function ot(e) {
-	if (M !== void 0) {
+var $e, j = void 0;
+function et(e) {
+	var t = j, n = $e;
+	j = void 0, $e = void 0;
+	try {
+		return e();
+	} finally {
+		j = t, $e = n;
+	}
+}
+var tt = void 0, nt = 0, rt = 0, it = 0, at = 0, ot = void 0, st = 0;
+function ct(e) {
+	if (j !== void 0) {
 		var t = e.n;
-		if (t === void 0 || t.t !== M) return t = {
+		if (t === void 0 || t.t !== j) return t = {
 			i: 0,
 			S: e,
-			p: M.s,
+			p: j.s,
 			n: void 0,
-			t: M,
+			t: j,
 			e: void 0,
 			x: void 0,
 			r: t
-		}, M.s !== void 0 && (M.s.n = t), M.s = t, e.n = t, 32 & M.f && e.S(t), t;
-		if (t.i === -1) return t.i = 0, t.n !== void 0 && (t.n.p = t.p, t.p !== void 0 && (t.p.n = t.n), t.p = M.s, t.n = void 0, M.s.n = t, M.s = t), t;
+		}, j.s !== void 0 && (j.s.n = t), j.s = t, e.n = t, 32 & j.f && e.S(t), t;
+		if (t.i === -1) return t.i = 0, t.n !== void 0 && (t.n.p = t.p, t.p !== void 0 && (t.p.n = t.n), t.p = j.s, t.n = void 0, j.s.n = t, j.s = t), t;
 	}
 }
-function N(e, t) {
+function M(e, t) {
 	this.v = e, this.i = 0, this.n = void 0, this.t = void 0, this.l = 0, this.W = t?.watched, this.Z = t?.unwatched, this.name = t?.name;
 }
-N.prototype.brand = Je, N.prototype.h = function() {
+M.prototype.brand = Xe, M.prototype.h = function() {
 	return !0;
-}, N.prototype.S = function(e) {
+}, M.prototype.S = function(e) {
 	var t = this, n = this.t;
-	n !== e && e.e === void 0 && (e.x = n, this.t = e, n === void 0 ? Qe(function() {
+	n !== e && e.e === void 0 && (e.x = n, this.t = e, n === void 0 ? et(function() {
 		var e;
 		(e = t.W) == null || e.call(t);
 	}) : n.e = e);
-}, N.prototype.U = function(e) {
+}, M.prototype.U = function(e) {
 	var t = this;
 	if (this.t !== void 0) {
 		var n = e.e, r = e.x;
-		n !== void 0 && (n.x = r, e.e = void 0), r !== void 0 && (r.e = n, e.x = void 0), e === this.t && (this.t = r, r === void 0 && Qe(function() {
+		n !== void 0 && (n.x = r, e.e = void 0), r !== void 0 && (r.e = n, e.x = void 0), e === this.t && (this.t = r, r === void 0 && et(function() {
 			var e;
 			(e = t.Z) == null || e.call(t);
 		}));
 	}
-}, N.prototype.subscribe = function(e) {
+}, M.prototype.subscribe = function(e) {
 	var t = this;
-	return gt(function() {
+	return vt(function() {
 		var n = t.value;
-		Qe(function() {
+		et(function() {
 			return e(n);
 		});
 	}, { name: "sub" });
-}, N.prototype.valueOf = function() {
+}, M.prototype.valueOf = function() {
 	return this.value;
-}, N.prototype.toString = function() {
+}, M.prototype.toString = function() {
 	return this.value + "";
-}, N.prototype.toJSON = function() {
+}, M.prototype.toJSON = function() {
 	return this.value;
-}, N.prototype.peek = function() {
+}, M.prototype.peek = function() {
 	var e = this;
-	return Qe(function() {
+	return et(function() {
 		return e.value;
 	});
-}, Object.defineProperty(N.prototype, "value", {
+}, Object.defineProperty(M.prototype, "value", {
 	get: function() {
-		var e = ot(this);
+		var e = ct(this);
 		return e !== void 0 && (e.i = this.i), this.v;
 	},
 	set: function(e) {
 		if (e !== this.v) {
-			if (tt > 100) throw Error("Cycle detected");
+			if (rt > 100) throw Error("Cycle detected");
 			(function(e) {
-				et !== 0 && tt === 0 && e.l !== rt && (e.l = rt, it = {
+				nt !== 0 && rt === 0 && e.l !== at && (e.l = at, ot = {
 					S: e,
 					v: e.v,
 					i: e.i,
-					o: it
+					o: ot
 				});
-			})(this), this.v = e, this.i++, at++, et++;
+			})(this), this.v = e, this.i++, st++, nt++;
 			try {
 				for (var t = this.t; t !== void 0; t = t.x) t.t.N();
 			} finally {
-				Ye();
+				Ze();
 			}
 		}
 	}
 });
-function P(e, t) {
-	return new N(e, t);
+function N(e, t) {
+	return new M(e, t);
 }
-function st(e) {
+function lt(e) {
 	for (var t = e.s; t !== void 0; t = t.n) if (t.S.i !== t.i || !t.S.h() || t.S.i !== t.i) return !0;
 	return !1;
 }
-function ct(e) {
+function ut(e) {
 	for (var t = e.s; t !== void 0; t = t.n) {
 		var n = t.S.n;
 		if (n !== void 0 && (t.r = n), t.S.n = t, t.i = -1, t.n === void 0) {
@@ -680,86 +787,86 @@ function ct(e) {
 		}
 	}
 }
-function lt(e) {
+function dt(e) {
 	for (var t = e.s, n = void 0; t !== void 0;) {
 		var r = t.p;
 		t.i === -1 ? (t.S.U(t), r !== void 0 && (r.n = t.n), t.n !== void 0 && (t.n.p = r)) : n = t, t.S.n = t.r, t.r !== void 0 && (t.r = void 0), t = r;
 	}
 	e.s = n;
 }
-function ut(e, t) {
-	N.call(this, void 0, t), this.x = e, this.s = void 0, this.g = at - 1, this.f = 4;
+function ft(e, t) {
+	M.call(this, void 0, t), this.x = e, this.s = void 0, this.g = st - 1, this.f = 4;
 }
-ut.prototype = new N(), ut.prototype.h = function() {
+ft.prototype = new M(), ft.prototype.h = function() {
 	if (this.f &= -3, 1 & this.f) return !1;
-	if ((36 & this.f) == 32 || (this.f &= -5, this.g === at)) return !0;
-	if (this.g = at, this.f |= 1, this.i > 0 && !st(this)) return this.f &= -2, !0;
-	var e = M;
+	if ((36 & this.f) == 32 || (this.f &= -5, this.g === st)) return !0;
+	if (this.g = st, this.f |= 1, this.i > 0 && !lt(this)) return this.f &= -2, !0;
+	var e = j;
 	try {
-		ct(this), M = this;
+		ut(this), j = this;
 		var t = this.x();
 		(16 & this.f || this.v !== t || this.i === 0) && (this.v = t, this.f &= -17, this.i++);
 	} catch (e) {
 		this.v = e, this.f |= 16, this.i++;
 	}
-	return M = e, lt(this), this.f &= -2, !0;
-}, ut.prototype.S = function(e) {
+	return j = e, dt(this), this.f &= -2, !0;
+}, ft.prototype.S = function(e) {
 	if (this.t === void 0) {
 		this.f |= 36;
 		for (var t = this.s; t !== void 0; t = t.n) t.S.S(t);
 	}
-	N.prototype.S.call(this, e);
-}, ut.prototype.U = function(e) {
-	if (this.t !== void 0 && (N.prototype.U.call(this, e), this.t === void 0)) {
+	M.prototype.S.call(this, e);
+}, ft.prototype.U = function(e) {
+	if (this.t !== void 0 && (M.prototype.U.call(this, e), this.t === void 0)) {
 		this.f &= -33;
 		for (var t = this.s; t !== void 0; t = t.n) t.S.U(t);
 	}
-}, ut.prototype.N = function() {
+}, ft.prototype.N = function() {
 	if (!(2 & this.f)) {
 		this.f |= 6;
 		for (var e = this.t; e !== void 0; e = e.x) e.t.N();
 	}
-}, Object.defineProperty(ut.prototype, "value", { get: function() {
+}, Object.defineProperty(ft.prototype, "value", { get: function() {
 	if (1 & this.f) throw Error("Cycle detected");
-	var e = ot(this);
+	var e = ct(this);
 	if (this.h(), e !== void 0 && (e.i = this.i), 16 & this.f) throw this.v;
 	return this.v;
 } });
-function dt(e, t) {
-	return new ut(e, t);
+function pt(e, t) {
+	return new ft(e, t);
 }
-function ft(e) {
+function mt(e) {
 	var t = e.j;
 	if (e.j = void 0, typeof t == "function") {
-		et++;
-		var n = M;
-		M = void 0;
+		nt++;
+		var n = j;
+		j = void 0;
 		try {
 			t();
 		} catch (t) {
-			throw e.f &= -2, e.f |= 8, pt(e), t;
+			throw e.f &= -2, e.f |= 8, ht(e), t;
 		} finally {
-			M = n, Ye();
+			j = n, Ze();
 		}
 	}
 }
-function pt(e) {
+function ht(e) {
 	for (var t = e.s; t !== void 0; t = t.n) t.S.U(t);
-	e.x = void 0, e.s = void 0, ft(e);
+	e.x = void 0, e.s = void 0, mt(e);
 }
-function mt(e) {
-	if (M !== this) throw Error("Out-of-order effect");
-	lt(this), M = e, this.f &= -2;
+function gt(e) {
+	if (j !== this) throw Error("Out-of-order effect");
+	dt(this), j = e, this.f &= -2;
 	try {
-		8 & this.f && pt(this);
+		8 & this.f && ht(this);
 	} finally {
-		Ye();
+		Ze();
 	}
 }
-function ht(e, t) {
-	this.x = e, this.j = void 0, this.s = void 0, this.u = void 0, this.f = 32, this.name = t?.name, Ze && Ze.push(this);
+function _t(e, t) {
+	this.x = e, this.j = void 0, this.s = void 0, this.u = void 0, this.f = 32, this.name = t?.name, $e && $e.push(this);
 }
-ht.prototype.c = function() {
+_t.prototype.c = function() {
 	var e = this.S();
 	try {
 		if (8 & this.f || this.x === void 0) return;
@@ -768,20 +875,20 @@ ht.prototype.c = function() {
 	} finally {
 		e();
 	}
-}, ht.prototype.S = function() {
+}, _t.prototype.S = function() {
 	if (1 & this.f) throw Error("Cycle detected");
-	this.f |= 1, this.f &= -9, ft(this), ct(this), et++;
-	var e = M;
-	return M = this, mt.bind(this, e);
-}, ht.prototype.N = function() {
-	2 & this.f || (this.f |= 2, this.u = $e, $e = this);
-}, ht.prototype.d = function() {
-	this.f |= 8, 1 & this.f || pt(this);
-}, ht.prototype.dispose = function() {
+	this.f |= 1, this.f &= -9, mt(this), ut(this), nt++;
+	var e = j;
+	return j = this, gt.bind(this, e);
+}, _t.prototype.N = function() {
+	2 & this.f || (this.f |= 2, this.u = tt, tt = this);
+}, _t.prototype.d = function() {
+	this.f |= 8, 1 & this.f || ht(this);
+}, _t.prototype.dispose = function() {
 	this.d();
 };
-function gt(e, t) {
-	var n = new ht(e, t);
+function vt(e, t) {
+	var n = new _t(e, t);
 	try {
 		n.c();
 	} catch (e) {
@@ -791,35 +898,35 @@ function gt(e, t) {
 	return r[Symbol.dispose] = r, r;
 }
 // node_modules/@preact/signals/dist/signals.module.js
-var _t, vt, yt = typeof window < "u" && !!window.__PREACT_SIGNALS_DEVTOOLS__, bt = [];
-gt(function() {
-	_t = this.N;
+var yt, bt, xt = typeof window < "u" && !!window.__PREACT_SIGNALS_DEVTOOLS__, St = [];
+vt(function() {
+	yt = this.N;
 })();
-function xt(t, n) {
+function Ct(t, n) {
 	e[t] = n.bind(null, e[t] || function() {});
 }
-function St(e) {
-	if (vt) {
-		var t = vt;
-		vt = void 0, t();
+function wt(e) {
+	if (bt) {
+		var t = bt;
+		bt = void 0, t();
 	}
-	vt = e && e.S();
+	bt = e && e.S();
 }
-function Ct(e) {
-	var t = this, r = e.data, i = Tt(r);
+function Tt(e) {
+	var t = this, r = e.data, i = Dt(r);
 	i.name = "ReactiveDom", i.value = r;
-	var a = ze(function() {
+	var a = Ve(function() {
 		for (var e = t, r = t.__v; r = r.__;) if (r.__c) {
 			r.__c.__$f |= 4;
 			break;
 		}
-		var a = dt(function() {
+		var a = pt(function() {
 			var e = i.value.value;
 			return e === 0 ? 0 : !0 === e ? "" : e || "";
-		}), o = dt(function() {
+		}), o = pt(function() {
 			return !Array.isArray(a.value) && !n(a.value);
-		}), s = gt(function() {
-			if (this.N = Ot, o.value) {
+		}), s = vt(function() {
+			if (this.N = At, o.value) {
 				var t = a.value;
 				e.__v && e.__v.__e && e.__v.__e.nodeType === 3 && (e.__v.__e.data = t);
 			}
@@ -830,14 +937,14 @@ function Ct(e) {
 	}, []), o = a[0], s = a[1];
 	return o.value ? s.peek() : s.value;
 }
-Ct.displayName = "ReactiveTextNode", Object.defineProperties(N.prototype, {
+Tt.displayName = "ReactiveTextNode", Object.defineProperties(M.prototype, {
 	constructor: {
 		configurable: !0,
 		value: y(x, null).constructor
 	},
 	type: {
 		configurable: !0,
-		value: Ct
+		value: Tt
 	},
 	props: {
 		configurable: !0,
@@ -852,35 +959,35 @@ Ct.displayName = "ReactiveTextNode", Object.defineProperties(N.prototype, {
 		configurable: !0,
 		value: 1
 	}
-}), xt("__b", function(e, t) {
-	if (St(), typeof t.type == "string") {
+}), Ct("__b", function(e, t) {
+	if (wt(), typeof t.type == "string") {
 		var n, r = t.props;
 		for (var i in r) if (i !== "children") {
 			var a = r[i];
-			a instanceof N && (n || (t.__np = n = {}), n[i] = a, r[i] = a.peek());
+			a instanceof M && (n || (t.__np = n = {}), n[i] = a, r[i] = a.peek());
 		}
 	}
 	e(t);
-}), xt("__r", function(e, t) {
+}), Ct("__r", function(e, t) {
 	if (e(t), t.type !== x) {
-		St();
+		wt();
 		var n, r = t.__c;
 		r && (r.__$f &= -2, (n = r.__$u) === void 0 && (r.__$u = n = function(e, t) {
 			var n;
-			return gt(function() {
+			return vt(function() {
 				n = this;
 			}, { name: t }), n.c = e, n;
 		}(function(e) {
 			return function() {
 				var t;
-				yt && ((t = this.y) == null || t.call(this)), e.__$f |= 1, e.setState({});
+				xt && ((t = this.y) == null || t.call(this)), e.__$f |= 1, e.setState({});
 			};
-		}(r), typeof t.type == "function" ? t.type.displayName || t.type.name : ""))), St(n);
+		}(r), typeof t.type == "function" ? t.type.displayName || t.type.name : ""))), wt(n);
 	}
-}), xt("__e", function(e, t, n, r) {
-	St(), e(t, n, r);
-}), xt("diffed", function(e, t) {
-	St();
+}), Ct("__e", function(e, t, n, r) {
+	wt(), e(t, n, r);
+}), Ct("diffed", function(e, t) {
+	wt();
 	var n;
 	if (typeof t.type == "string" && (n = t.__e)) {
 		var r = t.__np, i = t.props, a = n.U;
@@ -890,25 +997,25 @@ Ct.displayName = "ReactiveTextNode", Object.defineProperties(N.prototype, {
 		}
 		if (r) for (var c in a || (a = {}, n.U = a), r) {
 			var l = a[c], u = r[c];
-			l === void 0 ? (l = wt(n, c, u, i), a[c] = l) : l.o(u, i);
+			l === void 0 ? (l = Et(n, c, u, i), a[c] = l) : l.o(u, i);
 		}
 	}
 	e(t);
 });
-function wt(e, t, n, r) {
-	var i = t in e && e.ownerSVGElement === void 0, a = P(n);
+function Et(e, t, n, r) {
+	var i = t in e && e.ownerSVGElement === void 0, a = N(n);
 	return {
 		o: function(e, t) {
 			a.value = e, r = t;
 		},
-		d: gt(function() {
-			this.N = Ot;
+		d: vt(function() {
+			this.N = At;
 			var n = a.value.value;
 			r[t] !== n && (r[t] = n, i ? e[t] = n : n != null && (!1 !== n || t[4] === "-") ? e.setAttribute(t, n) : e.removeAttribute(t));
 		})
 	};
 }
-xt("unmount", function(e, t) {
+Ct("unmount", function(e, t) {
 	if (typeof t.type == "string") {
 		var n = t.__e;
 		if (n) {
@@ -933,7 +1040,7 @@ xt("unmount", function(e, t) {
 		}
 	}
 	e(t);
-}), xt("__h", function(e, t, n, r) {
+}), Ct("__h", function(e, t, n, r) {
 	r < 3 && (t.__$f |= 2), e(t, n, r);
 }), S.prototype.shouldComponentUpdate = function(e, t) {
 	if (this.__R) return !0;
@@ -947,35 +1054,36 @@ xt("unmount", function(e, t) {
 	for (var s in this.props) if (!(s in e)) return !0;
 	return !1;
 };
-function Tt(e, t) {
-	return ze(function() {
-		return P(e, t);
+function Dt(e, t) {
+	return Ve(function() {
+		return N(e, t);
 	}, []);
 }
-var Et = function(e) {
+var Ot = function(e) {
 	queueMicrotask(function() {
 		queueMicrotask(e);
 	});
 };
-function Dt() {
-	Xe(function() {
-		for (var e; e = bt.shift();) _t.call(e);
+function kt() {
+	Qe(function() {
+		for (var e; e = St.shift();) yt.call(e);
 	});
 }
-function Ot() {
-	bt.push(this) === 1 && (e.requestAnimationFrame || Et)(Dt);
+function At() {
+	St.push(this) === 1 && (e.requestAnimationFrame || Ot)(kt);
 }
 // src/entities.ts
-var F = (e) => e.split(".")[0], kt = /* @__PURE__ */ new Set(/* @__PURE__ */ "light.switch.fan.cover.climate.lock.media_player.input_boolean.vacuum.humidifier.valve.siren.sensor.binary_sensor.camera.scene.script.button.input_button.alarm_control_panel.number.input_number.select.input_select.weather.person.automation.water_heater".split(".")), At = /* @__PURE__ */ new Set([
+var P = (e) => e.split(".")[0], jt = /* @__PURE__ */ new Set(/* @__PURE__ */ "light.switch.fan.cover.climate.lock.media_player.input_boolean.vacuum.humidifier.valve.siren.sensor.binary_sensor.camera.scene.script.button.input_button.alarm_control_panel.number.input_number.select.input_select.weather.person.automation.water_heater.lawn_mower.remote.counter.timer.input_text.text.input_datetime.date.time.datetime.update.device_tracker.event.group.image.todo.calendar".split(".")), Mt = /* @__PURE__ */ new Set([
 	"light",
 	"switch",
 	"fan",
 	"input_boolean",
 	"siren",
 	"humidifier",
-	"automation"
-]), jt = /* @__PURE__ */ new Set([
-	...At,
+	"automation",
+	"remote"
+]), Nt = /* @__PURE__ */ new Set([
+	...Mt,
 	"cover",
 	"climate",
 	"lock",
@@ -983,11 +1091,12 @@ var F = (e) => e.split(".")[0], kt = /* @__PURE__ */ new Set(/* @__PURE__ */ "li
 	"vacuum",
 	"valve",
 	"alarm_control_panel",
-	"water_heater"
-]), Mt = (e) => !e || e.state === "unavailable" || e.state === "unknown";
-function Nt(e) {
-	if (!e || Mt(e)) return !1;
-	switch (F(e.entity_id)) {
+	"water_heater",
+	"lawn_mower"
+]), F = (e) => !e || e.state === "unavailable" || e.state === "unknown";
+function Pt(e) {
+	if (!e || F(e)) return !1;
+	switch (P(e.entity_id)) {
 		case "cover":
 		case "valve": return e.state === "open" || e.state === "opening";
 		case "lock": return e.state !== "locked";
@@ -995,6 +1104,9 @@ function Nt(e) {
 		case "water_heater": return e.state !== "off";
 		case "media_player": return e.state === "playing";
 		case "vacuum": return e.state === "cleaning";
+		case "lawn_mower": return e.state === "mowing";
+		case "timer": return e.state === "active";
+		case "device_tracker": return e.state === "home";
 		case "alarm_control_panel": return e.state.startsWith("armed") || e.state === "triggered";
 		case "person": return e.state === "home";
 		case "sensor":
@@ -1003,15 +1115,25 @@ function Nt(e) {
 		case "number":
 		case "input_number":
 		case "select":
-		case "input_select": return !1;
+		case "input_select":
+		case "counter":
+		case "input_text":
+		case "text":
+		case "input_datetime":
+		case "date":
+		case "time":
+		case "datetime":
+		case "event":
+		case "image":
+		case "todo": return !1;
 		default: return e.state === "on";
 	}
 }
-function Pt(e) {
-	let t = F(e);
-	return At.has(t) || t === "cover" || t === "valve" ? "toggle" : t === "scene" || t === "script" ? "activate" : t === "button" || t === "input_button" ? "press" : t === "lock" ? "lock" : t === "media_player" ? "media" : "details";
+function Ft(e, t) {
+	let n = P(e);
+	return Mt.has(n) || n === "cover" || n === "valve" ? "toggle" : n === "group" ? t && (t.state === "on" || t.state === "off") ? "toggle" : "details" : n === "todo" || n === "calendar" || n === "weather" ? n : n === "scene" || n === "script" ? "activate" : n === "button" || n === "input_button" ? "press" : n === "lock" ? "lock" : n === "media_player" ? "media" : "details";
 }
-var Ft = {
+var It = {
 	light: ["mdi:lightbulb", "mdi:lightbulb-outline"],
 	switch: ["mdi:toggle-switch", "mdi:toggle-switch-off-outline"],
 	input_boolean: ["mdi:toggle-switch", "mdi:toggle-switch-off-outline"],
@@ -1039,8 +1161,116 @@ var Ft = {
 	input_select: ["mdi:format-list-bulleted"],
 	weather: ["mdi:weather-partly-cloudy"],
 	person: ["mdi:account", "mdi:account-outline"],
-	automation: ["mdi:robot", "mdi:robot-off"]
-}, It = {
+	automation: ["mdi:robot", "mdi:robot-off"],
+	lawn_mower: ["mdi:robot-mower", "mdi:robot-mower-outline"],
+	remote: ["mdi:remote", "mdi:remote-off"],
+	counter: ["mdi:counter"],
+	timer: ["mdi:timer-outline", "mdi:timer-off-outline"],
+	input_text: ["mdi:form-textbox"],
+	text: ["mdi:form-textbox"],
+	input_datetime: ["mdi:calendar-clock"],
+	date: ["mdi:calendar"],
+	time: ["mdi:clock-outline"],
+	datetime: ["mdi:calendar-clock"],
+	update: ["mdi:package-up", "mdi:package"],
+	device_tracker: ["mdi:map-marker", "mdi:map-marker-off"],
+	event: ["mdi:gesture-tap"],
+	group: ["mdi:google-circles-communities"],
+	image: ["mdi:image"],
+	todo: ["mdi:clipboard-list"],
+	calendar: ["mdi:calendar"]
+}, Lt = {
+	light: "#f5b400",
+	power: "#22c55e",
+	climate: "#f97316",
+	cover: "#14b8a6",
+	water: "#3b82f6",
+	security: "#ef4444",
+	media: "#a855f7",
+	robot: "#84cc16",
+	sensor: "#64748b",
+	scene: "#6366f1",
+	info: "#0ea5e9"
+}, Rt = {
+	light: "linear-gradient(135deg,#fbbf24 0%,#f97316 100%)",
+	power: "linear-gradient(135deg,#34d399 0%,#06b6d4 100%)",
+	climate: "linear-gradient(135deg,#fb923c 0%,#ef4444 100%)",
+	cover: "linear-gradient(135deg,#22d3ee 0%,#3b82f6 100%)",
+	water: "linear-gradient(135deg,#38bdf8 0%,#6366f1 100%)",
+	security: "linear-gradient(135deg,#f43f5e 0%,#c026d3 100%)",
+	media: "linear-gradient(135deg,#a855f7 0%,#ec4899 100%)",
+	robot: "linear-gradient(135deg,#a3e635 0%,#10b981 100%)",
+	sensor: "linear-gradient(135deg,#64748b 0%,#334155 100%)",
+	scene: "linear-gradient(135deg,#818cf8 0%,#a855f7 100%)",
+	info: "linear-gradient(135deg,#38bdf8 0%,#2563eb 100%)"
+};
+function zt(e, t) {
+	switch (P(e)) {
+		case "light": return "light";
+		case "switch":
+		case "input_boolean":
+		case "remote":
+		case "group":
+		case "automation":
+		case "siren": return "power";
+		case "fan":
+		case "climate":
+		case "water_heater":
+		case "humidifier": return "climate";
+		case "cover": return "cover";
+		case "valve": return "water";
+		case "lock":
+		case "alarm_control_panel":
+		case "camera": return "security";
+		case "binary_sensor": {
+			let e = t?.attributes.device_class;
+			return [
+				"door",
+				"window",
+				"garage_door",
+				"opening",
+				"motion",
+				"occupancy",
+				"smoke",
+				"safety",
+				"lock",
+				"tamper"
+			].includes(e) ? "security" : e === "moisture" ? "water" : "sensor";
+		}
+		case "media_player": return "media";
+		case "vacuum":
+		case "lawn_mower": return "robot";
+		case "scene":
+		case "script":
+		case "button":
+		case "input_button": return "scene";
+		case "weather":
+		case "calendar":
+		case "todo":
+		case "person":
+		case "device_tracker":
+		case "update": return "info";
+		case "sensor": {
+			let e = t?.attributes.device_class;
+			return e === "temperature" ? "climate" : e === "humidity" || e === "moisture" || e === "water" || e === "precipitation" ? "water" : e === "power" || e === "energy" || e === "voltage" || e === "current" || e === "battery" ? "power" : "sensor";
+		}
+		default: return "sensor";
+	}
+}
+var Bt = /zone|sprinkler|irrigat|drip|lawn|garden|hose|station|water(ing)?/i, Vt = /* @__PURE__ */ new Set([
+	"switch",
+	"valve",
+	"input_boolean"
+]);
+function Ht(e, t) {
+	let n = P(t);
+	if (!Vt.has(n)) return !1;
+	let r = e.states[t];
+	if (n === "valve" && r?.attributes.device_class === "water") return !0;
+	let i = `${t} ${r?.attributes.friendly_name ?? ""}`;
+	return Bt.test(i);
+}
+var Ut = {
 	temperature: "mdi:thermometer",
 	humidity: "mdi:water-percent",
 	battery: "mdi:battery",
@@ -1055,7 +1285,7 @@ var Ft = {
 	current: "mdi:current-ac",
 	gas: "mdi:meter-gas",
 	water: "mdi:water"
-}, Lt = {
+}, Wt = {
 	door: ["mdi:door-open", "mdi:door-closed"],
 	garage_door: ["mdi:garage-open", "mdi:garage"],
 	window: ["mdi:window-open", "mdi:window-closed"],
@@ -1068,21 +1298,35 @@ var Ft = {
 	battery: ["mdi:battery-alert", "mdi:battery"],
 	connectivity: ["mdi:lan-connect", "mdi:lan-disconnect"],
 	plug: ["mdi:power-plug", "mdi:power-plug-off"]
+}, Gt = {
+	garage: ["mdi:garage-open", "mdi:garage"],
+	door: ["mdi:door-open", "mdi:door-closed"],
+	gate: ["mdi:gate-open", "mdi:gate"],
+	blind: ["mdi:blinds-open", "mdi:blinds"],
+	curtain: ["mdi:curtains", "mdi:curtains-closed"],
+	shade: ["mdi:roller-shade", "mdi:roller-shade-closed"],
+	shutter: ["mdi:window-shutter-open", "mdi:window-shutter"],
+	window: ["mdi:window-open", "mdi:window-closed"],
+	awning: ["mdi:awning-outline", "mdi:awning-outline"]
 };
-function Rt(e, t, n) {
+function Kt(e, t, n) {
 	if (n?.icon) return n.icon;
 	let r = e.entities?.[t];
 	if (r?.icon) return r.icon;
 	let i = e.states[t];
 	if (i?.attributes.icon) return i.attributes.icon;
-	let a = F(t), o = i?.attributes.device_class;
-	if (a === "sensor" && o && It[o]) return It[o];
-	if (a === "binary_sensor" && o && Lt[o]) {
-		let [e, t] = Lt[o];
+	let a = P(t), o = i?.attributes.device_class;
+	if (a === "sensor" && o && Ut[o]) return Ut[o];
+	if (a === "cover" && o && Gt[o]) {
+		let [e, t] = Gt[o];
+		return i?.state === "closed" ? t : e;
+	}
+	if (a === "binary_sensor" && o && Wt[o]) {
+		let [e, t] = Wt[o];
 		return i?.state === "on" ? e : t;
 	}
-	let s = Ft[a] ?? ["mdi:help-circle-outline"];
-	return Nt(i) || !s[1] ? s[0] : s[1];
+	let s = It[a] ?? ["mdi:help-circle-outline"];
+	return Pt(i) || !s[1] ? s[0] : s[1];
 }
 function I(e, t, n, r) {
 	if (n?.name) return n.name;
@@ -1093,7 +1337,7 @@ function I(e, t, n, r) {
 	}
 	return i;
 }
-var zt = {
+var qt = {
 	door: ["Open", "Closed"],
 	garage_door: ["Open", "Closed"],
 	window: ["Open", "Closed"],
@@ -1107,51 +1351,61 @@ var zt = {
 	connectivity: ["Connected", "Offline"],
 	lock: ["Unlocked", "Locked"],
 	plug: ["Plugged in", "Unplugged"]
-}, Bt = (e) => e.replace(/_/g, " ").replace(/\b\w/g, (e) => e.toUpperCase());
-function Vt(e, t) {
+}, Jt = (e) => e.replace(/_/g, " ").replace(/\b\w/g, (e) => e.toUpperCase());
+function Yt(e, t) {
 	if (!t) return "Not found";
 	if (t.state === "unavailable") return "Unavailable";
 	if (t.state === "unknown") return "Unknown";
-	let n = F(t.entity_id);
+	let n = P(t.entity_id);
 	if (n === "binary_sensor") {
-		let e = zt[t.attributes.device_class] ?? ["On", "Off"];
+		let e = qt[t.attributes.device_class] ?? ["On", "Off"];
 		return t.state === "on" ? e[0] : e[1];
 	}
 	if (n === "light" && t.state === "on" && t.attributes.brightness != null) return `${Math.round(t.attributes.brightness / 255 * 100)}%`;
 	if (n === "cover" && t.attributes.current_position != null && t.state === "open") return `Open · ${t.attributes.current_position}%`;
 	if (n === "climate") {
-		let e = t.attributes, n = Bt(e.hvac_action ?? t.state);
+		let e = t.attributes, n = Jt(e.hvac_action ?? t.state);
 		return e.temperature == null ? e.target_temp_low != null && e.target_temp_high != null ? `${n} · ${e.target_temp_low}–${e.target_temp_high}°` : e.current_temperature == null ? n : `${n} · ${e.current_temperature}°` : `${n} · ${e.temperature}°`;
 	}
 	if (n === "media_player" && t.attributes.media_title) return t.attributes.media_artist ? `${t.attributes.media_title} · ${t.attributes.media_artist}` : t.attributes.media_title;
 	if (n === "scene" || n === "script" || n === "button" || n === "input_button") return n === "script" && t.state === "on" ? "Running" : "Tap to run";
+	if (n === "todo") {
+		let e = Number(t.state) || 0;
+		return e === 0 ? "All done" : e === 1 ? "1 to do" : `${e} to do`;
+	}
+	if (n === "calendar") return t.state === "on" ? `Now: ${t.attributes.message ?? "event"}` : t.attributes.message ? `Next: ${t.attributes.message}` : "No events";
+	if (n === "weather" && t.attributes.temperature != null) {
+		let e = t.state === "partlycloudy" ? "Partly cloudy" : Jt(t.state.replace(/-/g, " "));
+		return `${Math.round(t.attributes.temperature)}° · ${e}`;
+	}
+	if (n === "update") return t.state === "on" ? `Update to ${t.attributes.latest_version ?? "new version"}` : "Up to date";
 	if (e.formatEntityState) try {
 		return e.formatEntityState(t);
 	} catch {}
 	let r = t.attributes.unit_of_measurement, i = Number(t.state);
-	return r && !Number.isNaN(i) ? `${Math.abs(i) >= 100 ? Math.round(i) : Math.round(i * 10) / 10} ${r}` : Bt(t.state);
+	return r && !Number.isNaN(i) ? `${Math.abs(i) >= 100 ? Math.round(i) : Math.round(i * 10) / 10} ${r}` : Jt(t.state);
 }
-function Ht(e, t) {
+function Xt(e, t) {
 	let n = e.entities?.[t];
 	return n ? n.area_id ? n.area_id : n.device_id ? e.devices?.[n.device_id]?.area_id ?? null : null : null;
 }
-function Ut(e, t) {
-	if (!kt.has(F(t))) return !1;
+function Zt(e, t) {
+	if (!jt.has(P(t))) return !1;
 	let n = e.entities?.[t];
 	return !(n?.hidden || n?.entity_category);
 }
-function Wt(e, t) {
-	return Object.keys(e.states).filter((n) => Ut(e, n) && Ht(e, n) === t).sort(Xt(e));
+function Qt(e, t) {
+	return Object.keys(e.states).filter((n) => Zt(e, n) && Xt(e, n) === t).sort(an(e));
 }
-function Gt(e) {
-	return Object.keys(e.states).filter((t) => Ut(e, t) && !Ht(e, t)).sort(Xt(e));
+function $t(e) {
+	return Object.keys(e.states).filter((t) => Zt(e, t) && !Xt(e, t)).sort(an(e));
 }
-var Kt = /* @__PURE__ */ new Set([
+var en = /* @__PURE__ */ new Set([
 	"temperature",
 	"humidity",
 	"carbon_dioxide",
 	"pm25"
-]), qt = /* @__PURE__ */ new Set([
+]), tn = /* @__PURE__ */ new Set([
 	"door",
 	"garage_door",
 	"window",
@@ -1161,13 +1415,13 @@ var Kt = /* @__PURE__ */ new Set([
 	"moisture",
 	"smoke"
 ]);
-function Jt(e, t) {
-	let n = F(t);
-	if (jt.has(n) || n === "camera") return n !== "automation";
+function nn(e, t) {
+	let n = P(t);
+	if (Nt.has(n) || n === "camera") return n !== "automation";
 	let r = e.states[t]?.attributes.device_class;
-	return n === "sensor" ? Kt.has(r) : n === "binary_sensor" && qt.has(r);
+	return n === "sensor" ? en.has(r) : n === "binary_sensor" && tn.has(r);
 }
-var Yt = [
+var rn = [
 	"light",
 	"switch",
 	"fan",
@@ -1188,17 +1442,17 @@ var Yt = [
 	"sensor",
 	"binary_sensor"
 ];
-function Xt(e) {
+function an(e) {
 	return (t, n) => {
-		let r = Yt.indexOf(F(t)), i = Yt.indexOf(F(n)), a = r === -1 ? 99 : r, o = i === -1 ? 99 : i;
+		let r = rn.indexOf(P(t)), i = rn.indexOf(P(n)), a = r === -1 ? 99 : r, o = i === -1 ? 99 : i;
 		return a === o ? I(e, t).localeCompare(I(e, n)) : a - o;
 	};
 }
-function Zt(e) {
-	let t = F(e);
-	return t === "camera" || t === "media_player" ? "wide" : t === "climate" ? "lg" : "sm";
+function on(e) {
+	let t = P(e);
+	return t === "camera" || t === "media_player" ? "wide" : t === "climate" || t === "water_heater" ? "lg" : t === "weather" ? "md" : "sm";
 }
-var Qt = {
+var sn = {
 	light: "Lights",
 	switch: "Switches",
 	fan: "Fans",
@@ -1226,73 +1480,90 @@ var Qt = {
 	weather: "Weather",
 	person: "People",
 	automation: "Automations",
-	water_heater: "Water heaters"
-}, L = P(null), $t = P(!1), en = P(null), R = P(null), tn = P(0), nn = P(null), z = P(null), rn = dt(() => z.value !== null), an = dt(() => z.value ?? R.value), B = P(null), on = P(!1), sn = P(!1), cn = P(null), ln;
+	water_heater: "Water heaters",
+	lawn_mower: "Lawn mowers",
+	remote: "Remotes",
+	counter: "Counters",
+	timer: "Timers",
+	input_text: "Text",
+	text: "Text",
+	input_datetime: "Date & time",
+	date: "Date & time",
+	time: "Date & time",
+	datetime: "Date & time",
+	update: "Updates",
+	device_tracker: "Device trackers",
+	event: "Events",
+	group: "Groups",
+	image: "Images",
+	todo: "To-do lists",
+	calendar: "Calendars"
+}, L = N(null), cn = N(!1), ln = N(typeof window < "u" ? window.innerWidth : 1200), un = N(null), R = N(null), dn = N(0), fn = N(null), z = N(null), pn = pt(() => z.value !== null), mn = pt(() => z.value ?? R.value), B = N(null), hn = N(!1), gn = N(!1), _n = N(null), vn;
 function V(e, t = "info") {
-	cn.value = {
+	_n.value = {
 		text: e,
 		kind: t
-	}, clearTimeout(ln), ln = window.setTimeout(() => cn.value = null, 3500);
+	}, clearTimeout(vn), vn = window.setTimeout(() => _n.value = null, 3500);
 }
-function un() {
+function yn() {
 	if (!L.value) throw Error("Home Assistant is not connected");
 	return L.value;
 }
-var dn = null;
-async function fn() {
+var bn = null;
+async function xn() {
 	try {
-		let [e, t] = await Promise.all([un().callWS({ type: "dashforge/info" }), un().callWS({ type: "dashforge/config/get" })]);
-		en.value = e, tn.value = t.revision, R.value = t.config ? ye(t.config) : null, nn.value = null, dn ||= await un().connection.subscribeMessage((e) => {
-			e.revision !== tn.value && (tn.value = e.revision, R.value = e.config ? ye(e.config) : null);
+		let [e, t] = await Promise.all([yn().callWS({ type: "dashforge/info" }), yn().callWS({ type: "dashforge/config/get" })]);
+		un.value = e, dn.value = t.revision, R.value = t.config ? xe(t.config) : null, fn.value = null, bn ||= await yn().connection.subscribeMessage((e) => {
+			e.revision !== dn.value && (dn.value = e.revision, R.value = e.config ? xe(e.config) : null);
 		}, { type: "dashforge/config/subscribe" });
 	} catch (e) {
-		nn.value = e?.message ?? String(e);
+		fn.value = e?.message ?? String(e);
 	}
 }
-function pn() {
-	dn?.().catch(() => void 0), dn = null;
+function Sn() {
+	bn?.().catch(() => void 0), bn = null;
 }
-async function mn(e) {
+async function Cn(e) {
 	try {
-		return tn.value = (await un().callWS({
+		return dn.value = (await yn().callWS({
 			type: "dashforge/config/save",
 			config: e,
-			revision: tn.value
-		})).revision, R.value = e ? ye(e) : null, !0;
+			revision: dn.value
+		})).revision, R.value = e ? xe(e) : null, !0;
 	} catch (e) {
-		return e?.code === "conflict" ? (V("This dashboard was changed on another device. Reloaded the latest version.", "error"), await fn()) : V(e?.message ?? "Could not save the dashboard", "error"), !1;
+		return e?.code === "conflict" ? (V("This dashboard was changed on another device. Reloaded the latest version.", "error"), await xn()) : V(e?.message ?? "Could not save the dashboard", "error"), !1;
 	}
 }
-function hn() {
-	R.value && (z.value = be(R.value));
+function wn() {
+	R.value && (z.value = Se(R.value));
 }
-function gn(e) {
+function Tn(e) {
 	if (!z.value) return;
-	let t = be(z.value);
+	let t = Se(z.value);
 	e(t), z.value = t;
 }
-async function _n() {
-	z.value && await mn(z.value) && (z.value = null, V("Dashboard saved"));
+async function En() {
+	z.value && await Cn(z.value) && (z.value = null, V("Dashboard saved"));
 }
-function vn() {
+function Dn() {
 	z.value = null;
 }
 function H(e, t, n = {}) {
-	return un().callService(e, t, n).catch((n) => V(n?.message ?? `${e}.${t} failed`, "error"));
+	return yn().callService(e, t, n).catch((n) => V(n?.message ?? `${e}.${t} failed`, "error"));
 }
-function yn(e) {
-	bn?.dispatchEvent(new CustomEvent("hass-more-info", {
+function On(e) {
+	kn?.dispatchEvent(new CustomEvent("hass-more-info", {
 		detail: { entityId: e },
 		bubbles: !0,
 		composed: !0
 	}));
 }
-var bn = null;
-function xn(e) {
-	bn = e;
+var kn = null;
+function An(e) {
+	kn = e;
 }
 // node_modules/preact/jsx-runtime/dist/jsxRuntime.mjs
-var Sn = Symbol.for("pv"), Cn = 0;
+var jn = Symbol.for("pv"), Mn = 0;
 Array.isArray;
 function U(t, n, r, i, a, o) {
 	n ||= {};
@@ -1308,8 +1579,8 @@ function U(t, n, r, i, a, o) {
 		__b: 0,
 		__e: null,
 		__c: null,
-		constructor: Sn,
-		__v: --Cn,
+		constructor: jn,
+		__v: --Mn,
 		__i: -1,
 		__u: 0
 	};
@@ -1370,7 +1641,7 @@ function q({ checked: e, onChange: t, label: n }) {
 	});
 }
 function J(e) {
-	let t = e.min ?? 0, n = e.max ?? 100, r = e.step ?? 1, [i, a] = A(null), o = Re(null), s = i ?? e.value, c = n === t ? 0 : (s - t) / (n - t) * 100, l = (i) => {
+	let t = e.min ?? 0, n = e.max ?? 100, r = e.step ?? 1, [i, a] = k(null), o = Be(null), s = i ?? e.value, c = n === t ? 0 : (s - t) / (n - t) * 100, l = (i) => {
 		let a = o.current.getBoundingClientRect(), s = e.vertical ? 1 - (i.clientY - a.top) / a.height : (i.clientX - a.left) / a.width, c = t + Math.min(1, Math.max(0, s)) * (n - t);
 		return Math.round(c / r) * r;
 	};
@@ -1412,7 +1683,7 @@ function J(e) {
 	});
 }
 function Y(e) {
-	return j(() => {
+	return A(() => {
 		let t = (t) => t.key === "Escape" && e.onClose();
 		return window.addEventListener("keydown", t), () => window.removeEventListener("keydown", t);
 	}, [e.onClose]), /* @__PURE__ */ U("div", {
@@ -1445,7 +1716,7 @@ function Y(e) {
 		})
 	});
 }
-function wn(e) {
+function Nn(e) {
 	return /* @__PURE__ */ U("div", {
 		class: "segmented",
 		role: "radiogroup",
@@ -1507,7 +1778,7 @@ function Q(e) {
 		})]
 	});
 }
-function Tn({ checked: e, onChange: t }) {
+function Pn({ checked: e, onChange: t }) {
 	return /* @__PURE__ */ U("button", {
 		type: "button",
 		role: "checkbox",
@@ -1523,7 +1794,7 @@ function Tn({ checked: e, onChange: t }) {
 		})
 	});
 }
-var En = [
+var Fn = [
 	"mdi:sofa",
 	"mdi:bed",
 	"mdi:silverware-fork-knife",
@@ -1549,12 +1820,12 @@ var En = [
 	"mdi:gamepad-variant",
 	"mdi:coffee"
 ];
-function Dn({ value: e, onChange: t }) {
+function In({ value: e, onChange: t }) {
 	return /* @__PURE__ */ U("div", {
 		class: "icon-picker",
 		children: [/* @__PURE__ */ U("div", {
 			class: "icon-grid",
-			children: En.map((n) => /* @__PURE__ */ U("button", {
+			children: Fn.map((n) => /* @__PURE__ */ U("button", {
 				type: "button",
 				class: `icon-choice ${e === n ? "selected" : ""}`,
 				"aria-label": n,
@@ -1573,8 +1844,8 @@ function Dn({ value: e, onChange: t }) {
 		})]
 	});
 }
-function On(e, t, n = 500) {
-	let r = Re(void 0), i = Re(!1), a = Re(null);
+function Ln(e, t, n = 500) {
+	let r = Be(void 0), i = Be(!1), a = Be(null);
 	return {
 		onPointerDown: (t) => {
 			i.current = !1, a.current = {
@@ -1599,15 +1870,15 @@ function On(e, t, n = 500) {
 	};
 }
 // src/components/edit.tsx
-var kn = P(null), An = P(null), jn = P(null), Mn = P(null);
-function Nn(e, t) {
+var Rn = N(null), zn = N(null), Bn = N(null), Vn = N(null);
+function Hn(e, t) {
 	let n = e.entities?.[t], r = n?.area_id ?? (n?.device_id ? e.devices?.[n.device_id]?.area_id : null);
 	return r ? e.areas?.[r]?.name ?? "Other" : "No area";
 }
-function Pn(e) {
-	let t = L.value, [n, r] = A(""), [i, a] = A("all"), o = ze(() => Object.keys(t.states).filter((n) => Ut(t, n) && (!e.domains || e.domains.includes(F(n)))).sort((e, n) => I(t, e).localeCompare(I(t, n))), [Object.keys(t.states).length]), s = ze(() => [...new Set(o.map(F))].sort(), [o]), c = n.trim().toLowerCase(), l = o.filter((e) => (i === "all" || F(e) === i) && (!c || e.toLowerCase().includes(c) || I(t, e).toLowerCase().includes(c) || Nn(t, e).toLowerCase().includes(c))), u = /* @__PURE__ */ new Map();
+function Un(e) {
+	let t = L.value, [n, r] = k(""), [i, a] = k("all"), o = Ve(() => Object.keys(t.states).filter((n) => Zt(t, n) && (!e.domains || e.domains.includes(P(n)))).sort((e, n) => I(t, e).localeCompare(I(t, n))), [Object.keys(t.states).length]), s = Ve(() => [...new Set(o.map(P))].sort(), [o]), c = n.trim().toLowerCase(), l = o.filter((e) => (i === "all" || P(e) === i) && (!c || e.toLowerCase().includes(c) || I(t, e).toLowerCase().includes(c) || Hn(t, e).toLowerCase().includes(c))), u = /* @__PURE__ */ new Map();
 	for (let e of l.slice(0, 400)) {
-		let n = Nn(t, e);
+		let n = Hn(t, e);
 		u.set(n, [...u.get(n) ?? [], e]);
 	}
 	return /* @__PURE__ */ U("div", {
@@ -1637,7 +1908,7 @@ function Pn(e) {
 					type: "button",
 					class: `chip ${i === e ? "selected" : ""}`,
 					onClick: () => a(e),
-					children: Qt[e] ?? e
+					children: sn[e] ?? e
 				}))]
 			}),
 			/* @__PURE__ */ U("div", {
@@ -1648,7 +1919,7 @@ function Pn(e) {
 						children: [/* @__PURE__ */ U("div", {
 							class: "labeled-label",
 							children: t
-						}), n.map((t) => /* @__PURE__ */ U(Fn, {
+						}), n.map((t) => /* @__PURE__ */ U(Wn, {
 							id: t,
 							selected: e.isSelected(t),
 							onToggle: () => e.onToggle(t)
@@ -1667,7 +1938,7 @@ function Pn(e) {
 		]
 	});
 }
-function Fn({ id: e, selected: t, onToggle: n, room: r }) {
+function Wn({ id: e, selected: t, onToggle: n, room: r }) {
 	let i = L.value;
 	return /* @__PURE__ */ U("button", {
 		type: "button",
@@ -1676,7 +1947,7 @@ function Fn({ id: e, selected: t, onToggle: n, room: r }) {
 		"aria-pressed": t,
 		children: [
 			/* @__PURE__ */ U(W, {
-				icon: Rt(i, e),
+				icon: Kt(i, e),
 				size: 22
 			}),
 			/* @__PURE__ */ U("span", {
@@ -1684,7 +1955,7 @@ function Fn({ id: e, selected: t, onToggle: n, room: r }) {
 				children: [/* @__PURE__ */ U("span", { children: I(i, e, void 0, r) }), /* @__PURE__ */ U("span", {
 					class: "muted small",
 					children: [
-						Vt(i, i.states[e]),
+						Yt(i, i.states[e]),
 						" · ",
 						e
 					]
@@ -1700,7 +1971,7 @@ function Fn({ id: e, selected: t, onToggle: n, room: r }) {
 		]
 	});
 }
-function In() {
+function Gn() {
 	let e = z.value;
 	if (!e) return null;
 	let t = B.value, n = t?.type === "section" ? e.sections.find((e) => e.id === t.id) : e.sections[0], r = n?.cards.filter((e) => e.hidden).length ?? 0;
@@ -1713,17 +1984,17 @@ function In() {
 			children: [n && /* @__PURE__ */ U(x, { children: [
 				/* @__PURE__ */ U(K, {
 					icon: "mdi:plus",
-					onClick: () => kn.value = n.id,
+					onClick: () => Rn.value = n.id,
 					children: "Add device"
 				}),
 				/* @__PURE__ */ U(K, {
 					icon: "mdi:pencil",
-					onClick: () => jn.value = n.id,
+					onClick: () => Bn.value = n.id,
 					children: ["Edit ", n.kind === "room" ? "room" : "page"]
 				}),
 				r > 0 && /* @__PURE__ */ U(K, {
 					icon: "mdi:eye-off",
-					onClick: () => Mn.value = n.id,
+					onClick: () => Vn.value = n.id,
 					children: [
 						"Hidden (",
 						r,
@@ -1732,46 +2003,46 @@ function In() {
 				})
 			] }), /* @__PURE__ */ U(K, {
 				icon: "mdi:folder-plus",
-				onClick: () => jn.value = "new",
+				onClick: () => Bn.value = "new",
 				children: "New room or page"
 			})]
 		}), /* @__PURE__ */ U("div", {
 			class: "edit-bar-group",
 			children: [/* @__PURE__ */ U(K, {
 				kind: "ghost",
-				onClick: vn,
+				onClick: Dn,
 				children: "Cancel"
 			}), /* @__PURE__ */ U(K, {
 				kind: "primary",
 				icon: "mdi:check",
-				onClick: _n,
+				onClick: En,
 				children: "Done"
 			})]
 		})]
 	});
 }
-function Ln() {
-	let e = kn.value, t = z.value?.sections.find((t) => t.id === e);
+function Kn() {
+	let e = Rn.value, t = z.value?.sections.find((t) => t.id === e);
 	return t ? /* @__PURE__ */ U(Y, {
 		title: `Add to ${t.name}`,
-		onClose: () => kn.value = null,
+		onClose: () => Rn.value = null,
 		wide: !0,
 		footer: /* @__PURE__ */ U(K, {
 			kind: "primary",
-			onClick: () => kn.value = null,
+			onClick: () => Rn.value = null,
 			children: "Done"
 		}),
-		children: /* @__PURE__ */ U(Pn, {
+		children: /* @__PURE__ */ U(Un, {
 			isSelected: (e) => t.cards.some((t) => t.entity === e && !t.hidden),
-			onToggle: (e) => gn((n) => {
+			onToggle: (e) => Tn((n) => {
 				let r = n.sections.find((e) => e.id === t.id), i = r.cards.find((t) => t.entity === e);
-				i ? i.hidden ? i.hidden = !1 : r.cards = r.cards.filter((t) => t.entity !== e) : r.cards.push(xe(e, Zt(e)));
+				i ? i.hidden ? i.hidden = !1 : r.cards = r.cards.filter((t) => t.entity !== e) : r.cards.push(Ce(e, on(e)));
 			}),
 			autofocus: !0
 		})
 	}) : null;
 }
-var Rn = [
+var qn = [
 	{
 		value: "sm",
 		label: "Small"
@@ -1789,13 +2060,13 @@ var Rn = [
 		label: "Wide"
 	}
 ];
-function zn() {
-	let e = An.value, t = z.value, n = L.value, r = t?.sections.find((t) => t.id === e?.sectionId), i = r?.cards.find((t) => t.id === e?.cardId);
+function Jn() {
+	let e = zn.value, t = z.value, n = L.value, r = t?.sections.find((t) => t.id === e?.sectionId), i = r?.cards.find((t) => t.id === e?.cardId);
 	if (!e || !r || !i || !n) return null;
-	let a = (e) => gn((t) => {
+	let a = (e) => Tn((t) => {
 		let n = t.sections.find((e) => e.id === r.id)?.cards.find((e) => e.id === i.id);
 		n && e(n);
-	}), o = () => An.value = null;
+	}), o = () => zn.value = null;
 	return /* @__PURE__ */ U(Y, {
 		title: "Edit card",
 		onClose: o,
@@ -1803,7 +2074,7 @@ function zn() {
 			kind: "danger",
 			icon: "mdi:delete",
 			onClick: () => {
-				gn((e) => {
+				Tn((e) => {
 					let t = e.sections.find((e) => e.id === r.id);
 					t.cards = t.cards.filter((e) => e.id !== i.id);
 				}), o();
@@ -1830,18 +2101,103 @@ function zn() {
 			}),
 			/* @__PURE__ */ U(X, {
 				label: "Size",
-				children: /* @__PURE__ */ U(wn, {
+				children: /* @__PURE__ */ U(Nn, {
 					value: i.size,
-					options: Rn,
+					options: qn,
 					onChange: (e) => a((t) => t.size = e)
 				})
 			}),
 			/* @__PURE__ */ U(X, {
 				label: "Icon",
 				hint: "Leave empty to use the default icon.",
-				children: /* @__PURE__ */ U(Dn, {
+				children: /* @__PURE__ */ U(In, {
 					value: i.icon ?? "",
 					onChange: (e) => a((t) => t.icon = e || void 0)
+				})
+			}),
+			/* @__PURE__ */ U(X, {
+				label: "Colour",
+				hint: "Used when the device is on. Automatic picks a colour for the kind of device.",
+				children: /* @__PURE__ */ U("div", {
+					class: "swatches",
+					children: [
+						/* @__PURE__ */ U("button", {
+							type: "button",
+							class: `swatch auto-swatch ${i.color ? "" : "selected"}`,
+							"aria-label": "Automatic",
+							onClick: () => a((e) => e.color = void 0),
+							children: /* @__PURE__ */ U(W, {
+								icon: "mdi:auto-fix",
+								size: 18
+							})
+						}),
+						[
+							...ye,
+							"#f43f5e",
+							"#06b6d4",
+							"#a855f7",
+							"#fbbf24"
+						].map((e) => /* @__PURE__ */ U("button", {
+							type: "button",
+							class: `swatch ${i.color === e ? "selected" : ""}`,
+							"aria-label": e,
+							style: `background:${e}`,
+							onClick: () => a((t) => t.color = e)
+						})),
+						/* @__PURE__ */ U("input", {
+							type: "color",
+							class: "swatch color-input",
+							"aria-label": "Custom colour",
+							value: i.color ?? "#6366f1",
+							onInput: (e) => a((t) => t.color = e.target.value)
+						})
+					]
+				})
+			}),
+			/* @__PURE__ */ U(X, {
+				label: "When tapped",
+				children: /* @__PURE__ */ U("select", {
+					class: "input",
+					value: i.tap ?? "auto",
+					onChange: (e) => a((t) => t.tap = e.target.value ?? "auto"),
+					children: [
+						/* @__PURE__ */ U("option", {
+							value: "auto",
+							children: "Do the usual thing (toggle, run, play…)"
+						}),
+						/* @__PURE__ */ U("option", {
+							value: "toggle",
+							children: "Toggle on and off"
+						}),
+						/* @__PURE__ */ U("option", {
+							value: "details",
+							children: "Open DashForge controls"
+						}),
+						/* @__PURE__ */ U("option", {
+							value: "more-info",
+							children: "Open Home Assistant details"
+						}),
+						/* @__PURE__ */ U("option", {
+							value: "none",
+							children: "Do nothing"
+						})
+					]
+				})
+			}),
+			/* @__PURE__ */ U(Q, {
+				label: "Show on Home",
+				hint: "Pin this card to the Favourites on the Home screen",
+				children: /* @__PURE__ */ U(q, {
+					checked: !!i.favorite,
+					onChange: (e) => a((t) => t.favorite = e || void 0)
+				})
+			}),
+			i.entity.startsWith("camera.") && /* @__PURE__ */ U(Q, {
+				label: "Live video",
+				hint: "Stream the camera instead of refreshing a picture every 10 seconds",
+				children: /* @__PURE__ */ U(q, {
+					checked: !!i.live,
+					onChange: (e) => a((t) => t.live = e || void 0)
 				})
 			}),
 			/* @__PURE__ */ U(X, {
@@ -1851,7 +2207,7 @@ function zn() {
 					value: r.id,
 					onChange: (e) => {
 						let t = e.target.value;
-						t !== r.id && (gn((e) => {
+						t !== r.id && (Tn((e) => {
 							let n = e.sections.find((e) => e.id === r.id), a = e.sections.find((e) => e.id === t), o = n.cards.find((e) => e.id === i.id);
 							n.cards = n.cards.filter((e) => e.id !== i.id), a.cards.push(o);
 						}), o());
@@ -1865,20 +2221,20 @@ function zn() {
 		]
 	});
 }
-function Bn() {
-	let e = Mn.value, t = z.value?.sections.find((t) => t.id === e), n = L.value;
+function Yn() {
+	let e = Vn.value, t = z.value?.sections.find((t) => t.id === e), n = L.value;
 	if (!t || !n) return null;
 	let r = t.cards.filter((e) => e.hidden);
 	return /* @__PURE__ */ U(Y, {
 		title: "Hidden cards",
-		onClose: () => Mn.value = null,
+		onClose: () => Vn.value = null,
 		children: [r.length === 0 && /* @__PURE__ */ U("p", {
 			class: "muted",
 			children: "No hidden cards."
 		}), r.map((e) => /* @__PURE__ */ U("div", {
 			class: "row",
 			children: [
-				/* @__PURE__ */ U(W, { icon: Rt(n, e.entity, e) }),
+				/* @__PURE__ */ U(W, { icon: Kt(n, e.entity, e) }),
 				/* @__PURE__ */ U("div", {
 					class: "row-text",
 					children: /* @__PURE__ */ U("div", {
@@ -1888,7 +2244,7 @@ function Bn() {
 				}),
 				/* @__PURE__ */ U(K, {
 					icon: "mdi:eye",
-					onClick: () => gn((n) => {
+					onClick: () => Tn((n) => {
 						let r = n.sections.find((e) => e.id === t.id)?.cards.find((t) => t.id === e.id);
 						r && (r.hidden = !1);
 					}),
@@ -1898,41 +2254,45 @@ function Bn() {
 		}))]
 	});
 }
-function Vn() {
-	let e = jn.value;
-	return !e || !z.value || !L.value ? null : /* @__PURE__ */ U(Hn, { ref_: e }, e);
+function Xn() {
+	let e = Bn.value;
+	return !e || !z.value || !L.value ? null : /* @__PURE__ */ U(Zn, { ref_: e }, e);
 }
-function Hn({ ref_: e }) {
-	let t = z.value, n = L.value, [r, i] = A(null), a = e === "new" ? null : t.sections.find((t) => t.id === e), o = r ?? (a ? {
+function Zn({ ref_: e }) {
+	let t = z.value, n = L.value, [r, i] = k(null), a = e === "new" ? null : t.sections.find((t) => t.id === e), o = r ?? (a ? {
 		name: a.name,
 		icon: a.icon,
 		kind: a.kind,
-		areaId: a.areaId
+		areaId: a.areaId,
+		floorId: a.floorId,
+		background: a.background
 	} : {
 		name: "",
 		icon: "mdi:home",
 		kind: "room"
 	}), s = () => {
-		i(null), jn.value = null;
+		i(null), Bn.value = null;
 	}, c = a ? t.sections.indexOf(a) : -1, l = () => {
-		o.name.trim() && (gn((e) => {
+		o.name.trim() && (Tn((e) => {
 			if (a) {
 				let t = e.sections.find((e) => e.id === a.id);
 				Object.assign(t, {
 					name: o.name.trim(),
 					icon: o.icon,
 					kind: o.kind,
-					areaId: o.areaId
+					areaId: o.areaId,
+					floorId: o.floorId,
+					background: o.background || void 0
 				});
 			} else {
-				let t = Se(o.kind, o.name.trim(), o.icon, o.areaId);
-				e.sections.push(t), B.value = {
+				let t = we(o.kind, o.name.trim(), o.icon, o.areaId);
+				t.floorId = o.floorId, t.background = o.background || void 0, e.sections.push(t), B.value = {
 					type: "section",
 					id: t.id
 				};
 			}
 		}), s());
-	}, u = (e) => gn((t) => {
+	}, u = (e) => Tn((t) => {
 		let n = t.sections.findIndex((e) => e.id === a.id), r = n + e;
 		r < 0 || r >= t.sections.length || ([t.sections[n], t.sections[r]] = [t.sections[r], t.sections[n]]);
 	});
@@ -1943,7 +2303,7 @@ function Hn({ ref_: e }) {
 			kind: "danger",
 			icon: "mdi:delete",
 			onClick: () => {
-				confirm(`Delete ${a.name} and its cards from the dashboard? Nothing is deleted from Home Assistant.`) && (gn((e) => e.sections = e.sections.filter((e) => e.id !== a.id)), s());
+				confirm(`Delete ${a.name} and its cards from the dashboard? Nothing is deleted from Home Assistant.`) && (Tn((e) => e.sections = e.sections.filter((e) => e.id !== a.id)), s());
 			},
 			children: "Delete"
 		}), /* @__PURE__ */ U(K, {
@@ -1955,7 +2315,7 @@ function Hn({ ref_: e }) {
 		children: [
 			/* @__PURE__ */ U(X, {
 				label: "Type",
-				children: /* @__PURE__ */ U(wn, {
+				children: /* @__PURE__ */ U(Nn, {
 					value: o.kind,
 					options: [{
 						value: "room",
@@ -2002,14 +2362,45 @@ function Hn({ ref_: e }) {
 					}))]
 				})
 			}),
+			o.kind === "room" && Object.keys(n.floors ?? {}).length > 0 && /* @__PURE__ */ U(X, {
+				label: "Floor",
+				hint: "Rooms are grouped by floor on the Home screen and in the room list.",
+				children: /* @__PURE__ */ U("select", {
+					class: "input",
+					value: o.floorId ?? "",
+					onChange: (e) => i({
+						...o,
+						floorId: e.target.value || void 0
+					}),
+					children: [/* @__PURE__ */ U("option", {
+						value: "",
+						children: o.areaId && n.areas?.[o.areaId]?.floor_id ? `Same as the area (${n.floors?.[n.areas[o.areaId].floor_id]?.name})` : "No floor"
+					}), Object.values(n.floors ?? {}).sort((e, t) => (e.level ?? 0) - (t.level ?? 0)).map((e) => /* @__PURE__ */ U("option", {
+						value: e.floor_id,
+						children: e.name
+					}))]
+				})
+			}),
 			/* @__PURE__ */ U(X, {
 				label: "Icon",
-				children: /* @__PURE__ */ U(Dn, {
+				children: /* @__PURE__ */ U(In, {
 					value: o.icon,
 					onChange: (e) => i({
 						...o,
 						icon: e
 					})
+				})
+			}),
+			/* @__PURE__ */ U(X, {
+				label: "Wallpaper",
+				hint: "Optional picture behind this room, e.g. /local/living-room.jpg from your config/www folder.",
+				children: /* @__PURE__ */ U(Z, {
+					value: o.background ?? "",
+					onInput: (e) => i({
+						...o,
+						background: e
+					}),
+					placeholder: "/local/room.jpg"
 				})
 			}),
 			a && t.sections.length > 1 && /* @__PURE__ */ U(X, {
@@ -2032,11 +2423,92 @@ function Hn({ ref_: e }) {
 		]
 	});
 }
+// src/components/charts.tsx
+function Qn(e, t, n = 24, r = 5) {
+	let [i, a] = k(null);
+	return A(() => {
+		let i = !0, o = () => {
+			let r = /* @__PURE__ */ new Date(), o = /* @__PURE__ */ new Date(r.getTime() - n * 3600 * 1e3);
+			e.callWS({
+				type: "history/history_during_period",
+				start_time: o.toISOString(),
+				end_time: r.toISOString(),
+				entity_ids: [t],
+				minimal_response: !0,
+				no_attributes: !0
+			}).then((e) => {
+				i && a((e[t] ?? []).map((e) => ({
+					t: e.lu * 1e3,
+					v: Number(e.s)
+				})).filter((e) => !Number.isNaN(e.v)));
+			}).catch(() => i && a([]));
+		};
+		o();
+		let s = window.setInterval(o, r * 6e4);
+		return () => {
+			i = !1, clearInterval(s);
+		};
+	}, [t, n]), i;
+}
+function $n(e) {
+	let t = e.height ?? 120, n = [...e.points], r = Date.now();
+	if (e.now != null && !Number.isNaN(e.now) && n.push({
+		t: r,
+		v: e.now
+	}), n.length < 2) return null;
+	let i = n[0].t, a = n.map((e) => e.v), o = Math.min(...a), s = Math.max(...a);
+	s === o && (s += 1, --o);
+	let c = (s - o) * .1;
+	o -= c, s += c;
+	let l = (e) => (e - i) / (r - i || 1) * 320, u = (e) => t - (e - o) / (s - o) * t, d = `M${l(n[0].t).toFixed(1)},${u(n[0].v).toFixed(1)}`;
+	for (let e = 1; e < n.length; e++) d += ` H${l(n[e].t).toFixed(1)} V${u(n[e].v).toFixed(1)}`;
+	d += " H320";
+	let f = n[n.length - 1];
+	return /* @__PURE__ */ U("svg", {
+		viewBox: `0 0 320 ${t}`,
+		preserveAspectRatio: "none",
+		class: `line-chart ${e.class ?? ""}`,
+		role: "img",
+		"aria-label": e.label ?? "History",
+		children: [
+			/* @__PURE__ */ U("defs", { children: /* @__PURE__ */ U("linearGradient", {
+				id: "lc-fill",
+				x1: "0",
+				y1: "0",
+				x2: "0",
+				y2: "1",
+				children: [/* @__PURE__ */ U("stop", {
+					offset: "0",
+					"stop-color": "var(--chart, var(--accent))",
+					"stop-opacity": "0.35"
+				}), /* @__PURE__ */ U("stop", {
+					offset: "1",
+					"stop-color": "var(--chart, var(--accent))",
+					"stop-opacity": "0"
+				})]
+			}) }),
+			/* @__PURE__ */ U("path", {
+				d: `${d} V${t} H${l(n[0].t).toFixed(1)} Z`,
+				fill: "url(#lc-fill)"
+			}),
+			/* @__PURE__ */ U("path", {
+				d,
+				class: "chart-line"
+			}),
+			e.showDot && /* @__PURE__ */ U("circle", {
+				cx: 318,
+				cy: u(f.v),
+				r: "4",
+				class: "chart-dot"
+			})
+		]
+	});
+}
 // src/components/cards.tsx
-var Un = P(null), Wn = P(null);
-function Gn(e) {
+var er = N(null), tr = N(null), nr = N(null);
+function rr(e) {
 	if (!e) return;
-	let t = F(e.entity_id);
+	let t = P(e.entity_id);
 	if (t === "light" && e.state === "on") {
 		let t = e.attributes.rgb_color;
 		return Array.isArray(t) ? `rgb(${t[0]},${t[1]},${t[2]})` : "#fbbf24";
@@ -2058,65 +2530,88 @@ function Gn(e) {
 		].includes(t)) return "#ef4444";
 	}
 }
-function Kn(e, t, n, r) {
-	let i = e.states[t];
-	if (Mt(i) && Pt(t) !== "details") {
+function ir(e, t, n, r) {
+	let i = e.states[t], a = n?.tap ?? "auto";
+	if (a === "none") return;
+	if (a === "details") {
+		er.value = {
+			entity: t,
+			card: n,
+			room: r
+		};
+		return;
+	}
+	if (a === "more-info") {
+		On(t);
+		return;
+	}
+	let o = a === "toggle" ? "toggle" : Ft(t, i);
+	if (F(i) && o !== "details") {
 		V(`${I(e, t, n)} is unavailable`, "error");
 		return;
 	}
-	let a = F(t);
-	switch (Pt(t)) {
+	let s = P(t);
+	switch (o) {
 		case "toggle":
-			a === "cover" || a === "valve" ? H(a, i.state === "open" || i.state === "opening" ? `close_${a}` : `open_${a}`, { entity_id: t }) : H(a, "toggle", { entity_id: t });
+			s === "cover" || s === "valve" ? H(s, i.state === "open" || i.state === "opening" ? `close_${s}` : `open_${s}`, { entity_id: t }) : s === "lock" ? i.state === "locked" ? tr.value = t : H("lock", "lock", { entity_id: t }) : e.services[s]?.toggle ? H(s, "toggle", { entity_id: t }) : H("homeassistant", "toggle", { entity_id: t });
+			return;
+		case "weather":
+		case "calendar":
+		case "todo":
+			nr.value = {
+				kind: o,
+				entity: t
+			};
 			return;
 		case "activate":
-			H(a, "turn_on", { entity_id: t }), V(`${I(e, t, n)} activated`);
+			H(s, "turn_on", { entity_id: t }), V(`${I(e, t, n)} activated`);
 			return;
 		case "press":
-			H(a, "press", { entity_id: t });
+			H(s, "press", { entity_id: t });
 			return;
 		case "lock":
-			i.state === "locked" ? Wn.value = t : H("lock", "lock", { entity_id: t });
+			i.state === "locked" ? tr.value = t : H("lock", "lock", { entity_id: t });
 			return;
 		case "media":
 			H("media_player", "media_play_pause", { entity_id: t });
 			return;
-		default: Un.value = {
+		default: er.value = {
 			entity: t,
 			card: n,
 			room: r
 		};
 	}
 }
-function qn(e) {
-	let t = L.value, { card: n } = e, r = t.states[n.entity], i = Nt(r), a = Gn(r), o = I(t, n.entity, n, e.room), s = F(n.entity), c = On(() => !e.editing && (Un.value = {
+function ar(e) {
+	let t = L.value, { card: n } = e, r = t.states[n.entity], i = Pt(r), a = zt(n.entity, r), o = n.color ?? rr(r), s = n.color ?? Lt[a], c = n.color ? `linear-gradient(135deg,${n.color} 0%,color-mix(in srgb,${n.color} 60%,#000) 100%)` : Rt[a], l = I(t, n.entity, n, e.room), u = P(n.entity), d = Ln(() => !e.editing && (er.value = {
 		entity: n.entity,
 		card: n,
 		room: e.room
-	}), () => e.editing ? e.onEdit?.() : Kn(t, n.entity, n, e.room));
+	}), () => e.editing ? e.onEdit?.() : ir(t, n.entity, n, e.room));
 	return /* @__PURE__ */ U("div", {
 		class: [
 			"tile",
 			`size-${n.size}`,
-			`d-${s}`,
+			`d-${u}`,
+			`cat-${a}`,
 			i ? "active" : "",
-			Mt(r) ? "unavailable" : "",
+			F(r) ? "unavailable" : "",
 			e.editing ? "editing" : "",
 			e.dragging ? "dragging" : ""
 		].join(" "),
 		"data-index": e.index,
-		style: a ? `--tile-active:${a}` : void 0,
+		style: `--cat:${s};--grad:${c};${o ? `--tile-active:${o};` : ""}`,
 		role: "button",
 		tabIndex: 0,
-		"aria-label": `${o}, ${Vt(t, r)}`,
+		"aria-label": `${l}, ${Yt(t, r)}`,
 		onKeyDown: (r) => {
-			(r.key === "Enter" || r.key === " ") && (r.preventDefault(), e.editing ? e.onEdit?.() : Kn(t, n.entity, n, e.room));
+			(r.key === "Enter" || r.key === " ") && (r.preventDefault(), e.editing ? e.onEdit?.() : ir(t, n.entity, n, e.room));
 		},
-		...c,
+		...d,
 		children: [e.editing && /* @__PURE__ */ U(x, { children: [/* @__PURE__ */ U("button", {
 			type: "button",
 			class: "badge badge-remove",
-			"aria-label": `Hide ${o}`,
+			"aria-label": `Hide ${l}`,
 			onPointerDown: (e) => e.stopPropagation(),
 			onClick: (t) => {
 				t.stopPropagation(), e.onRemove?.();
@@ -2128,7 +2623,7 @@ function qn(e) {
 		}), /* @__PURE__ */ U("button", {
 			type: "button",
 			class: "badge badge-resize",
-			"aria-label": `Resize ${o}`,
+			"aria-label": `Resize ${l}`,
 			onPointerDown: (e) => e.stopPropagation(),
 			onClick: (t) => {
 				t.stopPropagation(), e.onResize?.();
@@ -2137,24 +2632,24 @@ function qn(e) {
 				icon: "mdi:arrow-expand",
 				size: 14
 			})
-		})] }), n.size !== "sm" && !e.editing ? /* @__PURE__ */ U(Xn, {
+		})] }), n.size !== "sm" && !e.editing ? /* @__PURE__ */ U(cr, {
 			h: t,
 			card: n,
 			s: r,
-			name: o
-		}) : /* @__PURE__ */ U(Yn, {
+			name: l
+		}) : /* @__PURE__ */ U(sr, {
 			h: t,
 			card: n,
 			s: r,
-			name: o
+			name: l
 		})]
 	});
 }
-function Jn({ h: e, card: t, s: n, name: r }) {
+function or({ h: e, card: t, s: n, name: r }) {
 	return /* @__PURE__ */ U(x, { children: [/* @__PURE__ */ U("div", {
 		class: "tile-icon",
 		children: /* @__PURE__ */ U(W, {
-			icon: Rt(e, t.entity, t),
+			icon: Kt(e, t.entity, t),
 			size: t.size === "sm" ? 24 : 26
 		})
 	}), /* @__PURE__ */ U("div", {
@@ -2164,56 +2659,58 @@ function Jn({ h: e, card: t, s: n, name: r }) {
 			children: r
 		}), /* @__PURE__ */ U("div", {
 			class: "tile-state",
-			children: Vt(e, n)
+			children: Yt(e, n)
 		})]
 	})] });
 }
-function Yn(e) {
-	return F(e.card.entity) === "sensor" && e.s && !Mt(e.s) && !Number.isNaN(Number(e.s.state)) ? /* @__PURE__ */ U(x, { children: [/* @__PURE__ */ U("div", {
+function sr(e) {
+	return P(e.card.entity) === "sensor" && e.s && !F(e.s) && !Number.isNaN(Number(e.s.state)) ? /* @__PURE__ */ U(x, { children: [/* @__PURE__ */ U("div", {
 		class: "tile-icon",
 		children: /* @__PURE__ */ U(W, {
-			icon: Rt(e.h, e.card.entity, e.card),
+			icon: Kt(e.h, e.card.entity, e.card),
 			size: 24
 		})
 	}), /* @__PURE__ */ U("div", {
 		class: "tile-text",
 		children: [/* @__PURE__ */ U("div", {
 			class: "tile-value",
-			children: Vt(e.h, e.s)
+			children: Yt(e.h, e.s)
 		}), /* @__PURE__ */ U("div", {
 			class: "tile-name",
 			children: e.name
 		})]
-	})] }) : /* @__PURE__ */ U(Jn, { ...e });
+	})] }) : /* @__PURE__ */ U(or, { ...e });
 }
-function Xn(e) {
-	switch (F(e.card.entity)) {
-		case "light": return /* @__PURE__ */ U(Zn, { ...e });
-		case "fan": return /* @__PURE__ */ U(Qn, { ...e });
-		case "cover": return /* @__PURE__ */ U($n, { ...e });
-		case "climate": return /* @__PURE__ */ U(nr, { ...e });
-		case "media_player": return /* @__PURE__ */ U(ir, { ...e });
-		case "camera": return /* @__PURE__ */ U(or, { ...e });
-		case "sensor": return /* @__PURE__ */ U(sr, { ...e });
+function cr(e) {
+	switch (P(e.card.entity)) {
+		case "light": return /* @__PURE__ */ U(lr, { ...e });
+		case "fan": return /* @__PURE__ */ U(ur, { ...e });
+		case "cover": return /* @__PURE__ */ U(dr, { ...e });
+		case "climate": return /* @__PURE__ */ U(mr, { ...e });
+		case "media_player": return /* @__PURE__ */ U(gr, { ...e });
+		case "camera": return /* @__PURE__ */ U(vr, { ...e });
+		case "sensor": return /* @__PURE__ */ U(yr, { ...e });
+		case "water_heater": return /* @__PURE__ */ U(br, { ...e });
+		case "weather": return /* @__PURE__ */ U(xr, { ...e });
 		default: return /* @__PURE__ */ U("div", {
 			class: "big-body",
-			children: /* @__PURE__ */ U(Jn, { ...e })
+			children: /* @__PURE__ */ U(or, { ...e })
 		});
 	}
 }
-function Zn(e) {
+function lr(e) {
 	let t = e.s, n = t?.state === "on" && t?.attributes.brightness != null ? Math.round(t.attributes.brightness / 255 * 100) : 0, r = (t?.attributes.supported_color_modes ?? []).some((e) => e !== "onoff");
 	return /* @__PURE__ */ U("div", {
 		class: "big-body",
 		children: [/* @__PURE__ */ U("div", {
 			class: "big-top",
-			children: /* @__PURE__ */ U(Jn, { ...e })
-		}), r && !Mt(t) && /* @__PURE__ */ U(J, {
+			children: /* @__PURE__ */ U(or, { ...e })
+		}), r && !F(t) && /* @__PURE__ */ U(J, {
 			value: n,
 			min: 1,
 			max: 100,
 			label: `${e.name} brightness`,
-			color: Gn(t),
+			color: rr(t),
 			format: (e) => `${e}%`,
 			onCommit: (t) => H("light", "turn_on", {
 				entity_id: e.card.entity,
@@ -2222,14 +2719,14 @@ function Zn(e) {
 		})]
 	});
 }
-function Qn(e) {
+function ur(e) {
 	let t = e.s, n = t?.state === "on" ? t.attributes.percentage ?? 100 : 0, r = t?.attributes.percentage_step ?? 1;
 	return /* @__PURE__ */ U("div", {
 		class: "big-body",
 		children: [/* @__PURE__ */ U("div", {
 			class: "big-top",
-			children: /* @__PURE__ */ U(Jn, { ...e })
-		}), t?.attributes.percentage !== void 0 && !Mt(t) && /* @__PURE__ */ U(J, {
+			children: /* @__PURE__ */ U(or, { ...e })
+		}), t?.attributes.percentage !== void 0 && !F(t) && /* @__PURE__ */ U(J, {
 			value: n,
 			step: r,
 			label: `${e.name} speed`,
@@ -2241,13 +2738,13 @@ function Qn(e) {
 		})]
 	});
 }
-function $n(e) {
+function dr(e) {
 	let t = e.s, n = e.card.entity;
 	return /* @__PURE__ */ U("div", {
 		class: "big-body cover-big",
 		children: [/* @__PURE__ */ U("div", {
 			class: "big-top",
-			children: /* @__PURE__ */ U(Jn, { ...e })
+			children: /* @__PURE__ */ U(or, { ...e })
 		}), /* @__PURE__ */ U("div", {
 			class: "cover-row",
 			children: [/* @__PURE__ */ U("div", {
@@ -2283,8 +2780,8 @@ function $n(e) {
 		})]
 	});
 }
-function er(e, t) {
-	let n = e.states[t]?.attributes ?? {}, [r, i] = A(null), a = Re(void 0), o = n.target_temp_step ?? (e.config.unit_system.temperature === "°F" ? 1 : .5), s = n.min_temp ?? 7, c = n.max_temp ?? 35, l = n.temperature == null && n.target_temp_low != null && n.target_temp_high != null, u = l ? [n.target_temp_low, n.target_temp_high] : n.temperature == null ? null : [n.temperature, n.temperature], d = r ?? u, f = (e) => Math.min(c, Math.max(s, Math.round(e / o) * o));
+function fr(e, t) {
+	let n = e.states[t]?.attributes ?? {}, [r, i] = k(null), a = Be(void 0), o = n.target_temp_step ?? (e.config.unit_system.temperature === "°F" ? 1 : .5), s = n.min_temp ?? 7, c = n.max_temp ?? 35, l = n.temperature == null && n.target_temp_low != null && n.target_temp_high != null, u = l ? [n.target_temp_low, n.target_temp_high] : n.temperature == null ? null : [n.temperature, n.temperature], d = r ?? u, f = (e) => Math.min(c, Math.max(s, Math.round(e / o) * o));
 	return {
 		shown: d,
 		label: d ? l ? `${d[0]}–${d[1]}°` : `${d[0]}°` : "—",
@@ -2307,8 +2804,8 @@ function er(e, t) {
 		max: c
 	};
 }
-function tr({ h: e, entityId: t, big: n }) {
-	let r = e.states[t], { shown: i, label: a, isRange: o, nudge: s, min: c, max: l } = er(e, t), u = r?.attributes.current_temperature, d = (e) => Math.min(1, Math.max(0, (e - c) / (l - c))), f = i && o ? d(i[0]) : 0, p = i ? d(i[1]) : 0, m = 2 * Math.PI * 52, h = m * .75, g = Gn(r) ?? "var(--accent)";
+function pr({ h: e, entityId: t, big: n }) {
+	let r = e.states[t], { shown: i, label: a, isRange: o, nudge: s, min: c, max: l } = fr(e, t), u = r?.attributes.current_temperature, d = (e) => Math.min(1, Math.max(0, (e - c) / (l - c))), f = i && o ? d(i[0]) : 0, p = i ? d(i[1]) : 0, m = 2 * Math.PI * 52, h = m * .75, g = rr(r) ?? "var(--accent)";
 	return /* @__PURE__ */ U("div", {
 		class: `climate-ring ${n ? "big" : ""}`,
 		children: [
@@ -2362,19 +2859,19 @@ function tr({ h: e, entityId: t, big: n }) {
 		]
 	});
 }
-function nr(e) {
+function mr(e) {
 	return /* @__PURE__ */ U("div", {
 		class: "big-body climate-big",
 		children: [/* @__PURE__ */ U("div", {
 			class: "big-top",
-			children: /* @__PURE__ */ U(Jn, { ...e })
-		}), !Mt(e.s) && /* @__PURE__ */ U(tr, {
+			children: /* @__PURE__ */ U(or, { ...e })
+		}), !F(e.s) && /* @__PURE__ */ U(pr, {
 			h: e.h,
 			entityId: e.card.entity
 		})]
 	});
 }
-function rr({ h: e, entityId: t, showVolume: n }) {
+function hr({ h: e, entityId: t, showVolume: n }) {
 	let r = e.states[t], i = r?.state === "playing", a = r?.attributes.volume_level;
 	return /* @__PURE__ */ U("div", {
 		class: "media-controls",
@@ -2410,7 +2907,7 @@ function rr({ h: e, entityId: t, showVolume: n }) {
 		})]
 	});
 }
-function ir(e) {
+function gr(e) {
 	let t = e.s, n = t?.attributes.entity_picture ? e.h.hassUrl(t.attributes.entity_picture) : null;
 	return /* @__PURE__ */ U("div", {
 		class: "big-body media-big",
@@ -2428,7 +2925,7 @@ function ir(e) {
 						alt: "",
 						class: "media-art",
 						onError: (e) => e.target.style.visibility = "hidden"
-					}) : /* @__PURE__ */ U(W, { icon: Rt(e.h, e.card.entity, e.card) })
+					}) : /* @__PURE__ */ U(W, { icon: Kt(e.h, e.card.entity, e.card) })
 				}), /* @__PURE__ */ U("div", {
 					class: "tile-text",
 					children: [/* @__PURE__ */ U("div", {
@@ -2436,11 +2933,11 @@ function ir(e) {
 						children: t?.attributes.media_title ?? e.name
 					}), /* @__PURE__ */ U("div", {
 						class: "tile-state",
-						children: t?.attributes.media_artist ?? Vt(e.h, t)
+						children: t?.attributes.media_artist ?? Yt(e.h, t)
 					})]
 				})]
 			}),
-			!Mt(t) && t?.state !== "off" && /* @__PURE__ */ U(rr, {
+			!F(t) && t?.state !== "off" && /* @__PURE__ */ U(hr, {
 				h: e.h,
 				entityId: e.card.entity,
 				showVolume: e.card.size === "wide"
@@ -2448,16 +2945,22 @@ function ir(e) {
 		]
 	});
 }
-function ar({ h: e, entityId: t }) {
-	let [n, r] = A(0);
-	j(() => {
-		let e = window.setInterval(() => document.visibilityState === "visible" && r((e) => e + 1), 1e4);
+function _r({ h: e, entityId: t, live: n }) {
+	let [r, i] = k(0), [a, o] = k(!1);
+	A(() => {
+		if (n && !a) return;
+		let e = window.setInterval(() => document.visibilityState === "visible" && i((e) => e + 1), 1e4);
 		return () => clearInterval(e);
-	}, []);
-	let i = e.states[t]?.attributes.entity_picture;
-	return i ? /* @__PURE__ */ U("img", {
+	}, [n, a]);
+	let s = e.states[t], c = s?.attributes.entity_picture, l = s?.attributes.access_token;
+	return n && !a && l ? /* @__PURE__ */ U("img", {
 		class: "camera-img",
-		src: e.hassUrl(i) + (i.includes("?") ? "&" : "?") + `t=${n}`,
+		src: e.hassUrl(`/api/camera_proxy_stream/${t}?token=${l}`),
+		alt: "",
+		onError: () => o(!0)
+	}) : c ? /* @__PURE__ */ U("img", {
+		class: "camera-img",
+		src: e.hassUrl(c) + (c.includes("?") ? "&" : "?") + `t=${r}`,
 		alt: "",
 		loading: "lazy"
 	}) : /* @__PURE__ */ U("div", {
@@ -2465,39 +2968,150 @@ function ar({ h: e, entityId: t }) {
 		children: /* @__PURE__ */ U(W, { icon: "mdi:cctv-off" })
 	});
 }
-function or(e) {
+function vr(e) {
 	return /* @__PURE__ */ U("div", {
 		class: "big-body camera-big",
-		children: [/* @__PURE__ */ U(ar, {
+		children: [/* @__PURE__ */ U(_r, {
 			h: e.h,
-			entityId: e.card.entity
+			entityId: e.card.entity,
+			live: e.card.live
 		}), /* @__PURE__ */ U("div", {
 			class: "camera-label",
-			children: e.name
+			children: [e.card.live && /* @__PURE__ */ U("span", { class: "live-dot" }), e.name]
 		})]
 	});
 }
-function sr(e) {
+function yr(e) {
+	let t = e.s && !Number.isNaN(Number(e.s.state));
 	return /* @__PURE__ */ U("div", {
-		class: "big-body sensor-big",
+		class: `big-body sensor-big ${t ? "with-chart" : ""}`,
+		children: [/* @__PURE__ */ U("div", {
+			class: "big-top",
+			children: [
+				/* @__PURE__ */ U("div", {
+					class: "tile-icon",
+					children: /* @__PURE__ */ U(W, { icon: Kt(e.h, e.card.entity, e.card) })
+				}),
+				/* @__PURE__ */ U("div", {
+					class: "tile-text",
+					children: [/* @__PURE__ */ U("div", {
+						class: "tile-name",
+						children: e.name
+					}), /* @__PURE__ */ U("div", {
+						class: "tile-state",
+						children: "Last 24 hours"
+					})]
+				}),
+				/* @__PURE__ */ U("div", {
+					class: "sensor-value",
+					children: Yt(e.h, e.s)
+				})
+			]
+		}), t && /* @__PURE__ */ U(Sr, {
+			h: e.h,
+			entityId: e.card.entity,
+			now: Number(e.s.state)
+		})]
+	});
+}
+function br(e) {
+	let t = e.s?.attributes ?? {};
+	return /* @__PURE__ */ U("div", {
+		class: "big-body",
 		children: [
 			/* @__PURE__ */ U("div", {
-				class: "tile-icon",
-				children: /* @__PURE__ */ U(W, { icon: Rt(e.h, e.card.entity, e.card) })
+				class: "big-top",
+				children: /* @__PURE__ */ U(or, { ...e })
 			}),
 			/* @__PURE__ */ U("div", {
-				class: "sensor-value",
-				children: Vt(e.h, e.s)
+				class: "big-number",
+				children: [t.current_temperature == null ? t.temperature == null ? "—" : `${t.temperature}°` : `${Math.round(t.current_temperature)}°`, /* @__PURE__ */ U("span", {
+					class: "big-number-label",
+					children: t.current_temperature == null ? "Target" : "Water now"
+				})]
 			}),
-			/* @__PURE__ */ U("div", {
-				class: "tile-name",
-				children: e.name
+			t.temperature != null && !F(e.s) && /* @__PURE__ */ U(J, {
+				value: t.temperature,
+				min: t.min_temp ?? 30,
+				max: t.max_temp ?? 70,
+				step: t.target_temp_step ?? 1,
+				label: "Target temperature",
+				format: (e) => `Target ${e}°`,
+				onCommit: (t) => H("water_heater", "set_temperature", {
+					entity_id: e.card.entity,
+					temperature: t
+				})
 			})
 		]
 	});
 }
+function xr(e) {
+	let t = e.s?.attributes ?? {};
+	return /* @__PURE__ */ U("div", {
+		class: "big-body weather-big",
+		children: [/* @__PURE__ */ U("div", {
+			class: "big-top",
+			children: [
+				/* @__PURE__ */ U("div", {
+					class: "tile-icon",
+					children: /* @__PURE__ */ U(W, { icon: Kt(e.h, e.card.entity, e.card) })
+				}),
+				/* @__PURE__ */ U("div", {
+					class: "tile-text",
+					children: [/* @__PURE__ */ U("div", {
+						class: "tile-name",
+						children: e.name
+					}), /* @__PURE__ */ U("div", {
+						class: "tile-state",
+						children: Yt(e.h, e.s).split(" · ")[1] ?? ""
+					})]
+				}),
+				/* @__PURE__ */ U("div", {
+					class: "weather-big-temp",
+					children: t.temperature == null ? "" : `${Math.round(t.temperature)}°`
+				})
+			]
+		}), /* @__PURE__ */ U("div", {
+			class: "weather-big-meta",
+			children: [
+				t.humidity != null && /* @__PURE__ */ U("span", { children: [
+					/* @__PURE__ */ U(W, {
+						icon: "mdi:water-percent",
+						size: 16
+					}),
+					" ",
+					t.humidity,
+					"%"
+				] }),
+				t.wind_speed != null && /* @__PURE__ */ U("span", { children: [
+					/* @__PURE__ */ U(W, {
+						icon: "mdi:weather-windy",
+						size: 16
+					}),
+					" ",
+					Math.round(t.wind_speed),
+					" ",
+					t.wind_speed_unit ?? ""
+				] }),
+				/* @__PURE__ */ U("span", {
+					class: "muted-on",
+					children: "Tap for forecast"
+				})
+			]
+		})]
+	});
+}
+function Sr({ h: e, entityId: t, now: n }) {
+	let r = Qn(e, t, 24, 5);
+	return r ? /* @__PURE__ */ U($n, {
+		points: r,
+		now: n,
+		class: "tile-chart",
+		showDot: !0
+	}) : /* @__PURE__ */ U("div", { class: "chart-space" });
+}
 // src/components/details.tsx
-var cr = [
+var Cr = [
 	[0, 0],
 	[30, 90],
 	[50, 90],
@@ -2506,43 +3120,43 @@ var cr = [
 	[220, 90],
 	[270, 80],
 	[320, 80]
-], lr = (e) => e.replace(/_/g, " ").replace(/\b\w/g, (e) => e.toUpperCase());
-function ur(e) {
+], wr = (e) => e.replace(/_/g, " ").replace(/\b\w/g, (e) => e.toUpperCase());
+function Tr(e) {
 	let t = (Date.now() - new Date(e).getTime()) / 1e3;
 	return t < 60 ? "just now" : t < 3600 ? `${Math.floor(t / 60)} min ago` : t < 86400 ? `${Math.floor(t / 3600)} h ago` : `${Math.floor(t / 86400)} d ago`;
 }
-function dr() {
-	let e = Un.value, t = L.value;
+function Er() {
+	let e = er.value, t = L.value;
 	if (!e || !t) return null;
-	let n = t.states[e.entity], r = I(t, e.entity, e.card, e.room), i = () => Un.value = null;
+	let n = t.states[e.entity], r = I(t, e.entity, e.card, e.room), i = () => er.value = null;
 	return /* @__PURE__ */ U(Y, {
 		title: r,
 		onClose: i,
 		footer: /* @__PURE__ */ U(x, { children: [/* @__PURE__ */ U("span", {
 			class: "muted",
-			children: n ? `Changed ${ur(n.last_changed)}` : ""
+			children: n ? `Changed ${Tr(n.last_changed)}` : ""
 		}), /* @__PURE__ */ U(K, {
 			kind: "ghost",
 			icon: "mdi:open-in-new",
 			onClick: () => {
-				i(), yn(e.entity);
+				i(), On(e.entity);
 			},
 			children: "Home Assistant details"
 		})] }),
 		children: [/* @__PURE__ */ U("div", {
 			class: "detail-head",
-			style: Gn(n) ? `--tile-active:${Gn(n)}` : void 0,
+			style: rr(n) ? `--tile-active:${rr(n)}` : void 0,
 			children: [/* @__PURE__ */ U("div", {
-				class: `tile-icon big ${Nt(n) ? "active" : ""}`,
+				class: `tile-icon big ${Pt(n) ? "active" : ""}`,
 				children: /* @__PURE__ */ U(W, {
-					icon: Rt(t, e.entity, e.card),
+					icon: Kt(t, e.entity, e.card),
 					size: 32
 				})
 			}), /* @__PURE__ */ U("div", {
 				class: "detail-state",
-				children: Vt(t, n)
+				children: Yt(t, n)
 			})]
-		}), n && !Mt(n) ? /* @__PURE__ */ U(fr, {
+		}), n && !F(n) ? /* @__PURE__ */ U(Dr, {
 			h: t,
 			s: n
 		}) : /* @__PURE__ */ U("p", {
@@ -2551,8 +3165,8 @@ function dr() {
 		})]
 	});
 }
-function fr({ h: e, s: t }) {
-	let n = t.entity_id, r = F(n), i = t.attributes;
+function Dr({ h: e, s: t }) {
+	let n = t.entity_id, r = P(n), i = t.attributes;
 	switch (r) {
 		case "light": {
 			let e = i.supported_color_modes ?? [], r = e.some((e) => e !== "onoff"), a = e.includes("color_temp"), o = e.some((e) => [
@@ -2565,14 +3179,14 @@ function fr({ h: e, s: t }) {
 			return /* @__PURE__ */ U("div", {
 				class: "controls",
 				children: [
-					/* @__PURE__ */ U(pr, { s: t }),
-					r && /* @__PURE__ */ U(mr, {
+					/* @__PURE__ */ U(Ar, { s: t }),
+					r && /* @__PURE__ */ U(jr, {
 						label: "Brightness",
 						children: /* @__PURE__ */ U(J, {
 							value: s,
 							min: 1,
 							max: 100,
-							color: Gn(t),
+							color: rr(t),
 							format: (e) => `${e}%`,
 							onCommit: (e) => H("light", "turn_on", {
 								entity_id: n,
@@ -2580,7 +3194,7 @@ function fr({ h: e, s: t }) {
 							})
 						})
 					}),
-					a && /* @__PURE__ */ U(mr, {
+					a && /* @__PURE__ */ U(jr, {
 						label: "Colour temperature",
 						children: /* @__PURE__ */ U(J, {
 							class: "ct-slider",
@@ -2595,11 +3209,11 @@ function fr({ h: e, s: t }) {
 							})
 						})
 					}),
-					o && /* @__PURE__ */ U(mr, {
+					o && /* @__PURE__ */ U(jr, {
 						label: "Colour",
 						children: /* @__PURE__ */ U("div", {
 							class: "swatches",
-							children: cr.map(([e, t], r) => r === 0 ? /* @__PURE__ */ U("button", {
+							children: Cr.map(([e, t], r) => r === 0 ? /* @__PURE__ */ U("button", {
 								type: "button",
 								class: "swatch",
 								"aria-label": "White",
@@ -2620,7 +3234,7 @@ function fr({ h: e, s: t }) {
 							}))
 						})
 					}),
-					i.effect_list?.length > 0 && /* @__PURE__ */ U(hr, {
+					i.effect_list?.length > 0 && /* @__PURE__ */ U(Mr, {
 						label: "Effect",
 						value: i.effect,
 						options: i.effect_list,
@@ -2635,8 +3249,8 @@ function fr({ h: e, s: t }) {
 		case "fan": return /* @__PURE__ */ U("div", {
 			class: "controls",
 			children: [
-				/* @__PURE__ */ U(pr, { s: t }),
-				i.percentage !== void 0 && /* @__PURE__ */ U(mr, {
+				/* @__PURE__ */ U(Ar, { s: t }),
+				i.percentage !== void 0 && /* @__PURE__ */ U(jr, {
 					label: "Speed",
 					children: /* @__PURE__ */ U(J, {
 						value: t.state === "on" ? i.percentage ?? 0 : 0,
@@ -2658,7 +3272,7 @@ function fr({ h: e, s: t }) {
 						})
 					})]
 				}),
-				i.preset_modes?.length > 0 && /* @__PURE__ */ U(hr, {
+				i.preset_modes?.length > 0 && /* @__PURE__ */ U(Mr, {
 					label: "Mode",
 					value: i.preset_mode,
 					options: i.preset_modes,
@@ -2693,7 +3307,7 @@ function fr({ h: e, s: t }) {
 						})
 					]
 				}),
-				i.current_position != null && /* @__PURE__ */ U(mr, {
+				i.current_position != null && /* @__PURE__ */ U(jr, {
 					label: "Position",
 					children: /* @__PURE__ */ U(J, {
 						value: i.current_position,
@@ -2704,7 +3318,7 @@ function fr({ h: e, s: t }) {
 						})
 					})
 				}),
-				i.current_tilt_position != null && /* @__PURE__ */ U(mr, {
+				i.current_tilt_position != null && /* @__PURE__ */ U(jr, {
 					label: "Tilt",
 					children: /* @__PURE__ */ U(J, {
 						value: i.current_tilt_position,
@@ -2720,12 +3334,12 @@ function fr({ h: e, s: t }) {
 		case "climate": return /* @__PURE__ */ U("div", {
 			class: "controls",
 			children: [
-				/* @__PURE__ */ U(tr, {
+				/* @__PURE__ */ U(pr, {
 					h: e,
 					entityId: n,
 					big: !0
 				}),
-				i.hvac_modes?.length > 0 && /* @__PURE__ */ U(hr, {
+				i.hvac_modes?.length > 0 && /* @__PURE__ */ U(Mr, {
 					label: "Mode",
 					value: t.state,
 					options: i.hvac_modes,
@@ -2734,7 +3348,7 @@ function fr({ h: e, s: t }) {
 						hvac_mode: e
 					})
 				}),
-				i.preset_modes?.length > 0 && /* @__PURE__ */ U(hr, {
+				i.preset_modes?.length > 0 && /* @__PURE__ */ U(Mr, {
 					label: "Preset",
 					value: i.preset_mode,
 					options: i.preset_modes,
@@ -2743,7 +3357,7 @@ function fr({ h: e, s: t }) {
 						preset_mode: e
 					})
 				}),
-				i.fan_modes?.length > 0 && /* @__PURE__ */ U(hr, {
+				i.fan_modes?.length > 0 && /* @__PURE__ */ U(Mr, {
 					label: "Fan",
 					value: i.fan_mode,
 					options: i.fan_modes,
@@ -2779,12 +3393,12 @@ function fr({ h: e, s: t }) {
 							children: [i.media_artist, i.media_album_name].filter(Boolean).join(" · ")
 						})]
 					}),
-					/* @__PURE__ */ U(rr, {
+					/* @__PURE__ */ U(hr, {
 						h: e,
 						entityId: n,
 						showVolume: !0
 					}),
-					i.source_list?.length > 0 && /* @__PURE__ */ U(hr, {
+					i.source_list?.length > 0 && /* @__PURE__ */ U(Mr, {
 						label: "Source",
 						value: i.source,
 						options: i.source_list,
@@ -2816,12 +3430,12 @@ function fr({ h: e, s: t }) {
 				}), /* @__PURE__ */ U(K, {
 					kind: "danger",
 					icon: "mdi:lock-open-variant",
-					onClick: () => Wn.value = n,
+					onClick: () => tr.value = n,
 					children: "Unlock"
 				})]
 			})
 		});
-		case "alarm_control_panel": return /* @__PURE__ */ U(gr, { s: t });
+		case "alarm_control_panel": return /* @__PURE__ */ U(Nr, { s: t });
 		case "vacuum": return /* @__PURE__ */ U("div", {
 			class: "controls",
 			children: [/* @__PURE__ */ U("div", {
@@ -2875,7 +3489,7 @@ function fr({ h: e, s: t }) {
 		case "select":
 		case "input_select": return /* @__PURE__ */ U("div", {
 			class: "controls",
-			children: /* @__PURE__ */ U(hr, {
+			children: /* @__PURE__ */ U(Mr, {
 				label: "Option",
 				value: t.state,
 				options: i.options ?? [],
@@ -2887,11 +3501,203 @@ function fr({ h: e, s: t }) {
 		});
 		case "camera": return /* @__PURE__ */ U("div", {
 			class: "controls",
-			children: /* @__PURE__ */ U(ar, {
+			children: /* @__PURE__ */ U(_r, {
 				h: e,
-				entityId: n
+				entityId: n,
+				live: !0
 			})
 		});
+		case "water_heater": return /* @__PURE__ */ U("div", {
+			class: "controls",
+			children: [
+				i.temperature != null && /* @__PURE__ */ U(jr, {
+					label: "Target temperature",
+					children: /* @__PURE__ */ U(J, {
+						value: i.temperature,
+						min: i.min_temp ?? 30,
+						max: i.max_temp ?? 70,
+						step: i.target_temp_step ?? 1,
+						format: (e) => `${e}°`,
+						onCommit: (e) => H("water_heater", "set_temperature", {
+							entity_id: n,
+							temperature: e
+						})
+					})
+				}),
+				i.operation_list?.length > 0 && /* @__PURE__ */ U(Mr, {
+					label: "Mode",
+					value: i.operation_mode ?? t.state,
+					options: i.operation_list,
+					onPick: (e) => H("water_heater", "set_operation_mode", {
+						entity_id: n,
+						operation_mode: e
+					})
+				}),
+				i.away_mode !== void 0 && /* @__PURE__ */ U("div", {
+					class: "control-row",
+					children: [/* @__PURE__ */ U("span", { children: "Away mode" }), /* @__PURE__ */ U(q, {
+						checked: i.away_mode === "on",
+						onChange: (e) => H("water_heater", "set_away_mode", {
+							entity_id: n,
+							away_mode: e
+						})
+					})]
+				}),
+				i.current_temperature != null && /* @__PURE__ */ U("p", {
+					class: "muted",
+					children: [
+						"Water is ",
+						i.current_temperature,
+						"°"
+					]
+				})
+			]
+		});
+		case "humidifier": return /* @__PURE__ */ U("div", {
+			class: "controls",
+			children: [
+				/* @__PURE__ */ U(Ar, { s: t }),
+				i.humidity != null && /* @__PURE__ */ U(jr, {
+					label: "Target humidity",
+					children: /* @__PURE__ */ U(J, {
+						value: i.humidity,
+						min: i.min_humidity ?? 0,
+						max: i.max_humidity ?? 100,
+						format: (e) => `${e}%`,
+						onCommit: (e) => H("humidifier", "set_humidity", {
+							entity_id: n,
+							humidity: e
+						})
+					})
+				}),
+				i.available_modes?.length > 0 && /* @__PURE__ */ U(Mr, {
+					label: "Mode",
+					value: i.mode,
+					options: i.available_modes,
+					onPick: (e) => H("humidifier", "set_mode", {
+						entity_id: n,
+						mode: e
+					})
+				}),
+				i.current_humidity != null && /* @__PURE__ */ U("p", {
+					class: "muted",
+					children: [
+						"Now ",
+						i.current_humidity,
+						"%"
+					]
+				})
+			]
+		});
+		case "lawn_mower": return /* @__PURE__ */ U("div", {
+			class: "controls",
+			children: /* @__PURE__ */ U("div", {
+				class: "btn-row",
+				children: [
+					/* @__PURE__ */ U(K, {
+						icon: "mdi:play",
+						onClick: () => H("lawn_mower", "start_mowing", { entity_id: n }),
+						children: "Start"
+					}),
+					/* @__PURE__ */ U(K, {
+						icon: "mdi:pause",
+						onClick: () => H("lawn_mower", "pause", { entity_id: n }),
+						children: "Pause"
+					}),
+					/* @__PURE__ */ U(K, {
+						icon: "mdi:home-import-outline",
+						onClick: () => H("lawn_mower", "dock", { entity_id: n }),
+						children: "Dock"
+					})
+				]
+			})
+		});
+		case "counter": return /* @__PURE__ */ U("div", {
+			class: "controls",
+			children: [/* @__PURE__ */ U("div", {
+				class: "counter-row",
+				children: [
+					/* @__PURE__ */ U(K, {
+						icon: "mdi:minus",
+						onClick: () => H("counter", "decrement", { entity_id: n }),
+						children: "Down"
+					}),
+					/* @__PURE__ */ U("span", {
+						class: "counter-value",
+						children: t.state
+					}),
+					/* @__PURE__ */ U(K, {
+						icon: "mdi:plus",
+						onClick: () => H("counter", "increment", { entity_id: n }),
+						children: "Up"
+					})
+				]
+			}), /* @__PURE__ */ U(K, {
+				kind: "ghost",
+				icon: "mdi:restore",
+				onClick: () => H("counter", "reset", { entity_id: n }),
+				children: "Reset"
+			})]
+		});
+		case "timer": return /* @__PURE__ */ U("div", {
+			class: "controls",
+			children: [/* @__PURE__ */ U(Or, { s: t }), /* @__PURE__ */ U("div", {
+				class: "btn-row",
+				children: [
+					t.state === "active" ? /* @__PURE__ */ U(K, {
+						icon: "mdi:pause",
+						onClick: () => H("timer", "pause", { entity_id: n }),
+						children: "Pause"
+					}) : /* @__PURE__ */ U(K, {
+						kind: "primary",
+						icon: "mdi:play",
+						onClick: () => H("timer", "start", { entity_id: n }),
+						children: "Start"
+					}),
+					/* @__PURE__ */ U(K, {
+						icon: "mdi:stop",
+						onClick: () => H("timer", "cancel", { entity_id: n }),
+						children: "Cancel"
+					}),
+					/* @__PURE__ */ U(K, {
+						icon: "mdi:check",
+						onClick: () => H("timer", "finish", { entity_id: n }),
+						children: "Finish"
+					})
+				]
+			})]
+		});
+		case "input_text":
+		case "text": return /* @__PURE__ */ U(kr, { s: t });
+		case "update": return /* @__PURE__ */ U("div", {
+			class: "controls",
+			children: [
+				/* @__PURE__ */ U("p", { children: [
+					"Installed ",
+					/* @__PURE__ */ U("strong", { children: i.installed_version ?? "—" }),
+					t.state === "on" && /* @__PURE__ */ U(x, { children: [
+						" ",
+						"· Available ",
+						/* @__PURE__ */ U("strong", { children: i.latest_version })
+					] })
+				] }),
+				i.release_summary && /* @__PURE__ */ U("p", {
+					class: "muted small",
+					children: i.release_summary
+				}),
+				t.state === "on" && !!(i.supported_features & 1) && /* @__PURE__ */ U(K, {
+					kind: "primary",
+					icon: "mdi:download",
+					onClick: () => H("update", "install", { entity_id: n }),
+					children: i.in_progress ? "Installing…" : "Install update"
+				})
+			]
+		});
+		case "image": return i.entity_picture ? /* @__PURE__ */ U("img", {
+			class: "media-art-large",
+			src: e.hassUrl(i.entity_picture),
+			alt: ""
+		}) : null;
 		case "scene":
 		case "script": return /* @__PURE__ */ U("div", {
 			class: "controls",
@@ -2912,19 +3718,58 @@ function fr({ h: e, s: t }) {
 				children: "Press"
 			})
 		});
-		case "sensor": return /* @__PURE__ */ U(_r, {
+		case "sensor": return /* @__PURE__ */ U(Pr, {
 			h: e,
 			entityId: n,
 			unit: i.unit_of_measurement
 		});
 		default: return e.services[r]?.toggle ? /* @__PURE__ */ U("div", {
 			class: "controls",
-			children: /* @__PURE__ */ U(pr, { s: t })
+			children: /* @__PURE__ */ U(Ar, { s: t })
 		}) : null;
 	}
 }
-function pr({ s: e }) {
-	let t = F(e.entity_id);
+function Or({ s: e }) {
+	let [, t] = k(0);
+	A(() => {
+		if (e.state !== "active") return;
+		let n = window.setInterval(() => t((e) => e + 1), 1e3);
+		return () => clearInterval(n);
+	}, [e.state]);
+	let n = e.attributes.remaining ?? e.attributes.duration ?? "";
+	if (e.state === "active" && e.attributes.finishes_at) {
+		let t = Math.max(0, Math.round((new Date(e.attributes.finishes_at).getTime() - Date.now()) / 1e3)), r = Math.floor(t / 3600), i = Math.floor(t % 3600 / 60), a = t % 60;
+		n = `${r ? r + ":" : ""}${String(i).padStart(r ? 2 : 1, "0")}:${String(a).padStart(2, "0")}`;
+	}
+	return /* @__PURE__ */ U("div", {
+		class: "counter-value center",
+		children: n
+	});
+}
+function kr({ s: e }) {
+	let [t, n] = k(e.state), r = P(e.entity_id), i = () => H(r, "set_value", {
+		entity_id: e.entity_id,
+		value: t
+	});
+	return /* @__PURE__ */ U("form", {
+		class: "controls",
+		onSubmit: (e) => {
+			e.preventDefault(), i();
+		},
+		children: [/* @__PURE__ */ U(Z, {
+			value: t,
+			onInput: n,
+			type: e.attributes.mode === "password" ? "password" : "text"
+		}), /* @__PURE__ */ U(K, {
+			kind: "primary",
+			icon: "mdi:check",
+			onClick: i,
+			children: "Save"
+		})]
+	});
+}
+function Ar({ s: e }) {
+	let t = P(e.entity_id);
 	return /* @__PURE__ */ U("div", {
 		class: "control-row",
 		children: [/* @__PURE__ */ U("span", { children: e.state === "on" ? "On" : "Off" }), /* @__PURE__ */ U(q, {
@@ -2933,7 +3778,7 @@ function pr({ s: e }) {
 		})]
 	});
 }
-function mr({ label: e, children: t }) {
+function jr({ label: e, children: t }) {
 	return /* @__PURE__ */ U("div", {
 		class: "labeled",
 		children: [/* @__PURE__ */ U("div", {
@@ -2942,8 +3787,8 @@ function mr({ label: e, children: t }) {
 		}), t]
 	});
 }
-function hr({ label: e, value: t, options: n, onPick: r }) {
-	return /* @__PURE__ */ U(mr, {
+function Mr({ label: e, value: t, options: n, onPick: r }) {
+	return /* @__PURE__ */ U(jr, {
 		label: e,
 		children: /* @__PURE__ */ U("div", {
 			class: "chips",
@@ -2951,13 +3796,13 @@ function hr({ label: e, value: t, options: n, onPick: r }) {
 				type: "button",
 				class: `chip ${e === t ? "selected" : ""}`,
 				onClick: () => r(e),
-				children: lr(e)
+				children: wr(e)
 			}))
 		})
 	});
 }
-function gr({ s: e }) {
-	let [t, n] = A(""), r = e.entity_id, i = !!e.attributes.code_format, a = e.attributes.supported_features ?? 0, o = (e) => {
+function Nr({ s: e }) {
+	let [t, n] = k(""), r = e.entity_id, i = !!e.attributes.code_format, a = e.attributes.supported_features ?? 0, o = (e) => {
 		H("alarm_control_panel", e, i ? {
 			entity_id: r,
 			code: t
@@ -3004,28 +3849,9 @@ function gr({ s: e }) {
 		})]
 	});
 }
-function _r({ h: e, entityId: t, unit: n }) {
-	let [r, i] = A(null);
-	if (j(() => {
-		let n = !0, r = /* @__PURE__ */ new Date(), a = /* @__PURE__ */ new Date(r.getTime() - 864e5);
-		return e.callWS({
-			type: "history/history_during_period",
-			start_time: a.toISOString(),
-			end_time: r.toISOString(),
-			entity_ids: [t],
-			minimal_response: !0,
-			no_attributes: !0
-		}).then((e) => {
-			if (!n) return;
-			let r = (e[t] ?? []).map((e) => ({
-				t: e.lu * 1e3,
-				v: Number(e.s)
-			})).filter((e) => !Number.isNaN(e.v));
-			i(r);
-		}).catch(() => n && i([])), () => {
-			n = !1;
-		};
-	}, [t]), r === null) return /* @__PURE__ */ U("p", {
+function Pr({ h: e, entityId: t, unit: n }) {
+	let r = Qn(e, t, 24, 5);
+	if (r === null) return /* @__PURE__ */ U("p", {
 		class: "muted",
 		children: "Loading history…"
 	});
@@ -3033,12 +3859,7 @@ function _r({ h: e, entityId: t, unit: n }) {
 		class: "muted",
 		children: "No numeric history for the last 24 hours."
 	});
-	let a = r[0].t, o = Date.now(), s = r.map((e) => e.v), c = Math.min(...s), l = Math.max(...s);
-	l === c && (l += 1, --c);
-	let u = (e) => (e - a) / (o - a) * 320, d = (e) => 112 - (e - c) / (l - c) * 104, f = `M${u(r[0].t)},${d(r[0].v)}`;
-	for (let e = 1; e < r.length; e++) f += ` H${u(r[e].t)} V${d(r[e].v)}`;
-	f += " H320";
-	let p = (e) => Math.abs(e) >= 100 ? Math.round(e) : Math.round(e * 10) / 10;
+	let i = r.map((e) => e.v), a = (e) => Math.abs(e) >= 100 ? Math.round(e) : Math.round(e * 10) / 10;
 	return /* @__PURE__ */ U("div", {
 		class: "history",
 		children: [
@@ -3046,29 +3867,22 @@ function _r({ h: e, entityId: t, unit: n }) {
 				class: "labeled-label",
 				children: "Last 24 hours"
 			}),
-			/* @__PURE__ */ U("svg", {
-				viewBox: "0 0 320 120",
+			/* @__PURE__ */ U($n, {
+				points: r,
+				height: 140,
 				class: "history-chart",
-				role: "img",
-				"aria-label": "24 hour history",
-				children: [/* @__PURE__ */ U("path", {
-					d: `${f} V120 H${u(r[0].t)} Z`,
-					class: "history-area"
-				}), /* @__PURE__ */ U("path", {
-					d: f,
-					class: "history-line"
-				})]
+				showDot: !0
 			}),
 			/* @__PURE__ */ U("div", {
 				class: "history-range muted",
 				children: [/* @__PURE__ */ U("span", { children: [
 					"Low ",
-					p(c),
+					a(Math.min(...i)),
 					" ",
 					n
 				] }), /* @__PURE__ */ U("span", { children: [
 					"High ",
-					p(l),
+					a(Math.max(...i)),
 					" ",
 					n
 				] })]
@@ -3076,10 +3890,10 @@ function _r({ h: e, entityId: t, unit: n }) {
 		]
 	});
 }
-function vr() {
-	let e = Wn.value, t = L.value;
+function Fr() {
+	let e = tr.value, t = L.value;
 	if (!e || !t) return null;
-	let n = () => Wn.value = null;
+	let n = () => tr.value = null;
 	return /* @__PURE__ */ U(Y, {
 		title: "Unlock?",
 		onClose: n,
@@ -3102,14 +3916,515 @@ function vr() {
 		] })
 	});
 }
+// src/components/irrigation.tsx
+var Ir = N(null);
+function Lr() {
+	let e = L.value;
+	return A(() => {
+		if (!e) return;
+		let t, n = !0;
+		return e.connection.subscribeMessage((e) => n && (Ir.value = e), { type: "dashforge/irrigation/subscribe" }).then((e) => {
+			n ? t = e : e();
+		}).catch(() => void 0), () => {
+			n = !1, t?.().catch(() => void 0);
+		};
+	}, [!!e]), null;
+}
+async function Rr(e, t) {
+	try {
+		await L.value.callWS({
+			type: "dashforge/irrigation/run",
+			entity_ids: e,
+			minutes: t
+		});
+	} catch (e) {
+		V(e?.message ?? "Could not start watering", "error");
+	}
+}
+async function zr(e = !1) {
+	try {
+		await L.value.callWS({
+			type: "dashforge/irrigation/stop",
+			skip: e
+		});
+	} catch (e) {
+		V(e?.message ?? "Could not stop watering", "error");
+	}
+}
+function Br(e) {
+	let [, t] = k(0);
+	A(() => {
+		if (!e) return;
+		let n = window.setInterval(() => t((e) => e + 1), 1e3);
+		return () => clearInterval(n);
+	}, [e]);
+}
+var Vr = (e) => `${Math.floor(e / 60)}:${String(Math.floor(e % 60)).padStart(2, "0")}`;
+function Hr({ cfg: e }) {
+	let t = L.value, n = Ir.value, r = n?.active ?? null;
+	Br(!!r);
+	let [i, a] = k(e.irrigation.minutes), o = e.irrigation.zones.filter((e) => t.states[e]), s = e.irrigation.presets.length ? e.irrigation.presets : [
+		5,
+		10,
+		15,
+		30
+	];
+	if (!o.length) return /* @__PURE__ */ U("div", {
+		class: "empty",
+		children: [/* @__PURE__ */ U(W, {
+			icon: "mdi:sprinkler-variant",
+			size: 40
+		}), /* @__PURE__ */ U("p", { children: "No watering zones yet. Choose your zones in Settings → Pages → Irrigation." })]
+	});
+	let c = 0, l = 0;
+	if (r) {
+		let e = new Date(r.ends_at).getTime(), t = new Date(r.started_at).getTime();
+		c = Math.max(0, (e - Date.now()) / 1e3), l = Math.min(100, Math.max(0, (Date.now() - t) / (e - t) * 100));
+	}
+	let u = o.filter((e) => Pt(t.states[e]) && e !== r?.entity_id);
+	return /* @__PURE__ */ U("div", {
+		class: "irrigation",
+		children: [
+			/* @__PURE__ */ U("div", {
+				class: `irr-status ${r ? "running" : ""}`,
+				children: [r ? /* @__PURE__ */ U(x, { children: [/* @__PURE__ */ U("div", {
+					class: "irr-status-head",
+					children: [
+						/* @__PURE__ */ U(W, {
+							icon: "mdi:sprinkler-variant",
+							size: 30
+						}),
+						/* @__PURE__ */ U("div", {
+							class: "irr-status-text",
+							children: [/* @__PURE__ */ U("strong", { children: I(t, r.entity_id) }), /* @__PURE__ */ U("span", { children: [
+								Vr(c),
+								" left",
+								n.queue.length > 0 && ` · then ${n.queue.map((e) => I(t, e)).join(", ")}`
+							] })]
+						}),
+						/* @__PURE__ */ U("div", {
+							class: "btn-row",
+							children: [n.queue.length > 0 && /* @__PURE__ */ U(K, {
+								icon: "mdi:skip-next",
+								onClick: () => zr(!0),
+								children: "Next zone"
+							}), /* @__PURE__ */ U(K, {
+								kind: "danger",
+								icon: "mdi:stop",
+								onClick: () => zr(),
+								children: "Stop"
+							})]
+						})
+					]
+				}), /* @__PURE__ */ U("div", {
+					class: "irr-progress",
+					children: /* @__PURE__ */ U("div", { style: `width:${l}%` })
+				})] }) : /* @__PURE__ */ U("div", {
+					class: "irr-status-head",
+					children: [/* @__PURE__ */ U(W, {
+						icon: "mdi:water-off-outline",
+						size: 30
+					}), /* @__PURE__ */ U("div", {
+						class: "irr-status-text",
+						children: [/* @__PURE__ */ U("strong", { children: "Not watering" }), /* @__PURE__ */ U("span", { children: "Run every zone in turn, or tap a zone below." })]
+					})]
+				}), /* @__PURE__ */ U("div", {
+					class: "irr-runall",
+					children: [
+						/* @__PURE__ */ U("span", {
+							class: "muted small",
+							children: "Each zone for"
+						}),
+						/* @__PURE__ */ U("div", {
+							class: "chips",
+							children: s.map((e) => /* @__PURE__ */ U("button", {
+								type: "button",
+								class: `chip ${i === e ? "selected" : ""}`,
+								onClick: () => a(e),
+								children: [e, " min"]
+							}))
+						}),
+						/* @__PURE__ */ U(K, {
+							kind: "primary",
+							icon: "mdi:play",
+							onClick: () => Rr(o, i),
+							children: [
+								"Run all ",
+								o.length,
+								" zones"
+							]
+						})
+					]
+				})]
+			}),
+			u.length > 0 && /* @__PURE__ */ U("p", {
+				class: "muted small",
+				children: [
+					/* @__PURE__ */ U(W, {
+						icon: "mdi:information-outline",
+						size: 16
+					}),
+					" ",
+					u.map((e) => I(t, e)).join(", "),
+					" ",
+					u.length === 1 ? "is" : "are",
+					" on outside DashForge, so there's no timer for ",
+					u.length === 1 ? "it" : "them",
+					"."
+				]
+			}),
+			/* @__PURE__ */ U("div", {
+				class: "zone-grid",
+				children: o.map((e, i) => {
+					let a = t.states[e], o = r?.entity_id === e, l = n?.queue.includes(e), u = Pt(a);
+					return /* @__PURE__ */ U("div", {
+						class: `zone ${o ? "running" : ""} ${u ? "on" : ""} ${F(a) ? "unavailable" : ""}`,
+						children: [
+							/* @__PURE__ */ U("div", {
+								class: "zone-head",
+								children: [
+									/* @__PURE__ */ U("span", {
+										class: "zone-num",
+										children: i + 1
+									}),
+									/* @__PURE__ */ U(W, {
+										icon: Kt(t, e),
+										size: 22
+									}),
+									/* @__PURE__ */ U("span", {
+										class: "zone-name",
+										children: I(t, e)
+									})
+								]
+							}),
+							/* @__PURE__ */ U("div", {
+								class: "zone-state",
+								children: o ? `Watering · ${Vr(c)} left` : l ? "Waiting in line" : u ? "On" : F(a) ? "Unavailable" : "Off"
+							}),
+							o ? /* @__PURE__ */ U(K, {
+								kind: "danger",
+								icon: "mdi:stop",
+								onClick: () => zr(),
+								children: "Stop"
+							}) : /* @__PURE__ */ U("div", {
+								class: "chips",
+								children: s.map((t) => /* @__PURE__ */ U("button", {
+									type: "button",
+									class: "chip",
+									disabled: F(a),
+									onClick: () => Rr([e], t),
+									children: [t, " min"]
+								}))
+							})
+						]
+					});
+				})
+			}),
+			/* @__PURE__ */ U("p", {
+				class: "muted small",
+				children: [
+					"Timers run inside Home Assistant, so watering stops on time even if this screen sleeps. Automations can use the same programs with the ",
+					/* @__PURE__ */ U("code", { children: "dashforge.run_zones" }),
+					" action."
+				]
+			})
+		]
+	});
+}
+// src/components/home.tsx
+function Ur(e, t) {
+	return t.floorId ? t.floorId : t.areaId ? e.areas?.[t.areaId]?.floor_id ?? null : null;
+}
+function Wr(e, t) {
+	let n = e.floors ?? {}, r = /* @__PURE__ */ new Map();
+	for (let i of t) {
+		let t = Ur(e, i), a = t && n[t] ? t : null;
+		if (!r.has(a)) {
+			let e = a ? n[a] : null;
+			r.set(a, {
+				id: a,
+				name: e?.name ?? "Other rooms",
+				icon: e?.icon ?? (a ? "mdi:home-floor-1" : "mdi:home-outline"),
+				sections: []
+			});
+		}
+		r.get(a).sections.push(i);
+	}
+	return [...r.values()].sort((e, t) => {
+		if (e.id === null) return 1;
+		if (t.id === null) return -1;
+		let r = (e) => e < 0 ? 1e3 - e : e;
+		return r(n[e.id]?.level ?? 0) - r(n[t.id]?.level ?? 0);
+	});
+}
+var Gr = (e, t) => Wr(e, t).filter((e) => e.id !== null).length > 0, Kr = (e) => e.cards.filter((e) => !e.hidden);
+function qr(e, t) {
+	let n = Kr(t), r = [], i = n.find((t) => P(t.entity) === "sensor" && e.states[t.entity]?.attributes.device_class === "temperature"), a = n.find((t) => P(t.entity) === "climate" && e.states[t.entity]?.attributes.current_temperature != null);
+	i ? r.push(Yt(e, e.states[i.entity])) : a && r.push(`${e.states[a.entity].attributes.current_temperature}°`);
+	let o = n.find((t) => P(t.entity) === "sensor" && e.states[t.entity]?.attributes.device_class === "humidity");
+	o && r.push(Yt(e, e.states[o.entity]));
+	let s = n.filter((t) => P(t.entity) === "light" && Pt(e.states[t.entity])).length;
+	s && r.push(s === 1 ? "1 light on" : `${s} lights on`);
+	let c = n.filter((t) => {
+		let n = e.states[t.entity];
+		return P(t.entity) === "binary_sensor" && n?.state === "on" && [
+			"door",
+			"window",
+			"garage_door",
+			"opening"
+		].includes(n.attributes.device_class);
+	}).length;
+	return c && r.push(`${c} open`), r.join(" · ");
+}
+function Jr(e, t) {
+	return Kr(t).map((e) => e.entity).filter((t) => P(t) === "light" && e.states[t]);
+}
+function Yr(e, t) {
+	H("light", t.some((t) => Pt(e.states[t])) ? "turn_off" : "turn_on", { entity_id: t });
+}
+function Xr({ section: e }) {
+	let t = L.value;
+	if (e.kind !== "room") return null;
+	let n = Jr(t, e), r = qr(t, e);
+	if (!n.length && !r) return null;
+	let i = n.some((e) => Pt(t.states[e]));
+	return /* @__PURE__ */ U("div", {
+		class: "room-controls",
+		children: [r && /* @__PURE__ */ U("span", {
+			class: "room-status",
+			children: r
+		}), n.length > 0 && /* @__PURE__ */ U("button", {
+			type: "button",
+			class: `room-lights ${i ? "on" : ""}`,
+			onClick: () => Yr(t, n),
+			children: [/* @__PURE__ */ U(W, {
+				icon: i ? "mdi:lightbulb-group" : "mdi:lightbulb-group-off-outline",
+				size: 18
+			}), i ? "Lights off" : "Lights on"]
+		})]
+	});
+}
+var Zr = N(null);
+function Qr(e) {
+	let t = /* @__PURE__ */ new Set(), n = [];
+	for (let r of e.sections) for (let e of r.cards) e.hidden || t.has(e.entity) || (t.add(e.entity), n.push(e));
+	return n;
+}
+function $r(e, t) {
+	let n = Qr(t).map((e) => e.entity).filter((t) => e.states[t]), r = (t) => e.states[t], i = [], a = (e) => () => B.value = e, o = n.filter((e) => P(e) === "sensor" && r(e).attributes.device_class === "temperature").map((e) => Number(r(e).state)).filter((e) => !Number.isNaN(e)), s = n.filter((e) => P(e) === "climate");
+	if (o.length || s.length) {
+		let e = o.length ? o : s.map((e) => Number(r(e).attributes.current_temperature)).filter((e) => !Number.isNaN(e));
+		if (e.length) {
+			let t = Math.round(Math.min(...e)), n = Math.round(Math.max(...e)), a = s.filter((e) => ["heating", "cooling"].includes(r(e).attributes.hvac_action)).length;
+			i.push({
+				key: "climate",
+				icon: "mdi:thermometer",
+				label: "Climate",
+				value: (t === n ? `${t}°` : `${t}–${n}°`) + (a ? ` · ${a} running` : "")
+			});
+		}
+	}
+	let c = n.filter((e) => P(e) === "light" && Pt(r(e)));
+	n.some((e) => P(e) === "light") && i.push({
+		key: "lights",
+		icon: c.length ? "mdi:lightbulb-group" : "mdi:lightbulb-group-off-outline",
+		label: "Lights",
+		value: c.length ? `${c.length} on` : "All off",
+		tone: c.length ? "on" : void 0,
+		onTap: c.length ? () => Zr.value = c : void 0
+	});
+	let l = n.filter((e) => P(e) === "lock" && r(e).state !== "locked"), u = n.find((e) => P(e) === "alarm_control_panel"), d = n.filter((e) => P(e) === "binary_sensor" && r(e).state === "on" && [
+		"door",
+		"window",
+		"garage_door",
+		"opening"
+	].includes(r(e).attributes.device_class)), f = n.filter((e) => P(e) === "cover" && r(e).attributes.device_class === "garage" && r(e).state !== "closed");
+	if (l.length || u || d.length || f.length || n.some((e) => P(e) === "lock")) {
+		let n = [];
+		l.length && n.push(`${l.length} unlocked`), d.length + f.length && n.push(`${d.length + f.length} open`), n.length || n.push(u ? Yt(e, r(u)) : "Locked"), i.push({
+			key: "security",
+			icon: l.length || d.length || f.length ? "mdi:shield-alert" : "mdi:shield-check",
+			label: "Security",
+			value: n.join(" · "),
+			tone: l.length || d.length || f.length ? "warn" : void 0,
+			onTap: t.builtinPages.security ? a({ type: "security" }) : void 0
+		});
+	}
+	let p = n.filter((e) => P(e) === "media_player" && r(e).state === "playing");
+	p.length && i.push({
+		key: "media",
+		icon: "mdi:play-circle",
+		label: "Playing",
+		value: p.length === 1 ? r(p[0]).attributes.media_title ?? I(e, p[0]) : `${p.length} speakers`,
+		tone: "on",
+		onTap: t.builtinPages.media ? a({ type: "media" }) : void 0
+	});
+	let m = Ir.value?.active;
+	if (m) {
+		let t = Math.max(0, Math.ceil((new Date(m.ends_at).getTime() - Date.now()) / 6e4));
+		i.push({
+			key: "water",
+			icon: "mdi:sprinkler-variant",
+			label: "Watering",
+			value: `${I(e, m.entity_id)} · ${t} min`,
+			tone: "on",
+			onTap: a({ type: "irrigation" })
+		});
+	}
+	return i;
+}
+function ei({ cfg: e }) {
+	let t = L.value, n = $r(t, e);
+	return n.length ? /* @__PURE__ */ U("div", {
+		class: "summary",
+		children: n.map((e) => /* @__PURE__ */ U("button", {
+			type: "button",
+			class: `summary-chip ${e.tone ?? ""}`,
+			onClick: e.onTap,
+			disabled: !e.onTap,
+			children: [/* @__PURE__ */ U(W, {
+				icon: e.icon,
+				size: 22
+			}), /* @__PURE__ */ U("span", {
+				class: "summary-text",
+				children: [/* @__PURE__ */ U("span", {
+					class: "summary-label",
+					children: e.label
+				}), /* @__PURE__ */ U("span", {
+					class: "summary-value",
+					children: e.value
+				})]
+			})]
+		}))
+	}) : null;
+}
+function ti() {
+	let e = Zr.value, t = L.value;
+	if (!e || !t) return null;
+	let n = () => Zr.value = null;
+	return /* @__PURE__ */ U(Y, {
+		title: `Turn off ${e.length} ${e.length === 1 ? "light" : "lights"}?`,
+		onClose: n,
+		footer: /* @__PURE__ */ U(x, { children: [/* @__PURE__ */ U(K, {
+			kind: "ghost",
+			onClick: n,
+			children: "Cancel"
+		}), /* @__PURE__ */ U(K, {
+			kind: "primary",
+			icon: "mdi:lightbulb-off",
+			onClick: () => {
+				H("light", "turn_off", { entity_id: e }), n();
+			},
+			children: "Turn off"
+		})] }),
+		children: /* @__PURE__ */ U("ul", {
+			class: "plain-list",
+			children: e.map((e) => /* @__PURE__ */ U("li", { children: I(t, e) }))
+		})
+	});
+}
+function ni({ s: e }) {
+	let t = L.value, n = Jr(t, e), r = n.some((e) => Pt(t.states[e])), i = qr(t, e), a = e.background ? `background-image:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.55)),url("${e.background.replace(/["\\]/g, "")}")` : void 0;
+	return /* @__PURE__ */ U("div", {
+		class: `room-card ${e.background ? "has-bg" : ""} ${r ? "lit" : ""}`,
+		style: a,
+		role: "button",
+		tabIndex: 0,
+		onClick: () => B.value = {
+			type: "section",
+			id: e.id
+		},
+		onKeyDown: (t) => (t.key === "Enter" || t.key === " ") && (B.value = {
+			type: "section",
+			id: e.id
+		}),
+		children: [/* @__PURE__ */ U("div", {
+			class: "room-card-top",
+			children: [/* @__PURE__ */ U("span", {
+				class: "room-card-icon",
+				children: /* @__PURE__ */ U(W, {
+					icon: e.icon,
+					size: 24
+				})
+			}), n.length > 0 && /* @__PURE__ */ U(G, {
+				icon: r ? "mdi:lightbulb-on" : "mdi:lightbulb-outline",
+				label: r ? `Turn off ${e.name} lights` : `Turn on ${e.name} lights`,
+				active: r,
+				onClick: () => Yr(t, n)
+			})]
+		}), /* @__PURE__ */ U("div", { children: [/* @__PURE__ */ U("div", {
+			class: "room-card-name",
+			children: e.name
+		}), /* @__PURE__ */ U("div", {
+			class: "room-card-status",
+			children: i || `${Kr(e).length} devices`
+		})] })]
+	});
+}
+function ri({ cfg: e, renderCards: t }) {
+	let n = L.value, r = e.home.favorites ? Qr(e).filter((e) => e.favorite && n.states[e.entity]) : [], i = e.sections.filter((e) => e.kind === "room"), a = e.sections.filter((e) => e.kind === "page"), o = Wr(n, i), s = o.length > 1 || o[0]?.id !== null;
+	return /* @__PURE__ */ U("div", {
+		class: "home-view",
+		children: [
+			e.home.summary && /* @__PURE__ */ U(ei, { cfg: e }),
+			r.length > 0 && /* @__PURE__ */ U("section", {
+				class: "home-block",
+				children: [/* @__PURE__ */ U("h2", {
+					class: "section-title",
+					children: [/* @__PURE__ */ U(W, {
+						icon: "mdi:star",
+						size: 20
+					}), " Favourites"]
+				}), t(r)]
+			}),
+			e.home.rooms && o.map((e) => /* @__PURE__ */ U("section", {
+				class: "home-block",
+				children: [s && /* @__PURE__ */ U("h2", {
+					class: "section-title floor-title",
+					children: [
+						/* @__PURE__ */ U(W, {
+							icon: e.icon,
+							size: 20
+						}),
+						" ",
+						e.name
+					]
+				}), /* @__PURE__ */ U("div", {
+					class: "room-grid",
+					children: e.sections.map((e) => /* @__PURE__ */ U(ni, { s: e }))
+				})]
+			})),
+			e.home.rooms && a.length > 0 && /* @__PURE__ */ U("section", {
+				class: "home-block",
+				children: [/* @__PURE__ */ U("h2", {
+					class: "section-title",
+					children: [/* @__PURE__ */ U(W, {
+						icon: "mdi:view-dashboard",
+						size: 20
+					}), " Pages"]
+				}), /* @__PURE__ */ U("div", {
+					class: "room-grid",
+					children: a.map((e) => /* @__PURE__ */ U(ni, { s: e }))
+				})]
+			}),
+			!r.length && e.home.favorites && /* @__PURE__ */ U("p", {
+				class: "muted small home-hint",
+				children: [/* @__PURE__ */ U(W, {
+					icon: "mdi:star-outline",
+					size: 16
+				}), " Tip: in edit mode, tap a card and turn on “Show on Home” to pin it here."]
+			})
+		]
+	});
+}
 // src/components/steps.tsx
-function yr(e, t) {
+function ii(e, t) {
 	return (n) => {
-		let r = be(e());
+		let r = Se(e());
 		n(r), t(r);
 	};
 }
-var br = [
+var ai = [
 	[/kitchen/i, "mdi:stove"],
 	[/living|lounge|family/i, "mdi:sofa"],
 	[/bed|master|guest room/i, "mdi:bed"],
@@ -3125,19 +4440,19 @@ var br = [
 	[/entry|hall|foyer|mudroom/i, "mdi:door"],
 	[/media|theat|tv/i, "mdi:television"],
 	[/server|network|rack/i, "mdi:server"]
-], xr = (e) => br.find(([t]) => t.test(e))?.[1] ?? "mdi:home";
-function Sr(e, t, n, r) {
-	let i = Se("room", n, r || xr(n), t);
-	return i.cards = Wt(e, t).filter((t) => Jt(e, t)).map((e) => xe(e, Zt(e))), i;
+], oi = (e) => ai.find(([t]) => t.test(e))?.[1] ?? "mdi:home";
+function si(e, t, n, r) {
+	let i = we("room", n, r || oi(n), t);
+	return i.cards = Qt(e, t).filter((t) => nn(e, t)).map((e) => Ce(e, on(e))), i;
 }
-function Cr(e, t) {
+function ci(e, t) {
 	if (t.sections.length) return;
 	let n = e.floors ?? {}, r = Object.values(e.areas ?? {}).sort((e, t) => (n[e.floor_id ?? ""]?.level ?? 99) - (n[t.floor_id ?? ""]?.level ?? 99) || e.name.localeCompare(t.name));
-	for (let n of r) Wt(e, n.area_id).length && t.sections.push(Sr(e, n.area_id, n.name, n.icon));
-	let i = Object.keys(e.states).find((e) => F(e) === "weather");
+	for (let n of r) Qt(e, n.area_id).length && t.sections.push(si(e, n.area_id, n.name, n.icon));
+	let i = Object.keys(e.states).find((e) => P(e) === "weather");
 	i && (t.header.weatherEntity = i);
 }
-function wr({ cfg: e, set: t }) {
+function li({ cfg: e, set: t }) {
 	return /* @__PURE__ */ U("div", {
 		class: "step",
 		children: [
@@ -3173,8 +4488,8 @@ function wr({ cfg: e, set: t }) {
 		]
 	});
 }
-function Tr({ cfg: e, set: t }) {
-	let n = L.value, [r, i] = A(null), [a, o] = A(""), s = e.sections.filter((e) => e.kind === "room"), c = new Set(s.map((e) => e.areaId).filter(Boolean)), l = Object.values(n.areas ?? {}).filter((e) => !c.has(e.area_id)).sort((e, t) => e.name.localeCompare(t.name)), u = (e, n) => t((t) => {
+function ui({ cfg: e, set: t }) {
+	let n = L.value, [r, i] = k(null), [a, o] = k(""), s = e.sections.filter((e) => e.kind === "room"), c = new Set(s.map((e) => e.areaId).filter(Boolean)), l = Object.values(n.areas ?? {}).filter((e) => !c.has(e.area_id)).sort((e, t) => e.name.localeCompare(t.name)), u = (e, n) => t((t) => {
 		let r = t.sections.findIndex((t) => t.id === e), i = r + n;
 		for (; i >= 0 && i < t.sections.length && t.sections[i].kind !== "room";) i += n;
 		i < 0 || i >= t.sections.length || ([t.sections[r], t.sections[i]] = [t.sections[i], t.sections[r]]);
@@ -3198,57 +4513,89 @@ function Tr({ cfg: e, set: t }) {
 				class: "muted",
 				children: "No rooms yet. Add one below."
 			}),
-			/* @__PURE__ */ U("div", {
+			Wr(n, s).map((e) => /* @__PURE__ */ U("div", {
 				class: "room-list",
-				children: s.map((e, a) => /* @__PURE__ */ U("div", {
-					class: "room-item",
-					children: [/* @__PURE__ */ U("div", {
-						class: "room-row",
+				children: [(e.id !== null || Object.keys(n.floors ?? {}).length > 0) && /* @__PURE__ */ U("div", {
+					class: "floor-label",
+					children: [
+						/* @__PURE__ */ U(W, {
+							icon: e.icon,
+							size: 18
+						}),
+						" ",
+						e.name
+					]
+				}), e.sections.map((e) => {
+					let a = s.indexOf(e);
+					return /* @__PURE__ */ U("div", {
+						class: "room-item",
 						children: [
-							/* @__PURE__ */ U("button", {
-								type: "button",
-								class: "icon-choice",
-								"aria-label": "Change icon",
-								onClick: () => i(r === e.id ? null : e.id),
-								children: /* @__PURE__ */ U(W, { icon: e.icon })
+							/* @__PURE__ */ U("div", {
+								class: "room-row",
+								children: [
+									/* @__PURE__ */ U("button", {
+										type: "button",
+										class: "icon-choice",
+										"aria-label": "Change icon",
+										onClick: () => i(r === e.id ? null : e.id),
+										children: /* @__PURE__ */ U(W, { icon: e.icon })
+									}),
+									/* @__PURE__ */ U("input", {
+										class: "input",
+										value: e.name,
+										"aria-label": "Room name",
+										onInput: (n) => {
+											let r = n.target.value;
+											t((t) => t.sections.find((t) => t.id === e.id).name = r);
+										}
+									}),
+									/* @__PURE__ */ U("span", {
+										class: "muted small nowrap",
+										children: e.areaId ? n.areas?.[e.areaId]?.name ?? "" : "Custom"
+									}),
+									/* @__PURE__ */ U(G, {
+										icon: "mdi:arrow-up",
+										label: "Move up",
+										disabled: a === 0,
+										onClick: () => u(e.id, -1)
+									}),
+									/* @__PURE__ */ U(G, {
+										icon: "mdi:arrow-down",
+										label: "Move down",
+										disabled: a === s.length - 1,
+										onClick: () => u(e.id, 1)
+									}),
+									/* @__PURE__ */ U(G, {
+										icon: "mdi:close",
+										label: `Remove ${e.name}`,
+										onClick: () => t((t) => t.sections = t.sections.filter((t) => t.id !== e.id))
+									})
+								]
 							}),
-							/* @__PURE__ */ U("input", {
-								class: "input",
-								value: e.name,
-								"aria-label": "Room name",
-								onInput: (n) => {
-									let r = n.target.value;
-									t((t) => t.sections.find((t) => t.id === e.id).name = r);
-								}
+							Object.keys(n.floors ?? {}).length > 0 && /* @__PURE__ */ U("select", {
+								class: "input floor-select",
+								"aria-label": `Floor for ${e.name}`,
+								value: e.floorId ?? "",
+								onChange: (n) => {
+									let r = n.target.value || void 0;
+									t((t) => t.sections.find((t) => t.id === e.id).floorId = r);
+								},
+								children: [/* @__PURE__ */ U("option", {
+									value: "",
+									children: e.areaId && n.areas?.[e.areaId]?.floor_id ? "Floor: same as area" : "No floor"
+								}), Object.values(n.floors ?? {}).sort((e, t) => (e.level ?? 0) - (t.level ?? 0)).map((e) => /* @__PURE__ */ U("option", {
+									value: e.floor_id,
+									children: ["Floor: ", e.name]
+								}))]
 							}),
-							/* @__PURE__ */ U("span", {
-								class: "muted small nowrap",
-								children: e.areaId ? n.areas?.[e.areaId]?.name ?? "" : "Custom"
-							}),
-							/* @__PURE__ */ U(G, {
-								icon: "mdi:arrow-up",
-								label: "Move up",
-								disabled: a === 0,
-								onClick: () => u(e.id, -1)
-							}),
-							/* @__PURE__ */ U(G, {
-								icon: "mdi:arrow-down",
-								label: "Move down",
-								disabled: a === s.length - 1,
-								onClick: () => u(e.id, 1)
-							}),
-							/* @__PURE__ */ U(G, {
-								icon: "mdi:close",
-								label: `Remove ${e.name}`,
-								onClick: () => t((t) => t.sections = t.sections.filter((t) => t.id !== e.id))
+							r === e.id && /* @__PURE__ */ U(In, {
+								value: e.icon,
+								onChange: (n) => t((t) => t.sections.find((t) => t.id === e.id).icon = n)
 							})
 						]
-					}), r === e.id && /* @__PURE__ */ U(Dn, {
-						value: e.icon,
-						onChange: (n) => t((t) => t.sections.find((t) => t.id === e.id).icon = n)
-					})]
-				}))
-			}),
+					});
+				})]
+			})),
 			l.length > 0 && /* @__PURE__ */ U(x, { children: [/* @__PURE__ */ U("div", {
 				class: "labeled-label",
 				children: "Add an area from Home Assistant"
@@ -3257,7 +4604,7 @@ function Tr({ cfg: e, set: t }) {
 				children: l.map((e) => /* @__PURE__ */ U("button", {
 					type: "button",
 					class: "chip",
-					onClick: () => t((t) => t.sections.push(Sr(n, e.area_id, e.name, e.icon))),
+					onClick: () => t((t) => t.sections.push(si(n, e.area_id, e.name, e.icon))),
 					children: [
 						/* @__PURE__ */ U(W, {
 							icon: "mdi:plus",
@@ -3267,7 +4614,7 @@ function Tr({ cfg: e, set: t }) {
 						e.name,
 						/* @__PURE__ */ U("span", {
 							class: "muted small",
-							children: Wt(n, e.area_id).length
+							children: Qt(n, e.area_id).length
 						})
 					]
 				}))
@@ -3279,7 +4626,7 @@ function Tr({ cfg: e, set: t }) {
 			/* @__PURE__ */ U("form", {
 				class: "inline-form",
 				onSubmit: (e) => {
-					e.preventDefault(), a.trim() && (t((e) => e.sections.push(Se("room", a.trim(), xr(a)))), o(""));
+					e.preventDefault(), a.trim() && (t((e) => e.sections.push(we("room", a.trim(), oi(a)))), o(""));
 				},
 				children: [/* @__PURE__ */ U(Z, {
 					value: a,
@@ -3289,7 +4636,7 @@ function Tr({ cfg: e, set: t }) {
 					icon: "mdi:plus",
 					disabled: !a.trim(),
 					onClick: () => {
-						t((e) => e.sections.push(Se("room", a.trim(), xr(a)))), o("");
+						t((e) => e.sections.push(we("room", a.trim(), oi(a)))), o("");
 					},
 					children: "Add room"
 				})]
@@ -3297,16 +4644,16 @@ function Tr({ cfg: e, set: t }) {
 		]
 	});
 }
-var Er = {
+var di = {
 	sm: "Small",
 	md: "Medium",
 	lg: "Large",
 	wide: "Wide"
 };
-function Dr({ cfg: e, set: t }) {
-	let n = L.value, r = e.sections.filter((e) => e.kind === "room"), [i, a] = A(r[0]?.id ?? null), [o, s] = A(null), c = Gt(n).length, l = (e, n) => t((t) => {
+function fi({ cfg: e, set: t }) {
+	let n = L.value, r = e.sections.filter((e) => e.kind === "room"), [i, a] = k(r[0]?.id ?? null), [o, s] = k(null), c = $t(n).length, l = (e, n) => t((t) => {
 		let r = t.sections.find((t) => t.id === e);
-		r.cards.some((e) => e.entity === n) ? r.cards = r.cards.filter((e) => e.entity !== n) : r.cards.push(xe(n, Zt(n)));
+		r.cards.some((e) => e.entity === n) ? r.cards = r.cards.filter((e) => e.entity !== n) : r.cards.push(Ce(n, on(n)));
 	});
 	return r.length ? /* @__PURE__ */ U("div", {
 		class: "step",
@@ -3330,9 +4677,9 @@ function Dr({ cfg: e, set: t }) {
 			/* @__PURE__ */ U("div", {
 				class: "accordion",
 				children: r.map((e) => {
-					let r = e.areaId ? Wt(n, e.areaId) : [], o = e.cards.map((e) => e.entity).filter((e) => !r.includes(e)), c = [...r, ...o], u = /* @__PURE__ */ new Map();
+					let r = e.areaId ? Qt(n, e.areaId) : [], o = e.cards.map((e) => e.entity).filter((e) => !r.includes(e)), c = [...r, ...o], u = /* @__PURE__ */ new Map();
 					for (let e of c) {
-						let t = Qt[F(e)] ?? F(e);
+						let t = sn[P(e)] ?? P(e);
 						u.set(t, [...u.get(t) ?? [], e]);
 					}
 					let d = i === e.id;
@@ -3365,7 +4712,7 @@ function Dr({ cfg: e, set: t }) {
 											kind: "ghost",
 											onClick: () => t((t) => {
 												let n = t.sections.find((t) => t.id === e.id);
-												for (let e of c) n.cards.some((t) => t.entity === e) || n.cards.push(xe(e, Zt(e)));
+												for (let e of c) n.cards.some((t) => t.entity === e) || n.cards.push(Ce(e, on(e)));
 											}),
 											children: "Select all"
 										}),
@@ -3394,7 +4741,7 @@ function Dr({ cfg: e, set: t }) {
 										let i = e.cards.find((e) => e.entity === r);
 										return /* @__PURE__ */ U("div", {
 											class: "device-line",
-											children: [/* @__PURE__ */ U(Fn, {
+											children: [/* @__PURE__ */ U(Wn, {
 												id: r,
 												room: e.name,
 												selected: !!i,
@@ -3407,9 +4754,9 @@ function Dr({ cfg: e, set: t }) {
 													let i = n.target.value;
 													t((t) => t.sections.find((t) => t.id === e.id).cards.find((e) => e.entity === r).size = i);
 												},
-												children: Object.keys(Er).map((e) => /* @__PURE__ */ U("option", {
+												children: Object.keys(di).map((e) => /* @__PURE__ */ U("option", {
 													value: e,
-													children: Er[e]
+													children: di[e]
 												}))
 											})]
 										});
@@ -3429,7 +4776,7 @@ function Dr({ cfg: e, set: t }) {
 					onClick: () => s(null),
 					children: "Done"
 				}),
-				children: /* @__PURE__ */ U(Pn, {
+				children: /* @__PURE__ */ U(Un, {
 					autofocus: !0,
 					isSelected: (t) => !!e.sections.find((e) => e.id === o)?.cards.some((e) => e.entity === t),
 					onToggle: (e) => l(o, e)
@@ -3441,8 +4788,8 @@ function Dr({ cfg: e, set: t }) {
 		children: "Add a room on the previous step first."
 	});
 }
-function Or({ cfg: e, set: t }) {
-	let n = L.value, r = Object.keys(n.states).filter((e) => F(e) === "media_player").sort();
+function pi({ cfg: e, set: t }) {
+	let n = L.value, r = Object.keys(n.states).filter((e) => P(e) === "media_player").sort();
 	return /* @__PURE__ */ U("div", {
 		class: "step",
 		children: [
@@ -3460,7 +4807,7 @@ function Or({ cfg: e, set: t }) {
 			}),
 			/* @__PURE__ */ U("div", {
 				class: "picker-box",
-				children: /* @__PURE__ */ U(Pn, {
+				children: /* @__PURE__ */ U(Un, {
 					domains: ["scene", "script"],
 					isSelected: (t) => e.header.sceneStrip.includes(t),
 					onToggle: (e) => t((t) => {
@@ -3488,13 +4835,13 @@ function Or({ cfg: e, set: t }) {
 		]
 	});
 }
-function kr({ domain: e, value: t, onChange: n, empty: r }) {
-	let i = L.value, a = Object.keys(i.states).filter((t) => F(t) === e).sort();
+function mi({ domain: e, value: t, onChange: n, empty: r }) {
+	let i = L.value, a = Object.keys(i.states).filter((t) => P(t) === e).sort();
 	return a.length ? /* @__PURE__ */ U("div", {
 		class: "check-list",
 		children: a.map((e) => /* @__PURE__ */ U("label", {
 			class: "check-item",
-			children: [/* @__PURE__ */ U(Tn, {
+			children: [/* @__PURE__ */ U(Pn, {
 				checked: t.includes(e),
 				onChange: (r) => n(r ? [...t, e] : t.filter((t) => t !== e))
 			}), /* @__PURE__ */ U("span", { children: I(i, e) })]
@@ -3504,8 +4851,8 @@ function kr({ domain: e, value: t, onChange: n, empty: r }) {
 		children: r
 	});
 }
-function Ar({ cfg: e, set: t }) {
-	let n = L.value, r = Object.keys(n.states).filter((e) => F(e) === "weather"), i = e.header.weatherEntity ?? (e.header.weatherFallback ? "__open_meteo" : "");
+function hi({ cfg: e, set: t }) {
+	let n = L.value, r = Object.keys(n.states).filter((e) => P(e) === "weather"), i = e.header.weatherEntity ?? (e.header.weatherFallback ? "__open_meteo" : "");
 	return /* @__PURE__ */ U("div", {
 		class: "step",
 		children: [
@@ -3566,7 +4913,7 @@ function Ar({ cfg: e, set: t }) {
 				class: "labeled-label",
 				children: "Calendars"
 			}),
-			/* @__PURE__ */ U(kr, {
+			/* @__PURE__ */ U(mi, {
 				domain: "calendar",
 				value: e.header.calendars,
 				onChange: (e) => t((t) => t.header.calendars = e),
@@ -3576,7 +4923,7 @@ function Ar({ cfg: e, set: t }) {
 				class: "labeled-label",
 				children: "Reminders (to-do lists)"
 			}),
-			/* @__PURE__ */ U(kr, {
+			/* @__PURE__ */ U(mi, {
 				domain: "todo",
 				value: e.header.todoLists,
 				onChange: (e) => t((t) => t.header.todoLists = e),
@@ -3585,7 +4932,12 @@ function Ar({ cfg: e, set: t }) {
 		]
 	});
 }
-var jr = [
+var gi = [
+	{
+		id: "auto",
+		name: "Auto",
+		desc: "Recommended. One dashboard that fits every screen: tabs on phones and tablets, a side list on big screens."
+	},
 	{
 		id: "grid",
 		name: "Grid",
@@ -3607,7 +4959,7 @@ var jr = [
 		desc: "One room at a time with big cards. Swipe between rooms. Best on wall tablets."
 	}
 ];
-function Mr({ id: e }) {
+function _i({ id: e }) {
 	let t = (e, t, n = 14, r = 12) => /* @__PURE__ */ U("rect", {
 		x: e,
 		y: t,
@@ -3629,6 +4981,72 @@ function Mr({ id: e }) {
 				rx: "6",
 				class: "pv-bg"
 			}),
+			e === "auto" && /* @__PURE__ */ U(x, { children: [
+				/* @__PURE__ */ U("rect", {
+					x: "6",
+					y: "10",
+					width: "20",
+					height: "44",
+					rx: "3",
+					class: "pv-tile"
+				}),
+				/* @__PURE__ */ U("rect", {
+					x: "9",
+					y: "16",
+					width: "14",
+					height: "6",
+					rx: "1.5",
+					class: "pv-accent"
+				}),
+				/* @__PURE__ */ U("rect", {
+					x: "9",
+					y: "25",
+					width: "14",
+					height: "6",
+					rx: "1.5",
+					class: "pv-bg"
+				}),
+				/* @__PURE__ */ U("rect", {
+					x: "32",
+					y: "8",
+					width: "62",
+					height: "48",
+					rx: "4",
+					class: "pv-tile"
+				}),
+				/* @__PURE__ */ U("rect", {
+					x: "36",
+					y: "12",
+					width: "14",
+					height: "5",
+					rx: "2",
+					class: "pv-accent"
+				}),
+				[
+					0,
+					1,
+					2
+				].map((e) => /* @__PURE__ */ U("rect", {
+					x: 36 + e * 19,
+					y: "21",
+					width: "16",
+					height: "12",
+					rx: "2",
+					class: "pv-bg"
+				})),
+				[
+					0,
+					1,
+					2
+				].map((e) => /* @__PURE__ */ U("rect", {
+					x: 36 + e * 19,
+					y: "36",
+					width: "16",
+					height: "12",
+					rx: "2",
+					class: "pv-bg"
+				}))
+			] }),
 			e === "grid" && /* @__PURE__ */ U(x, { children: [
 				/* @__PURE__ */ U("rect", {
 					x: "6",
@@ -3750,7 +5168,7 @@ function Mr({ id: e }) {
 		]
 	});
 }
-function Nr({ cfg: e, set: t }) {
+function vi({ cfg: e, set: t }) {
 	return /* @__PURE__ */ U("div", {
 		class: "step",
 		children: [
@@ -3760,13 +5178,13 @@ function Nr({ cfg: e, set: t }) {
 			}),
 			/* @__PURE__ */ U("div", {
 				class: "choice-grid",
-				children: jr.map((n) => /* @__PURE__ */ U("button", {
+				children: gi.map((n) => /* @__PURE__ */ U("button", {
 					type: "button",
 					class: `choice ${e.layout === n.id ? "selected" : ""}`,
 					"aria-pressed": e.layout === n.id,
 					onClick: () => t((e) => e.layout = n.id),
 					children: [
-						/* @__PURE__ */ U(Mr, { id: n.id }),
+						/* @__PURE__ */ U(_i, { id: n.id }),
 						/* @__PURE__ */ U("strong", { children: n.name }),
 						/* @__PURE__ */ U("span", {
 							class: "muted small",
@@ -3777,7 +5195,7 @@ function Nr({ cfg: e, set: t }) {
 			}),
 			/* @__PURE__ */ U(X, {
 				label: "Card spacing",
-				children: /* @__PURE__ */ U(wn, {
+				children: /* @__PURE__ */ U(Nn, {
 					value: e.theme.density,
 					options: [{
 						value: "comfortable",
@@ -3792,18 +5210,321 @@ function Nr({ cfg: e, set: t }) {
 		]
 	});
 }
-function Pr({ cfg: e, set: t }) {
+function yi({ id: e }) {
+	return e === "vivid" ? /* @__PURE__ */ U("svg", {
+		viewBox: "0 0 100 64",
+		class: "layout-preview",
+		"aria-hidden": "true",
+		children: [
+			/* @__PURE__ */ U("defs", { children: [
+				["#fbbf24", "#f97316"],
+				["#22d3ee", "#3b82f6"],
+				["#a855f7", "#ec4899"]
+			].map(([e, t], n) => /* @__PURE__ */ U("linearGradient", {
+				id: `pv-v${n}`,
+				x1: "0",
+				y1: "0",
+				x2: "1",
+				y2: "1",
+				children: [/* @__PURE__ */ U("stop", {
+					offset: "0",
+					"stop-color": e
+				}), /* @__PURE__ */ U("stop", {
+					offset: "1",
+					"stop-color": t
+				})]
+			})) }),
+			/* @__PURE__ */ U("rect", {
+				width: "100",
+				height: "64",
+				rx: "6",
+				fill: "#121319"
+			}),
+			/* @__PURE__ */ U("rect", {
+				x: "6",
+				y: "7",
+				width: "27",
+				height: "23",
+				rx: "5",
+				fill: "url(#pv-v0)"
+			}),
+			/* @__PURE__ */ U("rect", {
+				x: "36",
+				y: "7",
+				width: "27",
+				height: "23",
+				rx: "5",
+				fill: "#1c1e26"
+			}),
+			/* @__PURE__ */ U("rect", {
+				x: "66",
+				y: "7",
+				width: "28",
+				height: "23",
+				rx: "5",
+				fill: "url(#pv-v1)"
+			}),
+			/* @__PURE__ */ U("rect", {
+				x: "6",
+				y: "34",
+				width: "57",
+				height: "23",
+				rx: "5",
+				fill: "url(#pv-v2)"
+			}),
+			/* @__PURE__ */ U("rect", {
+				x: "66",
+				y: "34",
+				width: "28",
+				height: "23",
+				rx: "5",
+				fill: "#1c1e26"
+			}),
+			/* @__PURE__ */ U("circle", {
+				cx: "13",
+				cy: "14",
+				r: "3.5",
+				fill: "rgba(255,255,255,.45)"
+			}),
+			/* @__PURE__ */ U("circle", {
+				cx: "43",
+				cy: "14",
+				r: "3.5",
+				fill: "#22c55e",
+				opacity: ".7"
+			}),
+			/* @__PURE__ */ U("circle", {
+				cx: "73",
+				cy: "14",
+				r: "3.5",
+				fill: "rgba(255,255,255,.45)"
+			}),
+			/* @__PURE__ */ U("path", {
+				d: "M69 52 L74 47 L78 50 L83 42 L90 45",
+				fill: "none",
+				stroke: "#38bdf8",
+				"stroke-width": "1.6"
+			})
+		]
+	}) : e === "apple" ? /* @__PURE__ */ U("svg", {
+		viewBox: "0 0 100 64",
+		class: "layout-preview",
+		"aria-hidden": "true",
+		children: [
+			/* @__PURE__ */ U("defs", { children: /* @__PURE__ */ U("linearGradient", {
+				id: "pv-apple",
+				x1: "0",
+				y1: "0",
+				x2: "1",
+				y2: "1",
+				children: [/* @__PURE__ */ U("stop", {
+					offset: "0",
+					"stop-color": "#f7c9b0"
+				}), /* @__PURE__ */ U("stop", {
+					offset: "1",
+					"stop-color": "#b9c6ee"
+				})]
+			}) }),
+			/* @__PURE__ */ U("rect", {
+				width: "100",
+				height: "64",
+				rx: "6",
+				fill: "url(#pv-apple)"
+			}),
+			/* @__PURE__ */ U("rect", {
+				x: "6",
+				y: "6",
+				width: "34",
+				height: "5",
+				rx: "2",
+				fill: "#1c1c1e",
+				opacity: ".75"
+			}),
+			[
+				0,
+				1,
+				2
+			].map((e) => [0, 1].map((t) => /* @__PURE__ */ U("g", { children: [
+				/* @__PURE__ */ U("rect", {
+					x: 6 + t * 45,
+					y: 16 + e * 15,
+					width: "42",
+					height: "12",
+					rx: "4",
+					fill: e === 0 && t === 0 ? "#fff" : "rgba(255,255,255,.45)"
+				}),
+				/* @__PURE__ */ U("circle", {
+					cx: 12 + t * 45,
+					cy: 22 + e * 15,
+					r: "3.2",
+					fill: e === 0 && t === 0 ? "#ff9f0a" : "rgba(60,60,67,.35)"
+				}),
+				/* @__PURE__ */ U("rect", {
+					x: 18 + t * 45,
+					y: 20 + e * 15,
+					width: "18",
+					height: "2.5",
+					rx: "1",
+					fill: "#1c1c1e",
+					opacity: ".6"
+				})
+			] })))
+		]
+	}) : e === "homey" ? /* @__PURE__ */ U("svg", {
+		viewBox: "0 0 100 64",
+		class: "layout-preview",
+		"aria-hidden": "true",
+		children: [/* @__PURE__ */ U("rect", {
+			width: "100",
+			height: "64",
+			rx: "6",
+			fill: "#121318"
+		}), [
+			"#f5b400",
+			"#22c55e",
+			"#f97316",
+			"#3b82f6",
+			"#a855f7",
+			"#ef4444"
+		].map((e, t) => /* @__PURE__ */ U("g", { children: [
+			/* @__PURE__ */ U("rect", {
+				x: 6 + t % 3 * 30,
+				y: 7 + Math.floor(t / 3) * 28,
+				width: "27",
+				height: "24",
+				rx: "5",
+				fill: "#1e2027"
+			}),
+			/* @__PURE__ */ U("circle", {
+				cx: 19.5 + t % 3 * 30,
+				cy: 16 + Math.floor(t / 3) * 28,
+				r: "5",
+				fill: t < 3 ? e : "none",
+				stroke: e,
+				"stroke-width": "1.4"
+			}),
+			/* @__PURE__ */ U("rect", {
+				x: 13 + t % 3 * 30,
+				y: 24 + Math.floor(t / 3) * 28,
+				width: "13",
+				height: "2",
+				rx: "1",
+				fill: "#e5e7eb",
+				opacity: ".7"
+			})
+		] }))]
+	}) : e === "minimal" ? /* @__PURE__ */ U("svg", {
+		viewBox: "0 0 100 64",
+		class: "layout-preview",
+		"aria-hidden": "true",
+		children: [/* @__PURE__ */ U("rect", {
+			width: "100",
+			height: "64",
+			rx: "6",
+			fill: "#fafafa"
+		}), [
+			0,
+			1,
+			2,
+			3,
+			4,
+			5
+		].map((e) => /* @__PURE__ */ U("rect", {
+			x: 6 + e % 3 * 30,
+			y: 8 + Math.floor(e / 3) * 27,
+			width: "27",
+			height: "23",
+			rx: "3",
+			fill: "#fff",
+			stroke: e === 0 ? "#18181b" : "#e4e4e7"
+		}))]
+	}) : /* @__PURE__ */ U("svg", {
+		viewBox: "0 0 100 64",
+		class: "layout-preview",
+		"aria-hidden": "true",
+		children: [
+			/* @__PURE__ */ U("defs", { children: /* @__PURE__ */ U("linearGradient", {
+				id: "pv-df",
+				x1: "0",
+				y1: "0",
+				x2: "1",
+				y2: "1",
+				children: [
+					/* @__PURE__ */ U("stop", {
+						offset: "0",
+						"stop-color": "#dbeafe"
+					}),
+					/* @__PURE__ */ U("stop", {
+						offset: ".5",
+						"stop-color": "#ede9fe"
+					}),
+					/* @__PURE__ */ U("stop", {
+						offset: "1",
+						"stop-color": "#fce7f3"
+					})
+				]
+			}) }),
+			/* @__PURE__ */ U("rect", {
+				width: "100",
+				height: "64",
+				rx: "6",
+				fill: "url(#pv-df)"
+			}),
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5
+			].map((e) => /* @__PURE__ */ U("g", { children: [/* @__PURE__ */ U("rect", {
+				x: 6 + e % 3 * 30,
+				y: 8 + Math.floor(e / 3) * 27,
+				width: "27",
+				height: "23",
+				rx: "5",
+				fill: e === 1 ? "#dbe6fe" : "rgba(255,255,255,.75)"
+			}), /* @__PURE__ */ U("circle", {
+				cx: 13 + e % 3 * 30,
+				cy: 15 + Math.floor(e / 3) * 27,
+				r: "3.5",
+				fill: e === 1 ? "#3b82f6" : "#e2e8f0"
+			})] }))
+		]
+	});
+}
+function bi({ cfg: e, set: t }) {
 	let n = e.theme;
 	return /* @__PURE__ */ U("div", {
 		class: "step",
 		children: [
 			/* @__PURE__ */ U("p", {
 				class: "lead",
-				children: "Make it yours. The preview updates as you choose."
+				children: "Make it yours. Start from a style, then change anything you like. The preview updates as you choose."
+			}),
+			/* @__PURE__ */ U(X, {
+				label: "Style",
+				children: /* @__PURE__ */ U("div", {
+					class: "choice-grid",
+					children: ve.map((e) => /* @__PURE__ */ U("button", {
+						type: "button",
+						class: `choice ${n.style === e.id ? "selected" : ""}`,
+						"aria-pressed": n.style === e.id,
+						onClick: () => t((t) => Object.assign(t.theme, e.theme)),
+						children: [
+							/* @__PURE__ */ U(yi, { id: e.id }),
+							/* @__PURE__ */ U("strong", { children: e.name }),
+							/* @__PURE__ */ U("span", {
+								class: "muted small",
+								children: e.desc
+							})
+						]
+					}))
+				})
 			}),
 			/* @__PURE__ */ U(X, {
 				label: "Appearance",
-				children: /* @__PURE__ */ U(wn, {
+				children: /* @__PURE__ */ U(Nn, {
 					value: n.mode,
 					options: [
 						{
@@ -3829,7 +5550,7 @@ function Pr({ cfg: e, set: t }) {
 				label: "Accent colour",
 				children: /* @__PURE__ */ U("div", {
 					class: "swatches",
-					children: [_e.map((e) => /* @__PURE__ */ U("button", {
+					children: [ye.map((e) => /* @__PURE__ */ U("button", {
 						type: "button",
 						class: `swatch ${n.accent === e ? "selected" : ""}`,
 						"aria-label": e,
@@ -3848,7 +5569,7 @@ function Pr({ cfg: e, set: t }) {
 				label: "Background",
 				children: /* @__PURE__ */ U("div", {
 					class: "bg-grid",
-					children: [ge.map((e) => /* @__PURE__ */ U("button", {
+					children: [_e.map((e) => /* @__PURE__ */ U("button", {
 						type: "button",
 						class: `bg-choice ${n.background === e.id ? "selected" : ""}`,
 						onClick: () => t((t) => t.theme.background = e.id),
@@ -3894,7 +5615,7 @@ function Pr({ cfg: e, set: t }) {
 			}),
 			/* @__PURE__ */ U(X, {
 				label: "Card style",
-				children: /* @__PURE__ */ U(wn, {
+				children: /* @__PURE__ */ U(Nn, {
 					value: n.cardStyle,
 					options: [{
 						value: "glass",
@@ -3919,9 +5640,9 @@ function Pr({ cfg: e, set: t }) {
 		]
 	});
 }
-function Fr({ cfg: e, set: t }) {
-	let [n, r] = A(""), i = e.sections.filter((e) => e.kind === "page"), a = () => {
-		n.trim() && (t((e) => e.sections.push(Se("page", n.trim(), xr(n) === "mdi:home" ? "mdi:view-dashboard" : xr(n)))), r(""));
+function xi({ cfg: e, set: t }) {
+	let [n, r] = k(""), i = e.sections.filter((e) => e.kind === "page"), a = () => {
+		n.trim() && (t((e) => e.sections.push(we("page", n.trim(), oi(n) === "mdi:home" ? "mdi:view-dashboard" : oi(n)))), r(""));
 	};
 	return /* @__PURE__ */ U("div", {
 		class: "step",
@@ -3929,6 +5650,40 @@ function Fr({ cfg: e, set: t }) {
 			/* @__PURE__ */ U("p", {
 				class: "lead",
 				children: "Besides rooms, DashForge can show pages that gather devices from all over your home."
+			}),
+			/* @__PURE__ */ U(Q, {
+				label: "Home",
+				hint: "A start screen with status at a glance, your favourite cards and every room by floor",
+				children: /* @__PURE__ */ U(q, {
+					checked: e.builtinPages.home,
+					onChange: (e) => t((t) => t.builtinPages.home = e)
+				})
+			}),
+			e.builtinPages.home && /* @__PURE__ */ U("div", {
+				class: "sub-options",
+				children: [
+					/* @__PURE__ */ U("label", {
+						class: "check-item",
+						children: [/* @__PURE__ */ U(Pn, {
+							checked: e.home.summary,
+							onChange: (e) => t((t) => t.home.summary = e)
+						}), /* @__PURE__ */ U("span", { children: "Status chips (climate, lights, security, media, watering)" })]
+					}),
+					/* @__PURE__ */ U("label", {
+						class: "check-item",
+						children: [/* @__PURE__ */ U(Pn, {
+							checked: e.home.favorites,
+							onChange: (e) => t((t) => t.home.favorites = e)
+						}), /* @__PURE__ */ U("span", { children: "Favourite cards" })]
+					}),
+					/* @__PURE__ */ U("label", {
+						class: "check-item",
+						children: [/* @__PURE__ */ U(Pn, {
+							checked: e.home.rooms,
+							onChange: (e) => t((t) => t.home.rooms = e)
+						}), /* @__PURE__ */ U("span", { children: "Room tiles grouped by floor" })]
+					})
+				]
 			}),
 			/* @__PURE__ */ U(Q, {
 				label: "Media",
@@ -3953,6 +5708,10 @@ function Fr({ cfg: e, set: t }) {
 					checked: e.builtinPages.scenes,
 					onChange: (e) => t((t) => t.builtinPages.scenes = e)
 				})
+			}),
+			/* @__PURE__ */ U(Ci, {
+				cfg: e,
+				set: t
 			}),
 			/* @__PURE__ */ U("div", {
 				class: "labeled-label",
@@ -3998,7 +5757,113 @@ function Fr({ cfg: e, set: t }) {
 		]
 	});
 }
-function Ir({ cfg: e, set: t }) {
+function Si({ value: e, onCommit: t }) {
+	let [n, r] = k(e.join(", ")), i = () => {
+		let i = n.split(/[,\s]+/).map((e) => Number(e)).filter((e) => e > 0 && e <= 240);
+		if (i.length) {
+			let e = [...new Set(i)].slice(0, 6);
+			t(e), r(e.join(", "));
+		} else r(e.join(", "));
+	};
+	return /* @__PURE__ */ U("input", {
+		class: "input",
+		value: n,
+		inputMode: "numeric",
+		onInput: (e) => r(e.target.value),
+		onBlur: i,
+		onKeyDown: (e) => e.key === "Enter" && i()
+	});
+}
+function Ci({ cfg: e, set: t }) {
+	let n = L.value, r = Object.keys(n.states).filter((e) => Ht(n, e)), i = e.irrigation.zones, a = (e) => t((t) => {
+		t.irrigation.zones = t.irrigation.zones.includes(e) ? t.irrigation.zones.filter((t) => t !== e) : [...t.irrigation.zones, e];
+	});
+	return /* @__PURE__ */ U(x, { children: [/* @__PURE__ */ U(Q, {
+		label: "Irrigation",
+		hint: "Water zones with one tap. Timers run inside Home Assistant, so a sleeping tablet never leaves the water on.",
+		children: /* @__PURE__ */ U(q, {
+			checked: e.builtinPages.irrigation,
+			onChange: (e) => t((t) => {
+				t.builtinPages.irrigation = e, e && !t.irrigation.zones.length && (t.irrigation.zones = r);
+			})
+		})
+	}), e.builtinPages.irrigation && /* @__PURE__ */ U("div", {
+		class: "sub-options",
+		children: [
+			/* @__PURE__ */ U("div", {
+				class: "labeled-label",
+				children: [
+					"Watering zones, in the order they run (",
+					i.length,
+					")"
+				]
+			}),
+			i.map((e, r) => /* @__PURE__ */ U("div", {
+				class: "room-row",
+				children: [
+					/* @__PURE__ */ U("span", {
+						class: "zone-num",
+						children: r + 1
+					}),
+					/* @__PURE__ */ U("span", {
+						class: "grow",
+						children: I(n, e)
+					}),
+					/* @__PURE__ */ U(G, {
+						icon: "mdi:arrow-up",
+						label: "Run earlier",
+						disabled: r === 0,
+						onClick: () => t((e) => [e.irrigation.zones[r - 1], e.irrigation.zones[r]] = [e.irrigation.zones[r], e.irrigation.zones[r - 1]])
+					}),
+					/* @__PURE__ */ U(G, {
+						icon: "mdi:close",
+						label: `Remove ${I(n, e)}`,
+						onClick: () => a(e)
+					})
+				]
+			})),
+			r.length > 0 && i.length === 0 && /* @__PURE__ */ U("p", {
+				class: "muted small",
+				children: "No zones chosen yet."
+			}),
+			/* @__PURE__ */ U("div", {
+				class: "labeled-label",
+				children: "Add zones (switches and valves)"
+			}),
+			/* @__PURE__ */ U("div", {
+				class: "picker-box",
+				children: /* @__PURE__ */ U(Un, {
+					domains: [
+						"switch",
+						"valve",
+						"input_boolean"
+					],
+					isSelected: (e) => i.includes(e),
+					onToggle: a
+				})
+			}),
+			/* @__PURE__ */ U(X, {
+				label: "Usual run time per zone",
+				children: /* @__PURE__ */ U(J, {
+					value: e.irrigation.minutes,
+					min: 1,
+					max: 60,
+					format: (e) => `${e} min`,
+					onCommit: (e) => t((t) => t.irrigation.minutes = e)
+				})
+			}),
+			/* @__PURE__ */ U(X, {
+				label: "Quick buttons (minutes)",
+				hint: "Comma separated, e.g. 5, 10, 15, 30",
+				children: /* @__PURE__ */ U(Si, {
+					value: e.irrigation.presets,
+					onCommit: (e) => t((t) => t.irrigation.presets = e)
+				})
+			})
+		]
+	})] });
+}
+function wi({ cfg: e, set: t }) {
 	let n = e.tablet;
 	return /* @__PURE__ */ U("div", {
 		class: "step",
@@ -4026,7 +5891,7 @@ function Ir({ cfg: e, set: t }) {
 				})
 			}), /* @__PURE__ */ U(X, {
 				label: "Screensaver style",
-				children: /* @__PURE__ */ U(wn, {
+				children: /* @__PURE__ */ U(Nn, {
 					value: n.screensaverStyle,
 					options: [
 						{
@@ -4048,7 +5913,7 @@ function Ir({ cfg: e, set: t }) {
 			/* @__PURE__ */ U(Q, {
 				label: "Return to the first room",
 				hint: "Go back home after a while with no touches",
-				children: /* @__PURE__ */ U(wn, {
+				children: /* @__PURE__ */ U(Nn, {
 					value: String(n.returnHomeMinutes),
 					options: [
 						{
@@ -4082,12 +5947,15 @@ function Ir({ cfg: e, set: t }) {
 		]
 	});
 }
-function Lr({ cfg: e }) {
+function Ti({ cfg: e }) {
 	let t = e.sections.filter((e) => e.kind === "room"), n = e.sections.filter((e) => e.kind === "page"), r = e.sections.reduce((e, t) => e + t.cards.length, 0), i = [
 		["Rooms", t.map((e) => e.name).join(", ") || "None"],
 		["Devices", `${r} cards`],
-		["Layout", jr.find((t) => t.id === e.layout).name],
+		["Layout", gi.find((t) => t.id === e.layout)?.name ?? e.layout],
+		["Style", ve.find((t) => t.id === e.theme.style)?.name ?? "Custom"],
 		["Pages", [
+			e.builtinPages.home && "Home",
+			e.builtinPages.irrigation && `Irrigation (${e.irrigation.zones.length} zones)`,
 			e.builtinPages.media && "Media",
 			e.builtinPages.security && "Security",
 			e.builtinPages.scenes && "Scenes",
@@ -4109,76 +5977,76 @@ function Lr({ cfg: e }) {
 	});
 }
 // src/components/wizard.tsx
-var $ = P(null), Rr = [
+var $ = N(null), Ei = [
 	{
 		id: "welcome",
 		title: "Welcome",
 		icon: "mdi:hand-wave",
-		C: wr
+		C: li
 	},
 	{
 		id: "rooms",
 		title: "Rooms",
 		icon: "mdi:floor-plan",
-		C: Tr
+		C: ui
 	},
 	{
 		id: "devices",
 		title: "Devices",
 		icon: "mdi:devices",
-		C: Dr
+		C: fi
 	},
 	{
 		id: "scenes",
 		title: "Scenes & media",
 		icon: "mdi:palette",
-		C: Or
+		C: pi
 	},
 	{
 		id: "widgets",
 		title: "Header & widgets",
 		icon: "mdi:weather-partly-cloudy",
-		C: Ar
+		C: hi
 	},
 	{
 		id: "layout",
 		title: "Layout",
 		icon: "mdi:view-quilt",
-		C: Nr
+		C: vi
 	},
 	{
 		id: "theme",
 		title: "Look & feel",
 		icon: "mdi:brush",
-		C: Pr
+		C: bi
 	},
 	{
 		id: "pages",
 		title: "Pages",
 		icon: "mdi:book-open-page-variant",
-		C: Fr
+		C: xi
 	},
 	{
 		id: "tablet",
 		title: "Wall tablet",
 		icon: "mdi:tablet",
-		C: Ir
+		C: wi
 	},
 	{
 		id: "review",
 		title: "Review",
 		icon: "mdi:check-decagram",
-		C: Lr
+		C: Ti
 	}
 ];
-function zr() {
-	let e = R.value ? be(R.value) : ve();
-	R.value || Cr(L.value, e), $.value = e, on.value = !1, sn.value = !0;
+function Di() {
+	let e = R.value ? Se(R.value) : be();
+	R.value || ci(L.value, e), $.value = e, hn.value = !1, gn.value = !0;
 }
-function Br() {
-	let [e, t] = A(0), [n, r] = A(!1), i = $.value;
+function Oi() {
+	let [e, t] = k(0), [n, r] = k(!1), i = $.value;
 	if (!i) return null;
-	let a = yr(() => $.value, (e) => $.value = e), o = Rr[e], s = e === Rr.length - 1, c = !R.value?.setupComplete;
+	let a = ii(() => $.value, (e) => $.value = e), o = Ei[e], s = e === Ei.length - 1, c = !R.value?.setupComplete;
 	return /* @__PURE__ */ U("div", {
 		class: "wizard",
 		role: "dialog",
@@ -4192,7 +6060,7 @@ function Br() {
 					icon: "mdi:anvil",
 					size: 28
 				}), /* @__PURE__ */ U("span", { children: "DashForge" })]
-			}), /* @__PURE__ */ U("ol", { children: Rr.map((n, r) => /* @__PURE__ */ U("li", { children: /* @__PURE__ */ U("button", {
+			}), /* @__PURE__ */ U("ol", { children: Ei.map((n, r) => /* @__PURE__ */ U("li", { children: /* @__PURE__ */ U("button", {
 				type: "button",
 				class: `wstep ${r === e ? "current" : ""} ${r < e ? "done" : ""}`,
 				onClick: () => t(r),
@@ -4208,7 +6076,7 @@ function Br() {
 				/* @__PURE__ */ U("div", {
 					class: "wizard-progress",
 					"aria-hidden": "true",
-					children: /* @__PURE__ */ U("div", { style: `width:${(e + 1) / Rr.length * 100}%` })
+					children: /* @__PURE__ */ U("div", { style: `width:${(e + 1) / Ei.length * 100}%` })
 				}),
 				/* @__PURE__ */ U("div", {
 					class: "wizard-head",
@@ -4218,7 +6086,7 @@ function Br() {
 							"Step ",
 							e + 1,
 							" of ",
-							Rr.length
+							Ei.length
 						]
 					}), /* @__PURE__ */ U("h2", { children: o.title })]
 				}),
@@ -4234,7 +6102,7 @@ function Br() {
 					children: [c ? /* @__PURE__ */ U("span", {}) : /* @__PURE__ */ U(K, {
 						kind: "ghost",
 						onClick: () => {
-							sn.value = !1, $.value = null;
+							gn.value = !1, $.value = null;
 						},
 						children: "Cancel"
 					}), /* @__PURE__ */ U("div", {
@@ -4250,11 +6118,11 @@ function Br() {
 							disabled: n,
 							onClick: async () => {
 								r(!0);
-								let e = await mn({
+								let e = await Cn({
 									...i,
 									setupComplete: !0
 								});
-								r(!1), e && (sn.value = !1, $.value = null, B.value = null, V("Your dashboard is ready"));
+								r(!1), e && (gn.value = !1, $.value = null, B.value = null, V("Your dashboard is ready"));
 							},
 							children: c ? "Finish setup" : "Save"
 						}) : /* @__PURE__ */ U(K, {
@@ -4269,24 +6137,24 @@ function Br() {
 		})]
 	});
 }
-var Vr = Rr.filter((e) => e.id !== "review").map((e) => e.id === "welcome" ? {
+var ki = Ei.filter((e) => e.id !== "review").map((e) => e.id === "welcome" ? {
 	...e,
 	title: "General",
 	icon: "mdi:cog"
 } : e);
-function Hr() {
-	$.value = be(R.value), on.value = !0;
+function Ai() {
+	$.value = Se(R.value), hn.value = !0;
 }
-function Ur() {
-	let [e, t] = A("welcome"), [n, r] = A(!1), i = $.value;
+function ji() {
+	let [e, t] = k("welcome"), [n, r] = k(!1), i = $.value;
 	if (!i) return null;
-	let a = yr(() => $.value, (e) => $.value = e), o = () => {
-		on.value = !1, $.value = null;
+	let a = ii(() => $.value, (e) => $.value = e), o = () => {
+		hn.value = !1, $.value = null;
 	}, s = async () => {
 		r(!0);
-		let e = await mn(i);
+		let e = await Cn(i);
 		r(!1), e && (o(), V("Settings saved"));
-	}, c = Vr.find((t) => t.id === e);
+	}, c = ki.find((t) => t.id === e);
 	return /* @__PURE__ */ U(Y, {
 		title: "Settings",
 		onClose: o,
@@ -4306,7 +6174,7 @@ function Ur() {
 			class: "settings",
 			children: [/* @__PURE__ */ U("nav", {
 				class: "settings-tabs",
-				children: [Vr.map((n) => /* @__PURE__ */ U("button", {
+				children: [ki.map((n) => /* @__PURE__ */ U("button", {
 					type: "button",
 					class: `wstep ${e === n.id ? "current" : ""}`,
 					onClick: () => t(n.id),
@@ -4328,7 +6196,7 @@ function Ur() {
 				children: c ? /* @__PURE__ */ U(c.C, {
 					cfg: i,
 					set: a
-				}) : /* @__PURE__ */ U(Wr, {
+				}) : /* @__PURE__ */ U(Mi, {
 					cfg: i,
 					onReplace: (e) => $.value = e
 				})
@@ -4336,8 +6204,8 @@ function Ur() {
 		})
 	});
 }
-function Wr({ cfg: e, onReplace: t }) {
-	let [n, r] = A(""), [i, a] = A(!1), o = () => {
+function Mi({ cfg: e, onReplace: t }) {
+	let [n, r] = k(""), [i, a] = k(!1), o = () => {
 		let t = new Blob([JSON.stringify(e, null, 2)], { type: "application/json" }), n = document.createElement("a");
 		n.href = URL.createObjectURL(t), n.download = `dashforge-${(/* @__PURE__ */ new Date()).toISOString().slice(0, 10)}.json`, n.click(), setTimeout(() => URL.revokeObjectURL(n.href), 1e3);
 	}, s = (e) => {
@@ -4345,7 +6213,7 @@ function Wr({ cfg: e, onReplace: t }) {
 			let n = JSON.parse(e);
 			if (!n || !Array.isArray(n.sections)) throw Error("bad");
 			t({
-				...ye(n),
+				...xe(n),
 				setupComplete: !0
 			}), V("Imported. Press Save to keep it."), r("");
 		} catch {
@@ -4403,7 +6271,7 @@ function Wr({ cfg: e, onReplace: t }) {
 				class: "btn-row",
 				children: [/* @__PURE__ */ U(K, {
 					icon: "mdi:wizard-hat",
-					onClick: zr,
+					onClick: Di,
 					children: "Run the setup wizard again"
 				}), /* @__PURE__ */ U(K, {
 					kind: "danger",
@@ -4422,7 +6290,7 @@ function Wr({ cfg: e, onReplace: t }) {
 				}), /* @__PURE__ */ U(K, {
 					kind: "danger",
 					onClick: async () => {
-						await mn(null) && (a(!1), on.value = !1, $.value = null);
+						await Cn(null) && (a(!1), hn.value = !1, $.value = null);
 					},
 					children: "Reset"
 				})] }),
@@ -4432,26 +6300,26 @@ function Wr({ cfg: e, onReplace: t }) {
 	});
 }
 // src/components/widgets.tsx
-var Gr = P(null);
-function Kr(e = 1e3) {
-	let [t, n] = A(() => /* @__PURE__ */ new Date());
-	return j(() => {
+var Ni = N(null);
+function Pi(e = 1e3) {
+	let [t, n] = k(() => /* @__PURE__ */ new Date());
+	return A(() => {
 		let t = window.setInterval(() => n(/* @__PURE__ */ new Date()), e);
 		return () => clearInterval(t);
 	}, [e]), t;
 }
-function qr(e, t, n) {
+function Fi(e, t, n) {
 	return e.toLocaleTimeString(n, {
 		hour: "numeric",
 		minute: "2-digit",
 		hour12: !t
 	});
 }
-function Jr(e, t) {
+function Ii(e, t) {
 	let n = e.getHours(), r = n < 5 ? "Good night" : n < 12 ? "Good morning" : n < 18 ? "Good afternoon" : "Good evening";
 	return t ? `${r}, ${t}` : r;
 }
-var Yr = {
+var Li = {
 	"clear-night": "mdi:weather-night",
 	cloudy: "mdi:weather-cloudy",
 	exceptional: "mdi:alert-circle-outline",
@@ -4467,13 +6335,13 @@ var Yr = {
 	sunny: "mdi:weather-sunny",
 	windy: "mdi:weather-windy",
 	"windy-variant": "mdi:weather-windy-variant"
-}, Xr = (e) => Yr[e] ?? "mdi:weather-partly-cloudy", Zr = (e) => e === "partlycloudy" ? "Partly cloudy" : e === "clear-night" ? "Clear" : e.replace(/-/g, " ").replace(/^\w/, (e) => e.toUpperCase());
-function Qr(e, t = !0) {
+}, Ri = (e) => Li[e] ?? "mdi:weather-partly-cloudy", zi = (e) => e === "partlycloudy" ? "Partly cloudy" : e === "clear-night" ? "Clear" : e.replace(/-/g, " ").replace(/^\w/, (e) => e.toUpperCase());
+function Bi(e, t = !0) {
 	return e === 0 ? t ? "sunny" : "clear-night" : e <= 2 ? "partlycloudy" : e === 3 ? "cloudy" : e === 45 || e === 48 ? "fog" : e >= 51 && e <= 67 ? e >= 65 ? "pouring" : "rainy" : e >= 71 && e <= 77 ? "snowy" : e >= 80 && e <= 82 ? e === 82 ? "pouring" : "rainy" : e === 85 || e === 86 ? "snowy" : e >= 95 ? "lightning-rainy" : "cloudy";
 }
-function $r(e, t, n) {
-	let [r, i] = A([]);
-	return j(() => {
+function Vi(e, t, n) {
+	let [r, i] = k([]);
+	return A(() => {
 		if (!t || !e.states[t]) return;
 		let r, a = !0;
 		return e.connection.subscribeMessage((e) => a && i(e.forecast ?? []), {
@@ -4491,9 +6359,9 @@ function $r(e, t, n) {
 		!!e.states[t ?? ""]
 	]), r;
 }
-function ei(e, t) {
-	let [n, r] = A(null), i = e.config.unit_system.temperature === "°F";
-	return j(() => {
+function Hi(e, t) {
+	let [n, r] = k(null), i = e.config.unit_system.temperature === "°F";
+	return A(() => {
 		if (!t) return;
 		let n = !0, a = () => {
 			let t = new URLSearchParams({
@@ -4512,17 +6380,17 @@ function ei(e, t) {
 				r({
 					source: "open-meteo",
 					unit: i ? "°F" : "°C",
-					condition: Qr(e.current.weather_code, !!e.current.is_day),
+					condition: Bi(e.current.weather_code, !!e.current.is_day),
 					temp: e.current.temperature_2m,
 					hourly: e.hourly.time.slice(t, t + 24).map((n, r) => ({
 						time: n,
-						condition: Qr(e.hourly.weather_code[t + r], !!e.hourly.is_day[t + r]),
+						condition: Bi(e.hourly.weather_code[t + r], !!e.hourly.is_day[t + r]),
 						temp: e.hourly.temperature_2m[t + r],
 						precip: e.hourly.precipitation_probability?.[t + r]
 					})),
 					daily: e.daily.time.map((t, n) => ({
 						time: t,
-						condition: Qr(e.daily.weather_code[n]),
+						condition: Bi(e.daily.weather_code[n]),
 						high: e.daily.temperature_2m_max[n],
 						low: e.daily.temperature_2m_min[n],
 						precip: e.daily.precipitation_probability_max?.[n]
@@ -4542,8 +6410,11 @@ function ei(e, t) {
 		i
 	]), n;
 }
-function ti(e, t) {
-	let n = t.header.weatherEntity, r = n ? e.states[n] : void 0, i = $r(e, n, "daily"), a = $r(e, n, "hourly"), o = ei(e, !r && t.header.weatherFallback);
+function Ui(e, t) {
+	return Wi(e, t.header.weatherEntity, t.header.weatherFallback);
+}
+function Wi(e, t, n) {
+	let r = t ? e.states[t] : void 0, i = Vi(e, t, "daily"), a = Vi(e, t, "hourly"), o = Hi(e, !r && n);
 	return r ? {
 		source: "entity",
 		condition: r.state,
@@ -4564,23 +6435,23 @@ function ti(e, t) {
 		}))
 	} : o;
 }
-function ni({ data: e, lang: t, h24: n }) {
+function Gi({ data: e, lang: t, h24: n, onClose: r }) {
 	return /* @__PURE__ */ U(Y, {
 		title: "Weather",
-		onClose: () => Gr.value = null,
+		onClose: r ?? (() => Ni.value = null),
 		wide: !0,
 		children: [
 			/* @__PURE__ */ U("div", {
 				class: "weather-now",
 				children: [/* @__PURE__ */ U(W, {
-					icon: Xr(e.condition),
+					icon: Ri(e.condition),
 					size: 56
 				}), /* @__PURE__ */ U("div", { children: [/* @__PURE__ */ U("div", {
 					class: "weather-temp",
 					children: e.temp == null ? "—" : `${Math.round(e.temp)}${e.unit}`
 				}), /* @__PURE__ */ U("div", {
 					class: "muted",
-					children: Zr(e.condition)
+					children: zi(e.condition)
 				})] })]
 			}),
 			e.hourly.length > 0 && /* @__PURE__ */ U(x, { children: [/* @__PURE__ */ U("div", {
@@ -4593,10 +6464,10 @@ function ni({ data: e, lang: t, h24: n }) {
 					children: [
 						/* @__PURE__ */ U("span", {
 							class: "muted",
-							children: qr(new Date(e.time), n, t).replace(":00", "")
+							children: Fi(new Date(e.time), n, t).replace(":00", "")
 						}),
 						/* @__PURE__ */ U(W, {
-							icon: Xr(e.condition),
+							icon: Ri(e.condition),
 							size: 26
 						}),
 						/* @__PURE__ */ U("strong", { children: [Math.round(e.temp), "°"] }),
@@ -4620,7 +6491,7 @@ function ni({ data: e, lang: t, h24: n }) {
 							children: n === 0 ? "Today" : new Date(e.time).toLocaleDateString(t, { weekday: "long" })
 						}),
 						/* @__PURE__ */ U(W, {
-							icon: Xr(e.condition),
+							icon: Ri(e.condition),
 							size: 24
 						}),
 						/* @__PURE__ */ U("span", {
@@ -4648,21 +6519,21 @@ function ni({ data: e, lang: t, h24: n }) {
 		]
 	});
 }
-function ri(e) {
+function Ki(e) {
 	if (e.dateTime) return [new Date(e.dateTime), !1];
 	let [t, n, r] = (e.date ?? "").split("-").map(Number);
 	return [new Date(t, n - 1, r), !0];
 }
-function ii(e, t, n, r, i = 0) {
-	let [a, o] = A([]);
-	return j(() => {
+function qi(e, t, n, r, i = 0) {
+	let [a, o] = k([]);
+	return A(() => {
 		if (!t.length) {
 			o([]);
 			return;
 		}
 		let i = !0, a = `start=${encodeURIComponent(n.toISOString())}&end=${encodeURIComponent(r.toISOString())}`;
 		return Promise.all(t.map((t) => e.callApi("GET", `calendars/${t}?${a}`).then((e) => e.map((e) => {
-			let [n, r] = ri(e.start), [i] = ri(e.end);
+			let [n, r] = Ki(e.start), [i] = Ki(e.end);
 			return {
 				summary: e.summary,
 				start: n,
@@ -4676,36 +6547,36 @@ function ii(e, t, n, r, i = 0) {
 		};
 	}, [`${t.join(",")}|${n.toISOString()}|${r.toISOString()}|${i}`]), a;
 }
-function ai(e, t, n) {
-	return e.allDay ? "All day" : qr(e.start, n, t);
+function Ji(e, t, n) {
+	return e.allDay ? "All day" : Fi(e.start, n, t);
 }
-function oi({ cfg: e, lang: t }) {
-	let n = L.value, [r, i] = A(() => {
+function Yi({ cfg: e, lang: t, calendars: n, onClose: r }) {
+	let i = L.value, [a, o] = k(() => {
 		let e = /* @__PURE__ */ new Date();
 		return new Date(e.getFullYear(), e.getMonth(), 1);
-	}), [a, o] = A(() => (/* @__PURE__ */ new Date()).toDateString()), s = ze(() => {
-		let e = new Date(r);
+	}), [s, c] = k(() => (/* @__PURE__ */ new Date()).toDateString()), l = Ve(() => {
+		let e = new Date(a);
 		return e.setDate(1 - e.getDay()), e;
-	}, [r]), c = ze(() => {
-		let e = new Date(s);
+	}, [a]), u = Ve(() => {
+		let e = new Date(l);
 		return e.setDate(e.getDate() + 42), e;
-	}, [s]), l = ii(n, e.header.calendars, s, c), u = /* @__PURE__ */ new Map();
-	for (let e of l) {
+	}, [l]), d = qi(i, n ?? e.header.calendars, l, u), f = /* @__PURE__ */ new Map();
+	for (let e of d) {
 		let t = new Date(e.start);
 		t.setHours(0, 0, 0, 0);
 		let n = new Date(e.allDay ? e.end.getTime() - 1 : e.end.getTime());
 		do {
 			let n = t.toDateString();
-			u.set(n, [...u.get(n) ?? [], e]), t.setDate(t.getDate() + 1);
+			f.set(n, [...f.get(n) ?? [], e]), t.setDate(t.getDate() + 1);
 		} while (t <= n);
 	}
-	let d = Array.from({ length: 42 }, (e, t) => {
-		let n = new Date(s);
+	let p = Array.from({ length: 42 }, (e, t) => {
+		let n = new Date(l);
 		return n.setDate(n.getDate() + t), n;
-	}), f = (/* @__PURE__ */ new Date()).toDateString(), p = u.get(a) ?? [], m = (e) => i(new Date(r.getFullYear(), r.getMonth() + e, 1));
+	}), m = (/* @__PURE__ */ new Date()).toDateString(), h = f.get(s) ?? [], g = (e) => o(new Date(a.getFullYear(), a.getMonth() + e, 1));
 	return /* @__PURE__ */ U(Y, {
 		title: "Calendar",
-		onClose: () => Gr.value = null,
+		onClose: r ?? (() => Ni.value = null),
 		wide: !0,
 		children: [
 			/* @__PURE__ */ U("div", {
@@ -4714,30 +6585,30 @@ function oi({ cfg: e, lang: t }) {
 					/* @__PURE__ */ U(G, {
 						icon: "mdi:chevron-left",
 						label: "Previous month",
-						onClick: () => m(-1)
+						onClick: () => g(-1)
 					}),
-					/* @__PURE__ */ U("strong", { children: r.toLocaleDateString(t, {
+					/* @__PURE__ */ U("strong", { children: a.toLocaleDateString(t, {
 						month: "long",
 						year: "numeric"
 					}) }),
 					/* @__PURE__ */ U(G, {
 						icon: "mdi:chevron-right",
 						label: "Next month",
-						onClick: () => m(1)
+						onClick: () => g(1)
 					})
 				]
 			}),
 			/* @__PURE__ */ U("div", {
 				class: "cal-grid",
-				children: [d.slice(0, 7).map((e) => /* @__PURE__ */ U("div", {
+				children: [p.slice(0, 7).map((e) => /* @__PURE__ */ U("div", {
 					class: "cal-dow",
 					children: e.toLocaleDateString(t, { weekday: "narrow" })
-				})), d.map((e) => {
-					let t = e.toDateString(), n = u.get(t)?.length ?? 0;
+				})), p.map((e) => {
+					let t = e.toDateString(), n = f.get(t)?.length ?? 0;
 					return /* @__PURE__ */ U("button", {
 						type: "button",
-						class: `cal-day ${e.getMonth() === r.getMonth() ? "" : "other"} ${t === f ? "today" : ""} ${t === a ? "selected" : ""}`,
-						onClick: () => o(t),
+						class: `cal-day ${e.getMonth() === a.getMonth() ? "" : "other"} ${t === m ? "today" : ""} ${t === s ? "selected" : ""}`,
+						onClick: () => c(t),
 						children: [/* @__PURE__ */ U("span", { children: e.getDate() }), n > 0 && /* @__PURE__ */ U("span", {
 							class: "cal-dots",
 							children: "•".repeat(Math.min(n, 3))
@@ -4747,34 +6618,34 @@ function oi({ cfg: e, lang: t }) {
 			}),
 			/* @__PURE__ */ U("div", {
 				class: "labeled-label",
-				children: new Date(a).toLocaleDateString(t, {
+				children: new Date(s).toLocaleDateString(t, {
 					weekday: "long",
 					month: "long",
 					day: "numeric"
 				})
 			}),
-			p.length === 0 ? /* @__PURE__ */ U("p", {
+			h.length === 0 ? /* @__PURE__ */ U("p", {
 				class: "muted",
 				children: "Nothing planned."
 			}) : /* @__PURE__ */ U("ul", {
 				class: "agenda",
-				children: p.map((r) => /* @__PURE__ */ U("li", { children: [/* @__PURE__ */ U("span", {
+				children: h.map((n) => /* @__PURE__ */ U("li", { children: [/* @__PURE__ */ U("span", {
 					class: "agenda-time",
-					children: ai(r, t, e.header.clock24h)
+					children: Ji(n, t, e.header.clock24h)
 				}), /* @__PURE__ */ U("span", {
 					class: "agenda-text",
-					children: [/* @__PURE__ */ U("strong", { children: r.summary }), /* @__PURE__ */ U("span", {
+					children: [/* @__PURE__ */ U("strong", { children: n.summary }), /* @__PURE__ */ U("span", {
 						class: "muted small",
-						children: [r.location, I(n, r.calendar)].filter(Boolean).join(" · ")
+						children: [n.location, I(i, n.calendar)].filter(Boolean).join(" · ")
 					})]
 				})] }))
 			})
 		]
 	});
 }
-function si(e, t) {
-	let [n, r] = A([]);
-	return j(() => {
+function Xi(e, t) {
+	let [n, r] = k([]);
+	return A(() => {
 		let n = !0, i;
 		return e.connection.subscribeMessage((e) => n && r(e.items ?? []), {
 			type: "todo/item/subscribe",
@@ -4789,11 +6660,11 @@ function si(e, t) {
 		};
 	}, [t]), n;
 }
-function ci(e, t) {
+function Zi(e, t) {
 	return t.reduce((t, n) => t + (Number(e.states[n]?.state) || 0), 0);
 }
-function li({ entityId: e }) {
-	let t = L.value, n = si(t, e), [r, i] = A(""), a = n.filter((e) => e.status === "needs_action"), o = n.filter((e) => e.status === "completed").slice(0, 5), s = () => {
+function Qi({ entityId: e }) {
+	let t = L.value, n = Xi(t, e), [r, i] = k(""), a = n.filter((e) => e.status === "needs_action"), o = n.filter((e) => e.status === "completed").slice(0, 5), s = () => {
 		r.trim() && (H("todo", "add_item", {
 			entity_id: e,
 			item: r.trim()
@@ -4829,7 +6700,7 @@ function li({ entityId: e }) {
 				class: "todo-items",
 				children: [
 					a.map((e) => /* @__PURE__ */ U("li", { children: [
-						/* @__PURE__ */ U(Tn, {
+						/* @__PURE__ */ U(Pn, {
 							checked: !1,
 							onChange: () => c(e, !0)
 						}),
@@ -4841,7 +6712,7 @@ function li({ entityId: e }) {
 					] })),
 					o.map((e) => /* @__PURE__ */ U("li", {
 						class: "done",
-						children: [/* @__PURE__ */ U(Tn, {
+						children: [/* @__PURE__ */ U(Pn, {
 							checked: !0,
 							onChange: () => c(e, !1)
 						}), /* @__PURE__ */ U("span", { children: e.summary })]
@@ -4855,53 +6726,81 @@ function li({ entityId: e }) {
 		]
 	});
 }
-function ui({ cfg: e }) {
+function $i({ cfg: e, lists: t, onClose: n }) {
 	return /* @__PURE__ */ U(Y, {
 		title: "Reminders",
-		onClose: () => Gr.value = null,
+		onClose: n ?? (() => Ni.value = null),
 		wide: !0,
-		children: e.header.todoLists.map((e) => /* @__PURE__ */ U(li, { entityId: e }))
+		children: (t ?? e.header.todoLists).map((e) => /* @__PURE__ */ U(Qi, { entityId: e }))
 	});
 }
 // src/components/layout.tsx
-function di(e) {
-	let t = e.sections.map((e) => ({
+function ea(e) {
+	let t = L.value, n = [];
+	e.builtinPages.home && !pn.value && n.push({
+		key: "home",
+		view: { type: "home" },
+		name: "Home",
+		icon: "mdi:home-variant"
+	});
+	let r = e.sections.filter((e) => e.kind === "room"), i = e.sections.filter((e) => e.kind === "page"), a = Gr(t, r);
+	for (let e of Wr(t, r)) for (let t of e.sections) n.push({
+		key: t.id,
+		view: {
+			type: "section",
+			id: t.id
+		},
+		name: t.name,
+		icon: t.icon,
+		group: a ? e.name : void 0
+	});
+	for (let e of i) n.push({
 		key: e.id,
 		view: {
 			type: "section",
 			id: e.id
 		},
 		name: e.name,
-		icon: e.icon
-	}));
-	return rn.value || (e.builtinPages.media && mi(e).length && t.push({
+		icon: e.icon,
+		group: a ? "Pages" : void 0
+	});
+	return pn.value || (e.builtinPages.irrigation && e.irrigation.zones.length && n.push({
+		key: "irrigation",
+		view: { type: "irrigation" },
+		name: "Irrigation",
+		icon: "mdi:sprinkler-variant",
+		group: a ? "Pages" : void 0
+	}), e.builtinPages.media && ra(e).length && n.push({
 		key: "media",
 		view: { type: "media" },
 		name: "Media",
-		icon: "mdi:music-box-multiple"
-	}), e.builtinPages.security && gi(e).length && t.push({
+		icon: "mdi:music-box-multiple",
+		group: a ? "Pages" : void 0
+	}), e.builtinPages.security && aa(e).length && n.push({
 		key: "security",
 		view: { type: "security" },
 		name: "Security",
-		icon: "mdi:shield-home"
-	}), e.builtinPages.scenes && _i(e).length && t.push({
+		icon: "mdi:shield-home",
+		group: a ? "Pages" : void 0
+	}), e.builtinPages.scenes && oa(e).length && n.push({
 		key: "scenes",
 		view: { type: "scenes" },
 		name: "Scenes",
-		icon: "mdi:palette"
-	})), t;
+		icon: "mdi:palette",
+		group: a ? "Pages" : void 0
+	})), n;
 }
-var fi = (e) => e ? e.type === "section" ? e.id : e.type : "";
-function pi(e) {
+var ta = (e) => e ? e.type === "section" ? e.id : e.type : "";
+function na(e) {
 	let t = /* @__PURE__ */ new Set();
 	for (let n of e.sections) for (let e of n.cards) e.hidden || t.add(e.entity);
 	return [...t];
 }
-function mi(e) {
-	let t = pi(e).filter((e) => F(e) === "media_player");
+function ra(e) {
+	let t = na(e).filter((e) => P(e) === "media_player");
 	return e.header.mediaPlayer && !t.includes(e.header.mediaPlayer) && t.unshift(e.header.mediaPlayer), t;
 }
-var hi = /* @__PURE__ */ new Set([
+var ia = /* @__PURE__ */ new Set([
 	"door",
 	"garage_door",
 	"window",
@@ -4911,20 +6810,20 @@ var hi = /* @__PURE__ */ new Set([
 	"smoke",
 	"moisture"
 ]);
-function gi(e) {
+function aa(e) {
 	let t = L.value;
-	return pi(e).filter((e) => {
-		let n = F(e);
-		return n === "lock" || n === "alarm_control_panel" || n === "camera" || n === "binary_sensor" && hi.has(t.states[e]?.attributes.device_class);
+	return na(e).filter((e) => {
+		let n = P(e);
+		return n === "lock" || n === "alarm_control_panel" || n === "camera" || n === "binary_sensor" && ia.has(t.states[e]?.attributes.device_class);
 	});
 }
-function _i(e) {
-	let t = L.value, n = /* @__PURE__ */ new Set([...e.header.sceneStrip, ...pi(e).filter((e) => ["scene", "script"].includes(F(e)))]);
-	for (let e of Object.keys(t.states)) F(e) === "scene" && Ut(t, e) && n.add(e);
+function oa(e) {
+	let t = L.value, n = /* @__PURE__ */ new Set([...e.header.sceneStrip, ...na(e).filter((e) => ["scene", "script"].includes(P(e)))]);
+	for (let e of Object.keys(t.states)) P(e) === "scene" && Zt(t, e) && n.add(e);
 	return [...n].filter((e) => t.states[e]);
 }
-function vi({ cfg: e }) {
-	let t = L.value, n = t.locale?.language ?? t.language, r = Kr(e.header.clock ? 1e3 : 6e4), i = ti(t, e), a = new Date(r.getFullYear(), r.getMonth(), r.getDate()), o = new Date(a.getTime() + 1728e5), s = ii(t, e.header.calendars, a, o, Math.floor(r.getTime() / 6e5)).find((e) => e.end > r), c = ci(t, e.header.todoLists), l = $t.value && !e.tablet.hideSidebar, u = e.header.mediaPlayer ? t.states[e.header.mediaPlayer] : void 0;
+function sa({ cfg: e }) {
+	let t = L.value, n = t.locale?.language ?? t.language, r = Pi(e.header.clock ? 1e3 : 6e4), i = Ui(t, e), a = new Date(r.getFullYear(), r.getMonth(), r.getDate()), o = new Date(a.getTime() + 1728e5), s = qi(t, e.header.calendars, a, o, Math.floor(r.getTime() / 6e5)).find((e) => e.end > r), c = Zi(t, e.header.todoLists), l = cn.value && !e.tablet.hideSidebar, u = e.header.mediaPlayer ? t.states[e.header.mediaPlayer] : void 0;
 	return /* @__PURE__ */ U("header", {
 		class: "header",
 		children: [/* @__PURE__ */ U("div", {
@@ -4932,13 +6831,13 @@ function vi({ cfg: e }) {
 			children: [l && /* @__PURE__ */ U(G, {
 				icon: "mdi:menu",
 				label: "Home Assistant menu",
-				onClick: () => bn?.dispatchEvent(new Event("hass-toggle-menu", {
+				onClick: () => kn?.dispatchEvent(new Event("hass-toggle-menu", {
 					bubbles: !0,
 					composed: !0
 				}))
 			}), /* @__PURE__ */ U("div", { children: [/* @__PURE__ */ U("h1", {
 				class: "title",
-				children: e.header.greeting ? Jr(r, e.userName) : e.title
+				children: e.header.greeting ? Ii(r, e.userName) : e.title
 			}), e.header.showDate && /* @__PURE__ */ U("div", {
 				class: "subtitle",
 				children: r.toLocaleDateString(n, {
@@ -4951,35 +6850,35 @@ function vi({ cfg: e }) {
 			class: "header-right",
 			children: [e.header.clock && /* @__PURE__ */ U("div", {
 				class: "clock",
-				children: qr(r, e.header.clock24h, n)
+				children: Fi(r, e.header.clock24h, n)
 			}), /* @__PURE__ */ U("div", {
 				class: "header-chips",
 				children: [
 					i && /* @__PURE__ */ U("button", {
 						type: "button",
 						class: "chip-btn",
-						onClick: () => Gr.value = "weather",
+						onClick: () => Ni.value = "weather",
 						children: [/* @__PURE__ */ U(W, {
-							icon: Xr(i.condition),
+							icon: Ri(i.condition),
 							size: 22
 						}), i.temp != null && /* @__PURE__ */ U("span", { children: [Math.round(i.temp), "°"] })]
 					}),
 					e.header.calendars.length > 0 && /* @__PURE__ */ U("button", {
 						type: "button",
 						class: "chip-btn event-chip",
-						onClick: () => Gr.value = "calendar",
+						onClick: () => Ni.value = "calendar",
 						children: [/* @__PURE__ */ U(W, {
 							icon: "mdi:calendar",
 							size: 20
 						}), /* @__PURE__ */ U("span", {
 							class: "ellipsis",
-							children: s ? `${s.start.toDateString() === r.toDateString() || s.start < r ? "" : "Tomorrow · "}${ai(s, n, e.header.clock24h)} ${s.summary}` : "No events"
+							children: s ? `${s.start.toDateString() === r.toDateString() || s.start < r ? "" : "Tomorrow · "}${Ji(s, n, e.header.clock24h)} ${s.summary}` : "No events"
 						})]
 					}),
 					e.header.todoLists.length > 0 && /* @__PURE__ */ U("button", {
 						type: "button",
 						class: "chip-btn",
-						onClick: () => Gr.value = "todo",
+						onClick: () => Ni.value = "todo",
 						"aria-label": `${c} reminders`,
 						children: [/* @__PURE__ */ U(W, {
 							icon: "mdi:format-list-checks",
@@ -5002,77 +6901,72 @@ function vi({ cfg: e }) {
 							children: u.attributes.media_title ?? I(t, u.entity_id)
 						})]
 					}),
-					en.value?.can_edit && !rn.value && /* @__PURE__ */ U(x, { children: [/* @__PURE__ */ U(G, {
+					un.value?.can_edit && !pn.value && /* @__PURE__ */ U(x, { children: [/* @__PURE__ */ U(G, {
 						icon: "mdi:pencil",
 						label: "Edit dashboard",
-						onClick: hn
+						onClick: wn
 					}), /* @__PURE__ */ U(G, {
 						icon: "mdi:cog",
 						label: "Settings",
-						onClick: Hr
+						onClick: Ai
 					})] })
 				]
 			})]
 		})]
 	});
 }
-function yi({ cfg: e }) {
+function ca({ cfg: e }) {
 	let t = L.value, n = e.header.sceneStrip.filter((e) => t.states[e]);
 	return n.length ? /* @__PURE__ */ U("div", {
 		class: "scene-strip",
 		children: n.map((e) => /* @__PURE__ */ U("button", {
 			type: "button",
 			class: "scene-chip",
-			onClick: () => H(F(e), "turn_on", { entity_id: e }),
+			onClick: () => H(P(e), "turn_on", { entity_id: e }),
 			children: [/* @__PURE__ */ U(W, {
-				icon: Rt(t, e),
+				icon: Kt(t, e),
 				size: 18
 			}), I(t, e)]
 		}))
 	}) : null;
 }
-function bi(e) {
-	let t = L.value, n = e.cards.filter((e) => !e.hidden && [
-		"light",
-		"switch",
-		"fan"
-	].includes(F(e.entity)) && Nt(t.states[e.entity])).length, r = e.cards.find((e) => t.states[e.entity]?.attributes.device_class === "temperature" && F(e.entity) === "sensor"), i = [];
-	return r && i.push(Vt(t, t.states[r.entity])), n && i.push(`${n} on`), i.join(" · ");
-}
-function xi({ cfg: e, vertical: t }) {
-	let n = di(e), r = fi(B.value);
+function la({ cfg: e, vertical: t, current: n }) {
+	let r = ea(e), i = n ?? ta(B.value);
 	return /* @__PURE__ */ U("nav", {
 		class: t ? "nav-vertical" : "nav-pills",
 		"aria-label": "Rooms and pages",
-		children: n.map((n) => {
-			let i = e.sections.find((e) => e.id === n.key), a = i && t ? bi(i) : "";
-			return /* @__PURE__ */ U("button", {
+		children: r.map((n, a) => {
+			let o = e.sections.find((e) => e.id === n.key), s = o && t ? qr(L.value, o) : "";
+			return /* @__PURE__ */ U(x, { children: [t && n.group && n.group !== r[a - 1]?.group && /* @__PURE__ */ U("div", {
+				class: "nav-group",
+				children: n.group
+			}), /* @__PURE__ */ U("button", {
 				type: "button",
-				class: `nav-item ${r === n.key ? "selected" : ""}`,
-				"aria-current": r === n.key ? "page" : void 0,
+				class: `nav-item ${i === n.key ? "selected" : ""}`,
+				"aria-current": i === n.key ? "page" : void 0,
 				onClick: () => B.value = n.view,
 				children: [/* @__PURE__ */ U(W, {
 					icon: n.icon,
 					size: t ? 22 : 18
 				}), /* @__PURE__ */ U("span", {
 					class: "nav-text",
-					children: [/* @__PURE__ */ U("span", { children: n.name }), a && /* @__PURE__ */ U("span", {
+					children: [/* @__PURE__ */ U("span", { children: n.name }), s && /* @__PURE__ */ U("span", {
 						class: "nav-status",
-						children: a
+						children: s
 					})]
 				})]
-			});
+			})] });
 		})
 	});
 }
-var Si = [
+var ua = [
 	"sm",
 	"md",
 	"lg",
 	"wide"
 ];
-function Ci({ section: e, cards: t, room: n, list: r }) {
-	let i = rn.value && !!e, [a, o] = A(null), s = Re(null), c = i ? t.filter((e) => !e.hidden) : t.filter((e) => !e.hidden && L.value.states[e.entity]), l = (t) => gn((n) => {
+function da({ section: e, cards: t, room: n, list: r }) {
+	let i = pn.value && !!e, [a, o] = k(null), s = Be(null), c = i ? t.filter((e) => !e.hidden) : t.filter((e) => !e.hidden && L.value.states[e.entity]), l = (t) => Tn((n) => {
 		let r = n.sections.find((t) => t.id === e.id);
 		r && t(r);
 	}), u = (e, t) => {
@@ -5109,7 +7003,7 @@ function Ci({ section: e, cards: t, room: n, list: r }) {
 				class: `cell size-${r ? "sm" : t.size}`,
 				"data-card-id": t.id,
 				onPointerDown: (e) => u(e, t.id),
-				children: /* @__PURE__ */ U(qn, {
+				children: /* @__PURE__ */ U(ar, {
 					card: r ? {
 						...t,
 						size: "sm"
@@ -5124,9 +7018,9 @@ function Ci({ section: e, cards: t, room: n, list: r }) {
 					}),
 					onResize: () => l((e) => {
 						let n = e.cards.find((e) => e.id === t.id);
-						n && (n.size = Si[(Si.indexOf(n.size) + 1) % Si.length]);
+						n && (n.size = ua[(ua.indexOf(n.size) + 1) % ua.length]);
 					}),
-					onEdit: () => An.value = {
+					onEdit: () => zn.value = {
 						sectionId: e.id,
 						cardId: t.id
 					}
@@ -5135,7 +7029,7 @@ function Ci({ section: e, cards: t, room: n, list: r }) {
 			i && /* @__PURE__ */ U("button", {
 				type: "button",
 				class: "cell size-sm add-tile",
-				onClick: () => kn.value = e.id,
+				onClick: () => Rn.value = e.id,
 				children: [/* @__PURE__ */ U(W, {
 					icon: "mdi:plus",
 					size: 28
@@ -5146,56 +7040,73 @@ function Ci({ section: e, cards: t, room: n, list: r }) {
 				children: [/* @__PURE__ */ U(W, {
 					icon: "mdi:view-grid-plus-outline",
 					size: 36
-				}), /* @__PURE__ */ U("p", { children: ["Nothing here yet.", en.value?.can_edit ? " Tap the pencil to add devices." : ""] })]
+				}), /* @__PURE__ */ U("p", { children: ["Nothing here yet.", un.value?.can_edit ? " Tap the pencil to add devices." : ""] })]
 			})
 		]
 	});
 }
-var wi = (e, t = "sm") => e.map((e) => ({
+var fa = (e, t = "sm") => e.map((e) => ({
 	id: e,
 	entity: e,
 	size: t
 }));
-function Ti({ cfg: e, v: t, list: n }) {
+function pa({ cfg: e, v: t, list: n }) {
+	if (t.type === "home") return /* @__PURE__ */ U(ri, {
+		cfg: n ? {
+			...e,
+			home: {
+				...e.home,
+				rooms: !1
+			}
+		} : e,
+		renderCards: (e) => /* @__PURE__ */ U(da, {
+			cards: e,
+			list: n
+		})
+	});
+	if (t.type === "irrigation") return /* @__PURE__ */ U(Hr, { cfg: e });
 	if (t.type === "section") {
 		let r = e.sections.find((e) => e.id === t.id);
-		return r ? /* @__PURE__ */ U(Ci, {
+		return r ? /* @__PURE__ */ U(x, { children: [!pn.value && /* @__PURE__ */ U(Xr, { section: r }), /* @__PURE__ */ U(da, {
 			section: r,
 			cards: r.cards,
 			room: r.kind === "room" ? r.name : void 0,
 			list: n
-		}) : null;
+		})] }) : null;
 	}
-	if (t.type === "media") return /* @__PURE__ */ U(Ci, {
-		cards: wi(mi(e), n ? "sm" : "wide"),
+	if (t.type === "media") return /* @__PURE__ */ U(da, {
+		cards: fa(ra(e), n ? "sm" : "wide"),
 		list: n
 	});
 	if (t.type === "security") {
-		let t = gi(e), r = (e) => [
+		let t = aa(e), r = (e) => [
 			"alarm_control_panel",
 			"lock",
 			"binary_sensor",
 			"camera"
-		].indexOf(F(e));
-		return t.sort((e, t) => r(e) - r(t)), /* @__PURE__ */ U(Ci, {
+		].indexOf(P(e));
+		return t.sort((e, t) => r(e) - r(t)), /* @__PURE__ */ U(da, {
 			cards: t.map((e) => ({
 				id: e,
 				entity: e,
-				size: F(e) === "camera" && !n ? "wide" : "sm"
+				size: P(e) === "camera" && !n ? "wide" : "sm"
 			})),
 			list: n
 		});
 	}
-	return /* @__PURE__ */ U(Ci, {
-		cards: wi(_i(e)),
+	return /* @__PURE__ */ U(da, {
+		cards: fa(oa(e)),
 		list: n
 	});
 }
-function Ei(e, t) {
-	return t.type === "section" ? e.sections.find((e) => e.id === t.id)?.name ?? "" : t.type === "media" ? "Media" : t.type === "security" ? "Security" : "Scenes";
+function ma(e, t) {
+	return t.type === "section" ? e.sections.find((e) => e.id === t.id)?.name ?? "" : t.type === "home" ? e.title || "Home" : t.type === "irrigation" ? "Irrigation" : t.type === "media" ? "Media" : t.type === "security" ? "Security" : "Scenes";
 }
-function Di({ cfg: e }) {
-	let t = di(e), n = B.value && t.some((e) => e.key === fi(B.value)) ? B.value : t[0]?.view;
+function ha(e) {
+	return e.layout === "auto" ? ln.value >= 1100 ? "sidebar" : "grid" : e.layout;
+}
+function ga({ cfg: e }) {
+	let t = ea(e), n = B.value && t.some((e) => e.key === ta(B.value)) ? B.value : t[0]?.view;
 	if (!n) return /* @__PURE__ */ U("div", {
 		class: "empty big-empty",
 		children: [
@@ -5204,79 +7115,97 @@ function Di({ cfg: e }) {
 				size: 48
 			}),
 			/* @__PURE__ */ U("p", { children: "No rooms or pages yet." }),
-			en.value?.can_edit && /* @__PURE__ */ U("p", {
+			un.value?.can_edit && /* @__PURE__ */ U("p", {
 				class: "muted",
 				children: "Open edit mode and add a room to get started."
 			})
 		]
 	});
-	let r = e.layout;
+	let r = ha(e), i = ta(n), a = n.type === "section" ? e.sections.find((e) => e.id === n.id) : void 0, o = r !== "list" && a?.background ? /* @__PURE__ */ U("div", {
+		class: "room-wallpaper",
+		style: `background-image:url("${a.background.replace(/["\\]/g, "")}")`
+	}) : null;
 	if (r === "list") return /* @__PURE__ */ U("div", {
 		class: "layout-list",
-		children: t.map((t) => /* @__PURE__ */ U("section", {
+		children: t.map((n, r) => /* @__PURE__ */ U(x, { children: [n.group && n.group !== t[r - 1]?.group && /* @__PURE__ */ U("h2", {
+			class: "floor-title list-floor",
+			children: n.group
+		}), /* @__PURE__ */ U("section", {
 			class: "list-section",
-			children: [/* @__PURE__ */ U("h2", {
+			children: [n.key !== "home" && /* @__PURE__ */ U("h2", {
 				class: "section-title",
 				children: [
 					/* @__PURE__ */ U(W, {
-						icon: t.icon,
+						icon: n.icon,
 						size: 20
 					}),
 					" ",
-					t.name
+					n.name
 				]
-			}), /* @__PURE__ */ U(Ti, {
+			}), /* @__PURE__ */ U(pa, {
 				cfg: e,
-				v: t.view,
+				v: n.view,
 				list: !0
 			})]
-		}, t.key))
+		}, n.key)] }))
 	});
-	if (r === "sidebar" && !$t.value) return /* @__PURE__ */ U("div", {
+	if (r === "sidebar" && !cn.value && ln.value >= 720) return /* @__PURE__ */ U("div", {
 		class: "layout-sidebar",
-		children: [/* @__PURE__ */ U(xi, {
-			cfg: e,
-			vertical: !0
-		}), /* @__PURE__ */ U("main", {
-			class: "content",
-			children: [/* @__PURE__ */ U("h2", {
-				class: "section-title",
-				children: Ei(e, n)
-			}), /* @__PURE__ */ U(Ti, {
+		children: [
+			o,
+			/* @__PURE__ */ U(la, {
 				cfg: e,
-				v: n
-			})]
-		})]
+				vertical: !0,
+				current: i
+			}),
+			/* @__PURE__ */ U("main", {
+				class: "content",
+				children: [/* @__PURE__ */ U("h2", {
+					class: "section-title",
+					children: ma(e, n)
+				}), /* @__PURE__ */ U(pa, {
+					cfg: e,
+					v: n
+				})]
+			})
+		]
 	});
 	if (r === "focus") {
-		let r = t.findIndex((e) => e.key === fi(n));
-		return /* @__PURE__ */ U(Oi, {
+		let r = t.findIndex((e) => e.key === ta(n));
+		return /* @__PURE__ */ U(x, { children: [o, /* @__PURE__ */ U(_a, {
 			cfg: e,
 			v: n,
 			idx: r,
 			count: t.length,
 			go: (e) => B.value = t[(r + e + t.length) % t.length].view,
 			items: t
-		});
+		})] });
 	}
 	return /* @__PURE__ */ U("div", {
 		class: "layout-grid",
-		children: [/* @__PURE__ */ U(xi, { cfg: e }), /* @__PURE__ */ U("main", {
-			class: "content",
-			children: /* @__PURE__ */ U(Ti, {
+		children: [
+			o,
+			/* @__PURE__ */ U(la, {
 				cfg: e,
-				v: n
+				current: i
+			}),
+			/* @__PURE__ */ U("main", {
+				class: "content",
+				children: /* @__PURE__ */ U(pa, {
+					cfg: e,
+					v: n
+				})
 			})
-		})]
+		]
 	});
 }
-function Oi(e) {
-	let t = Re(null);
+function _a(e) {
+	let t = Be(null);
 	return /* @__PURE__ */ U("div", {
 		class: "layout-focus",
 		onTouchStart: (e) => t.current = e.touches[0].clientX,
 		onTouchEnd: (n) => {
-			if (t.current === null || rn.value) return;
+			if (t.current === null || pn.value) return;
 			let r = n.changedTouches[0].clientX - t.current;
 			t.current = null, Math.abs(r) > 70 && e.go(r < 0 ? 1 : -1);
 		},
@@ -5291,7 +7220,7 @@ function Oi(e) {
 					}),
 					/* @__PURE__ */ U("h2", {
 						class: "focus-title",
-						children: Ei(e.cfg, e.v)
+						children: ma(e.cfg, e.v)
 					}),
 					/* @__PURE__ */ U(G, {
 						icon: "mdi:chevron-right",
@@ -5311,7 +7240,7 @@ function Oi(e) {
 			}),
 			/* @__PURE__ */ U("main", {
 				class: "content",
-				children: /* @__PURE__ */ U(Ti, {
+				children: /* @__PURE__ */ U(pa, {
 					cfg: e.cfg,
 					v: e.v
 				})
@@ -5320,9 +7249,9 @@ function Oi(e) {
 	});
 }
 // src/components/tablet.tsx
-function ki(e, t, n) {
-	let r = Re(e);
-	r.current = e, j(() => {
+function va(e, t, n) {
+	let r = Be(e);
+	r.current = e, A(() => {
 		if (!n || t <= 0) return;
 		let e = () => r.current(), i = window.setTimeout(e, t * 6e4), a = () => {
 			clearTimeout(i), i = window.setTimeout(e, t * 6e4);
@@ -5337,15 +7266,15 @@ function ki(e, t, n) {
 		};
 	}, [n, t]);
 }
-function Ai({ cfg: e }) {
-	let [t, n] = A(!1);
-	return ki(() => n(!0), e.tablet.screensaverMinutes, e.tablet.screensaver && !t), ki(() => B.value = null, e.tablet.returnHomeMinutes, e.tablet.returnHomeMinutes > 0), Mi(e.tablet.hideSidebar), t ? /* @__PURE__ */ U(ji, {
+function ya({ cfg: e }) {
+	let [t, n] = k(!1);
+	return va(() => n(!0), e.tablet.screensaverMinutes, e.tablet.screensaver && !t), va(() => B.value = null, e.tablet.returnHomeMinutes, e.tablet.returnHomeMinutes > 0), xa(e.tablet.hideSidebar), t ? /* @__PURE__ */ U(ba, {
 		cfg: e,
 		onWake: () => n(!1)
 	}) : null;
 }
-function ji({ cfg: e, onWake: t }) {
-	let n = L.value, r = n.locale?.language ?? n.language, i = Kr(1e3), a = ti(n, e), o = new Date(i.getFullYear(), i.getMonth(), i.getDate()), s = ii(n, e.header.calendars, o, new Date(o.getTime() + 864e5), Math.floor(i.getTime() / 6e5)).find((e) => e.end > i), c = e.tablet.screensaverStyle, l = [
+function ba({ cfg: e, onWake: t }) {
+	let n = L.value, r = n.locale?.language ?? n.language, i = Pi(1e3), a = Ui(n, e), o = new Date(i.getFullYear(), i.getMonth(), i.getDate()), s = qi(n, e.header.calendars, o, new Date(o.getTime() + 864e5), Math.floor(i.getTime() / 6e5)).find((e) => e.end > i), c = e.tablet.screensaverStyle, l = [
 		[0, 0],
 		[3, 2],
 		[-3, 4],
@@ -5370,7 +7299,7 @@ function ji({ cfg: e, onWake: t }) {
 			children: [
 				/* @__PURE__ */ U("div", {
 					class: "ss-clock",
-					children: qr(i, e.header.clock24h, r)
+					children: Fi(i, e.header.clock24h, r)
 				}),
 				/* @__PURE__ */ U("div", {
 					class: "ss-date",
@@ -5383,7 +7312,7 @@ function ji({ cfg: e, onWake: t }) {
 				c === "clock" && /* @__PURE__ */ U("div", {
 					class: "ss-extra",
 					children: [a && /* @__PURE__ */ U("span", { children: [/* @__PURE__ */ U(W, {
-						icon: Xr(a.condition),
+						icon: Ri(a.condition),
 						size: 32
 					}), a.temp != null && `${Math.round(a.temp)}°`] }), s && /* @__PURE__ */ U("span", { children: [
 						/* @__PURE__ */ U(W, {
@@ -5391,7 +7320,7 @@ function ji({ cfg: e, onWake: t }) {
 							size: 28
 						}),
 						" ",
-						ai(s, r, e.header.clock24h),
+						Ji(s, r, e.header.clock24h),
 						" ",
 						s.summary
 					] })]
@@ -5400,8 +7329,8 @@ function ji({ cfg: e, onWake: t }) {
 		})
 	});
 }
-function Mi(e) {
-	j(() => {
+function xa(e) {
+	A(() => {
 		let t = new URLSearchParams(location.search).has("menu"), n = (e) => {
 			try {
 				let t = document.querySelector("home-assistant")?.shadowRoot?.querySelector("home-assistant-main")?.shadowRoot, n = t?.querySelector("ha-drawer"), r = t?.querySelector("ha-sidebar");
@@ -5420,55 +7349,79 @@ function Mi(e) {
 	}, [e]);
 }
 // src/app.tsx
-function Ni(e, t) {
+function Sa(e, t) {
 	let n = e.theme, r;
 	if (n.background === "image" && n.backgroundImage) r = `center / cover no-repeat url("${n.backgroundImage.replace(/["\\]/g, "")}")`;
 	else {
-		let e = ge.find((e) => e.id === n.background) ?? ge[0];
+		let e = _e.find((e) => e.id === n.background) ?? _e[0];
 		r = t ? e.dark : e.light;
 	}
 	return `--accent:${n.accent};--radius:${n.radius}px;--page-bg:${r};`;
 }
-function Pi({ cfg: e, children: t }) {
+function Ca({ cfg: e, children: t }) {
 	let n = L.value, r = e.theme.mode === "dark" || e.theme.mode === "auto" && !!n.themes?.darkMode;
 	return /* @__PURE__ */ U("div", {
-		class: `df-root ${r ? "dark" : "light"} cards-${e.theme.cardStyle} density-${e.theme.density} ${rn.value ? "editing" : ""}`,
-		style: Ni(e, r),
-		children: [t, cn.value && /* @__PURE__ */ U("div", {
-			class: `toast ${cn.value.kind}`,
+		class: `df-root ${r ? "dark" : "light"} style-${e.theme.style ?? "dashforge"} cards-${e.theme.cardStyle} density-${e.theme.density} ${pn.value ? "editing" : ""}`,
+		style: Sa(e, r),
+		children: [t, _n.value && /* @__PURE__ */ U("div", {
+			class: `toast ${_n.value.kind}`,
 			role: "status",
-			children: cn.value.text
+			children: _n.value.text
 		})]
 	});
 }
-function Fi({ children: e }) {
+function wa({ children: e }) {
 	return /* @__PURE__ */ U("div", {
 		class: "centered",
 		children: e
 	});
 }
-function Ii({ cfg: e, h: t }) {
-	let n = ti(t, e), r = t.locale?.language ?? t.language;
+function Ta({ cfg: e, h: t }) {
+	let n = nr.value, r = t.locale?.language ?? t.language, i = Wi(t, n?.kind === "weather" ? n.entity : void 0, !1);
+	if (!n) return null;
+	let a = () => nr.value = null;
+	return n.kind === "weather" ? i ? /* @__PURE__ */ U(Gi, {
+		data: i,
+		lang: r,
+		h24: e.header.clock24h,
+		onClose: a
+	}) : null : n.kind === "calendar" ? /* @__PURE__ */ U(Yi, {
+		cfg: e,
+		lang: r,
+		calendars: [n.entity],
+		onClose: a
+	}) : /* @__PURE__ */ U($i, {
+		cfg: e,
+		lists: [n.entity],
+		onClose: a
+	});
+}
+function Ea({ cfg: e, h: t }) {
+	let n = Ui(t, e), r = t.locale?.language ?? t.language;
 	return /* @__PURE__ */ U(x, { children: [
-		Gr.value === "weather" && n && /* @__PURE__ */ U(ni, {
+		/* @__PURE__ */ U(Ta, {
+			cfg: e,
+			h: t
+		}),
+		Ni.value === "weather" && n && /* @__PURE__ */ U(Gi, {
 			data: n,
 			lang: r,
 			h24: e.header.clock24h
 		}),
-		Gr.value === "calendar" && /* @__PURE__ */ U(oi, {
+		Ni.value === "calendar" && /* @__PURE__ */ U(Yi, {
 			cfg: e,
 			lang: r
 		}),
-		Gr.value === "todo" && /* @__PURE__ */ U(ui, { cfg: e })
+		Ni.value === "todo" && /* @__PURE__ */ U($i, { cfg: e })
 	] });
 }
-function Li() {
+function Da() {
 	let e = L.value;
 	if (!e) return null;
 	let t = $.value ?? R.value;
-	if (nn.value) return /* @__PURE__ */ U("div", {
+	if (fn.value) return /* @__PURE__ */ U("div", {
 		class: "df-root light",
-		children: /* @__PURE__ */ U(Fi, { children: [
+		children: /* @__PURE__ */ U(wa, { children: [
 			/* @__PURE__ */ U(W, {
 				icon: "mdi:alert-circle-outline",
 				size: 48
@@ -5476,28 +7429,28 @@ function Li() {
 			/* @__PURE__ */ U("h2", { children: "DashForge couldn't load" }),
 			/* @__PURE__ */ U("p", {
 				class: "muted",
-				children: nn.value
+				children: fn.value
 			}),
 			/* @__PURE__ */ U(K, {
 				kind: "primary",
-				onClick: fn,
+				onClick: xn,
 				children: "Try again"
 			})
 		] })
 	});
-	if (!en.value) return /* @__PURE__ */ U("div", {
+	if (!un.value) return /* @__PURE__ */ U("div", {
 		class: "df-root light",
-		children: /* @__PURE__ */ U(Fi, { children: /* @__PURE__ */ U("div", {
+		children: /* @__PURE__ */ U(wa, { children: /* @__PURE__ */ U("div", {
 			class: "spinner",
 			"aria-label": "Loading"
 		}) })
 	});
-	if (sn.value && $.value) return /* @__PURE__ */ U(Pi, {
+	if (gn.value && $.value) return /* @__PURE__ */ U(Ca, {
 		cfg: $.value,
-		children: /* @__PURE__ */ U(Br, {})
+		children: /* @__PURE__ */ U(Oi, {})
 	});
-	let n = an.value;
-	if (!n || !n.setupComplete) return /* @__PURE__ */ U(Pi, {
+	let n = mn.value;
+	if (!n || !n.setupComplete) return /* @__PURE__ */ U(Ca, {
 		cfg: t ?? {
 			theme: {
 				mode: "auto",
@@ -5509,7 +7462,7 @@ function Li() {
 			},
 			layout: "grid"
 		},
-		children: /* @__PURE__ */ U(Fi, { children: /* @__PURE__ */ U("div", {
+		children: /* @__PURE__ */ U(wa, { children: /* @__PURE__ */ U("div", {
 			class: "welcome-card",
 			children: [
 				/* @__PURE__ */ U(W, {
@@ -5517,67 +7470,73 @@ function Li() {
 					size: 56
 				}),
 				/* @__PURE__ */ U("h1", { children: "Welcome to DashForge" }),
-				en.value.can_edit ? /* @__PURE__ */ U(x, { children: [/* @__PURE__ */ U("p", { children: "Let's build a dashboard that fits your home. The setup asks you about your rooms, devices, layout and look, one step at a time. It takes about five minutes, and you can change everything afterwards." }), /* @__PURE__ */ U(K, {
+				un.value.can_edit ? /* @__PURE__ */ U(x, { children: [/* @__PURE__ */ U("p", { children: "Let's build a dashboard that fits your home. The setup asks you about your rooms, devices, layout and look, one step at a time. It takes about five minutes, and you can change everything afterwards." }), /* @__PURE__ */ U(K, {
 					kind: "primary",
 					icon: "mdi:arrow-right",
-					onClick: zr,
+					onClick: Di,
 					children: "Start setup"
 				})] }) : /* @__PURE__ */ U("p", { children: "This dashboard hasn't been set up yet. Ask an administrator of this Home Assistant to open DashForge and finish the setup." })
 			]
 		}) })
 	});
-	let r = on.value && $.value ? $.value : n;
-	return /* @__PURE__ */ U(Pi, {
+	let r = hn.value && $.value ? $.value : n;
+	return /* @__PURE__ */ U(Ca, {
 		cfg: r,
 		children: [
 			/* @__PURE__ */ U("div", {
 				class: "dashboard",
 				children: [
-					/* @__PURE__ */ U(vi, { cfg: r }),
-					/* @__PURE__ */ U(yi, { cfg: r }),
-					/* @__PURE__ */ U(Di, { cfg: r })
+					/* @__PURE__ */ U(sa, { cfg: r }),
+					/* @__PURE__ */ U(ca, { cfg: r }),
+					/* @__PURE__ */ U(ga, { cfg: r })
 				]
 			}),
-			/* @__PURE__ */ U(In, {}),
-			/* @__PURE__ */ U(dr, {}),
-			/* @__PURE__ */ U(vr, {}),
-			/* @__PURE__ */ U(Ln, {}),
-			/* @__PURE__ */ U(zn, {}),
-			/* @__PURE__ */ U(Vn, {}),
-			/* @__PURE__ */ U(Bn, {}),
-			/* @__PURE__ */ U(Ii, {
+			/* @__PURE__ */ U(Gn, {}),
+			/* @__PURE__ */ U(Er, {}),
+			/* @__PURE__ */ U(Fr, {}),
+			/* @__PURE__ */ U(Kn, {}),
+			/* @__PURE__ */ U(Jn, {}),
+			/* @__PURE__ */ U(Xn, {}),
+			/* @__PURE__ */ U(Yn, {}),
+			/* @__PURE__ */ U(ti, {}),
+			/* @__PURE__ */ U(Lr, {}),
+			/* @__PURE__ */ U(Ea, {
 				cfg: r,
 				h: e
 			}),
-			on.value && /* @__PURE__ */ U(Ur, {}),
-			!rn.value && /* @__PURE__ */ U(Ai, { cfg: r })
+			hn.value && /* @__PURE__ */ U(ji, {}),
+			!pn.value && /* @__PURE__ */ U(ya, { cfg: r })
 		]
 	});
 }
 // src/styles.css?inline
-var Ri = ":host{height:100%;display:block}.df-mount,.df-root{height:100%}.df-root{--accent:#3b82f6;--radius:20px;--gap:14px;--tile-h:112px;--tile-min:150px;--text:#0f172a;--muted:#64748b;--card:#ffffffb8;--card-solid:#fff;--card-border:#0f172a0f;--card-shadow:0 1px 2px #0f172a0f, 0 8px 24px #0f172a0f;--chip:#fff9;--surface:#fff;--surface-2:#f1f5f9;--line:#0f172a1a;--icon-bg:#0f172a0f;--tile-active:var(--accent);--danger:#ef4444;--page-bg:#f4f4f5;box-sizing:border-box;min-height:100vh;color:var(--text);background:var(--page-bg);-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;background-attachment:fixed;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,sans-serif;font-size:15px;line-height:1.4;position:relative;overflow-y:auto}.df-root.dark{--text:#f1f5f9;--muted:#94a3b8;--card:#1e293b8c;--card-solid:#1e293b;--card-border:#ffffff12;--card-shadow:0 1px 2px #0000004d, 0 8px 24px #00000040;--chip:#1e293b99;--surface:#172033;--surface-2:#0f172a;--line:#ffffff1a;--icon-bg:#ffffff14}.df-root.density-compact{--gap:8px;--tile-h:92px;--tile-min:130px}*,:before,:after{box-sizing:border-box}button{font:inherit;color:inherit;cursor:pointer}button:focus-visible,[tabindex]:focus-visible,.input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}h1,h2,h3{letter-spacing:-.01em;margin:0;font-weight:650}p{margin:0 0 12px}.muted{color:var(--muted)}.small{font-size:.85em}.nowrap{white-space:nowrap}.ellipsis{white-space:nowrap;text-overflow:ellipsis;overflow:hidden}ha-icon{flex:none;display:inline-flex}.btn{border:1px solid var(--line);background:var(--surface);white-space:nowrap;border-radius:999px;align-items:center;gap:6px;min-height:40px;padding:8px 16px;font-weight:550;transition:background .15s,transform .1s;display:inline-flex}.btn:active{transform:scale(.97)}.btn:disabled{opacity:.45;cursor:default}.btn-primary{background:var(--accent);color:#fff;border-color:#0000}.btn-ghost{background:0 0;border-color:#0000}.btn-ghost:hover{background:var(--icon-bg)}.btn-danger{border-color:color-mix(in srgb, var(--danger) 40%, transparent);color:var(--danger);background:0 0}.btn-row{flex-wrap:wrap;align-items:center;gap:8px;display:flex}.icon-btn{background:0 0;border:none;border-radius:50%;justify-content:center;align-items:center;width:44px;height:44px;transition:background .15s;display:inline-flex}.icon-btn:hover{background:var(--icon-bg)}.icon-btn.active,.icon-btn.play{background:var(--accent);color:#fff}.icon-btn:disabled{opacity:.3;cursor:default}.btn-group{align-items:center;gap:4px;display:flex}.toggle{background:var(--line);border:none;border-radius:999px;flex:none;width:52px;height:30px;transition:background .2s;position:relative}.toggle .knob{background:#fff;border-radius:50%;width:24px;height:24px;transition:transform .2s;position:absolute;top:3px;left:3px;box-shadow:0 1px 3px #0000004d}.toggle.on{background:var(--accent)}.toggle.on .knob{transform:translate(22px)}.checkbox{border:2px solid var(--line);color:#fff;background:0 0;border-radius:7px;flex:none;justify-content:center;align-items:center;width:24px;height:24px;display:inline-flex}.checkbox.on{border-color:var(--accent);background:var(--accent)}.slider{--slider-color:var(--accent);background:var(--icon-bg);touch-action:none;cursor:pointer;-webkit-user-select:none;user-select:none;border-radius:12px;height:40px;position:relative;overflow:hidden}.slider-fill{background:var(--slider-color);opacity:.85;height:100%;transition:width .15s,height .15s;position:absolute;bottom:0;left:0}.slider.dragging .slider-fill{transition:none}.slider.vertical .slider-fill{width:100%}.slider-label{pointer-events:none;mix-blend-mode:normal;text-shadow:0 0 6px var(--card-solid);justify-content:center;align-items:center;font-size:.85em;font-weight:600;display:flex;position:absolute;inset:0}.slider.vertical{width:44px;height:100%;min-height:80px}.ct-slider{background:linear-gradient(90deg,#ffb46b,#fff4e5,#cfe3ff)}.ct-slider .slider-fill{border-right:3px solid var(--text);background:0 0}.segmented{background:var(--icon-bg);border-radius:14px;flex-wrap:wrap;gap:4px;padding:4px;display:inline-flex}.segmented button{background:0 0;border:none;border-radius:10px;align-items:center;gap:6px;min-height:36px;padding:6px 14px;font-weight:550;display:inline-flex}.segmented button.selected{background:var(--surface);box-shadow:0 1px 3px #0000001f}.input{border:1px solid var(--line);background:var(--surface);width:100%;min-height:42px;color:var(--text);font:inherit;border-radius:12px;padding:8px 12px}.input.bare{background:0 0;border:none;padding:8px 4px}.field{flex-direction:column;gap:6px;margin-bottom:16px;display:flex}.field-label,.labeled-label{letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-size:.8em;font-weight:650}.labeled-label{margin:18px 0 8px}.field-hint{color:var(--muted);font-size:.85em}.row{border-bottom:1px solid var(--line);align-items:center;gap:12px;padding:12px 0;display:flex}.row-text{flex:1;min-width:0}.row-label{font-weight:550}.row-hint{color:var(--muted);font-size:.85em}.chips{flex-wrap:wrap;gap:8px;display:flex}.chips.scroll{scrollbar-width:none;flex-wrap:nowrap;padding-bottom:4px;overflow-x:auto}.chip{border:1px solid var(--line);background:var(--surface);white-space:nowrap;border-radius:999px;align-items:center;gap:6px;min-height:36px;padding:6px 14px;display:inline-flex}.chip.selected{border-color:var(--accent);background:color-mix(in srgb, var(--accent) 15%, var(--surface));color:var(--accent);font-weight:600}.swatches{flex-wrap:wrap;gap:10px;display:flex}.swatch{border:2px solid var(--line);border-radius:50%;width:38px;height:38px;padding:0}.swatch.selected{outline:3px solid var(--text);outline-offset:2px}.color-input{background:conic-gradient(red,#ff0,#0f0,#0ff,#00f,#f0f,red);overflow:hidden}.color-input::-webkit-color-swatch-wrapper{opacity:0;padding:0}.icon-picker{flex-direction:column;gap:8px;margin-top:6px;display:flex}.icon-grid{grid-template-columns:repeat(auto-fill,minmax(42px,1fr));gap:6px;display:grid}.icon-choice{border:1px solid var(--line);background:var(--surface);border-radius:12px;justify-content:center;align-items:center;width:42px;height:42px;display:inline-flex}.icon-choice.selected{border-color:var(--accent);color:var(--accent)}.dashboard{max-width:1600px;margin:0 auto;padding:20px 24px 120px}.header{flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px 24px;margin-bottom:16px;display:flex}.header-left{align-items:center;gap:8px;min-width:0;display:flex}.title{font-size:1.75rem}.subtitle{color:var(--muted)}.header-right{flex-wrap:wrap;align-items:center;gap:12px;display:flex}.clock{white-space:nowrap;font-variant-numeric:tabular-nums;letter-spacing:-.02em;flex:none;font-size:2rem;font-weight:300}.header-chips{flex-wrap:wrap;align-items:center;gap:8px;display:flex}.chip-btn{border:1px solid var(--card-border);background:var(--chip);-webkit-backdrop-filter:blur(14px);border-radius:999px;align-items:center;gap:6px;max-width:260px;min-height:44px;padding:8px 14px;font-weight:550;display:inline-flex}.chip-btn .count{background:var(--accent);color:#fff;text-align:center;border-radius:999px;min-width:22px;padding:0 6px;font-size:.8em}.header-chips .icon-btn{background:var(--chip);-webkit-backdrop-filter:blur(14px);border:1px solid var(--card-border)}.scene-strip{scrollbar-width:none;gap:8px;margin-bottom:16px;display:flex;overflow-x:auto}.scene-chip{border:1px solid var(--card-border);background:var(--card);-webkit-backdrop-filter:blur(14px);border-radius:999px;flex:none;align-items:center;gap:8px;min-height:40px;padding:8px 16px;font-weight:550;transition:transform .1s;display:inline-flex}.scene-chip:active{transform:scale(.96)}.nav-pills{scrollbar-width:none;gap:8px;margin-bottom:18px;display:flex;overflow-x:auto}.nav-pills .nav-item{border:1px solid var(--card-border);background:var(--chip);-webkit-backdrop-filter:blur(14px);border-radius:999px;flex:none;align-items:center;gap:8px;min-height:42px;padding:8px 16px;font-weight:550;display:inline-flex}.nav-item.selected{color:#fff;background:var(--accent)!important;border-color:#0000!important}.nav-text{text-align:left;flex-direction:column;align-items:flex-start;display:flex}.nav-status{opacity:.75;font-size:.8em;font-weight:450}.layout-sidebar{grid-template-columns:240px 1fr;align-items:start;gap:24px;display:grid}.nav-vertical{border:1px solid var(--card-border);border-radius:var(--radius);background:var(--card);-webkit-backdrop-filter:blur(18px);flex-direction:column;gap:4px;padding:8px;display:flex;position:sticky;top:16px}.nav-vertical .nav-item{border-radius:calc(var(--radius) * .6);background:0 0;border:1px solid #0000;align-items:center;gap:12px;min-height:52px;padding:8px 12px;font-weight:550;display:flex}.nav-vertical .nav-item:hover{background:var(--icon-bg)}.section-title{align-items:center;gap:8px;margin:4px 0 14px;font-size:1.25rem;display:flex}.list-section{margin-bottom:28px}.layout-focus .focus-head{justify-content:center;align-items:center;gap:16px;display:flex}.focus-title{text-align:center;min-width:200px;font-size:2rem}.focus-dots{justify-content:center;gap:8px;margin:10px 0 22px;display:flex}.dot{background:var(--line);border:none;border-radius:50%;width:10px;height:10px;padding:0}.dot.on{background:var(--accent);border-radius:999px;width:26px}.layout-focus{--tile-h:140px;--tile-min:190px}.grid{grid-template-columns:repeat(auto-fill, minmax(var(--tile-min), 1fr));grid-auto-rows:var(--tile-h);grid-auto-flow:dense;gap:var(--gap);display:grid;container-type:inline-size}.cell{touch-action:manipulation;min-width:0}.cell.size-md{grid-column:span 2}.cell.size-lg{grid-area:span 2/span 2}.cell.size-wide{grid-area:span 2/span 3}@container (width<=520px){.cell.size-wide{grid-column:span 2}}@container (width<=300px){.cell.size-md,.cell.size-lg,.cell.size-wide{grid-column:span 1}}.grid.as-list{grid-template-columns:repeat(auto-fill,minmax(260px,1fr));grid-auto-rows:68px}.grid.as-list .tile{flex-direction:row;justify-content:flex-start;align-items:center;gap:12px;padding:10px 14px}.grid.as-list .tile-icon{width:42px;height:42px}.tile{border:1px solid var(--card-border);border-radius:var(--radius);background:var(--card-solid);height:100%;box-shadow:var(--card-shadow);cursor:pointer;-webkit-user-select:none;user-select:none;flex-direction:column;justify-content:space-between;padding:14px;transition:transform .12s,background .2s,box-shadow .2s;display:flex;position:relative;overflow:hidden}.cards-glass .tile{background:var(--card);-webkit-backdrop-filter:blur(18px)saturate(1.3)}.tile:active{transform:scale(.97)}.tile.active{background:color-mix(in srgb, var(--tile-active) 16%, var(--card-solid))}.cards-glass .tile.active{background:color-mix(in srgb, var(--tile-active) 20%, var(--card))}.tile.unavailable{opacity:.5}.tile-icon{background:var(--icon-bg);border-radius:50%;flex:none;justify-content:center;align-items:center;width:44px;height:44px;transition:background .2s,color .2s;display:inline-flex}.tile.active .tile-icon,.tile-icon.big.active{background:var(--tile-active);color:#fff}.tile-icon.big{width:64px;height:64px}.tile-text{min-width:0}.tile-name{white-space:nowrap;text-overflow:ellipsis;font-weight:600;overflow:hidden}.tile-state{color:var(--muted);white-space:nowrap;text-overflow:ellipsis;font-size:.88em;overflow:hidden}.tile-value{font-size:1.4rem;font-weight:650;line-height:1.1}.big-body{flex-direction:column;justify-content:space-between;gap:10px;height:100%;display:flex}.big-top{align-items:center;gap:12px;min-width:0;display:flex}.cover-row{flex:1;justify-content:space-between;align-items:stretch;gap:10px;min-height:0;display:flex}.cover-row .btn-group{flex-direction:column;justify-content:center}.cover-slider{min-height:0}.climate-ring{flex:1;justify-content:center;align-items:center;min-height:0;display:flex;position:relative}.climate-ring svg{width:auto;height:100%;max-height:170px}.climate-ring.big svg{max-height:240px}.ring-track,.ring-value{fill:none;stroke-width:10px;stroke-linecap:round}.ring-track{stroke:var(--icon-bg)}.ring-value{transition:stroke-dasharray .3s}.ring-center{pointer-events:none;flex-direction:column;justify-content:center;align-items:center;display:flex;position:absolute;inset:0}.ring-target{font-size:1.9rem;font-weight:650}.climate-ring.big .ring-target{font-size:2.6rem}.ring-target.range{font-size:1.4rem}.climate-ring.big .ring-target.range{font-size:2rem}.ring-current{color:var(--muted);font-size:.85em}.ring-buttons{justify-content:space-between;display:flex;position:absolute;bottom:0;left:0;right:0}.ring-buttons .icon-btn{background:var(--icon-bg)}.media-big{position:relative}.media-art-bg{filter:blur(28px)saturate(1.4);opacity:.35;pointer-events:none;background-position:50%;background-size:cover;position:absolute;inset:-20px}.media-big>*{position:relative}.media-art{object-fit:cover;border-radius:50%;width:100%;height:100%}.media-controls{flex-direction:column;gap:8px;display:flex}.media-controls .btn-group{justify-content:center}.camera-big{height:calc(100% + 28px);margin:-14px;position:relative}.camera-img{object-fit:cover;border-radius:inherit;background:#000;width:100%;height:100%;display:block}.controls .camera-img{border-radius:12px;height:auto}.camera-empty{height:100%;color:var(--muted);justify-content:center;align-items:center;display:flex}.camera-label{color:#fff;background:#0000008c;border-radius:999px;padding:4px 10px;font-size:.85em;font-weight:600;position:absolute;bottom:10px;left:12px}.sensor-big{justify-content:center}.sensor-value{font-size:2.4rem;font-weight:650;line-height:1}.empty{color:var(--muted);text-align:center;flex-direction:column;grid-column:1/-1;align-items:center;gap:8px;padding:40px 12px;display:flex}.big-empty{justify-content:center;min-height:50vh}@keyframes wiggle{0%,to{transform:rotate(-.6deg)}50%{transform:rotate(.6deg)}}.tile.editing{cursor:grab;animation:.28s ease-in-out infinite wiggle}.cell:nth-child(2n) .tile.editing{animation-delay:-.14s}@media (prefers-reduced-motion:reduce){.tile.editing{outline:2px dashed var(--line);animation:none}}.tile.dragging{opacity:.6;cursor:grabbing;animation:none;transform:scale(1.04);box-shadow:0 16px 40px #00000040}.is-editing{touch-action:none}.badge{z-index:2;border:none;border-radius:50%;justify-content:center;align-items:center;width:28px;height:28px;display:inline-flex;position:absolute;box-shadow:0 2px 6px #00000040}.badge-remove{background:var(--danger);color:#fff;top:6px;left:6px}.badge-resize{background:var(--surface);bottom:6px;right:6px}.add-tile{border:2px dashed var(--line);border-radius:var(--radius);color:var(--muted);background:0 0;flex-direction:column;justify-content:center;align-items:center;gap:6px;font-weight:600;display:flex}.edit-bar{z-index:20;border:1px solid var(--card-border);background:var(--surface);border-radius:24px;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;width:min(960px,100% - 24px);padding:10px;display:flex;position:fixed;bottom:18px;left:50%;transform:translate(-50%);box-shadow:0 12px 40px #00000040}.edit-bar-group{flex-wrap:wrap;gap:6px;display:flex}.modal-backdrop{z-index:50;background:#00000073;justify-content:center;align-items:center;padding:16px;animation:.15s ease-out fade;display:flex;position:fixed;inset:0}@keyframes fade{0%{opacity:0}}@keyframes rise{0%{opacity:0;transform:translateY(16px)}}.modal{background:var(--surface);border-radius:24px;flex-direction:column;width:min(480px,100%);max-height:min(88vh,900px);animation:.2s ease-out rise;display:flex;box-shadow:0 24px 64px #00000059}.modal.wide{width:min(820px,100%)}.modal-head{justify-content:space-between;align-items:center;gap:12px;padding:14px 14px 8px 22px;display:flex}.modal-head h2{white-space:nowrap;text-overflow:ellipsis;font-size:1.2rem;overflow:hidden}.modal-body{flex:1;padding:4px 22px 20px;overflow-y:auto}.modal-foot{border-top:1px solid var(--line);flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;padding:12px 18px;display:flex}.modal-foot>:only-child{margin-left:auto}@media (width<=600px){.modal-backdrop{align-items:flex-end;padding:0}.modal,.modal.wide{border-radius:24px 24px 0 0;width:100%;max-height:92vh}}.detail-head{flex-direction:column;align-items:center;gap:8px;margin:6px 0 18px;display:flex}.detail-state{font-size:1.15rem;font-weight:600}.controls{flex-direction:column;gap:14px;display:flex}.control-row{justify-content:space-between;align-items:center;gap:12px;font-weight:600;display:flex}.labeled .labeled-label{margin-top:0}.media-art-large{aspect-ratio:1;object-fit:cover;border-radius:16px;width:100%;max-width:260px;margin:0 auto}.media-meta{text-align:center;flex-direction:column;display:flex}.history-chart{width:100%;height:auto}.history-line{fill:none;stroke:var(--accent);stroke-width:2px;vector-effect:non-scaling-stroke}.history-area{fill:color-mix(in srgb, var(--accent) 18%, transparent)}.history-range{justify-content:space-between;font-size:.85em;display:flex}.weather-now{align-items:center;gap:16px;display:flex}.weather-temp{font-size:2.6rem;font-weight:300;line-height:1}.hourly{gap:6px;padding-bottom:6px;display:flex;overflow-x:auto}.hour{background:var(--surface-2);border-radius:14px;flex-direction:column;flex:none;align-items:center;gap:4px;width:64px;padding:10px 4px;font-size:.9em;display:flex}.precip{color:#3b82f6;font-size:.8em;font-weight:600}.daily{flex-direction:column;display:flex}.day{border-bottom:1px solid var(--line);grid-template-columns:1fr 32px 48px 90px;align-items:center;gap:8px;padding:10px 0;display:grid}.day-temps{text-align:right}.cal-head{justify-content:space-between;align-items:center;display:flex}.cal-grid{grid-template-columns:repeat(7,1fr);gap:4px;display:grid}.cal-dow{color:var(--muted);text-align:center;padding:4px 0;font-size:.8em;font-weight:600}.cal-day{background:var(--surface-2);border:none;border-radius:12px;flex-direction:column;justify-content:center;align-items:center;height:46px;display:flex}.cal-day.other{opacity:.4}.cal-day.today span:first-child{color:var(--accent);font-weight:700}.cal-day.selected{background:var(--accent);color:#fff}.cal-day.selected span:first-child{color:#fff}.cal-dots{letter-spacing:1px;color:var(--accent);font-size:.7em;line-height:1}.cal-day.selected .cal-dots{color:#fff}.agenda,.todo-items{margin:0;padding:0;list-style:none}.agenda li{border-bottom:1px solid var(--line);gap:14px;padding:10px 0;display:flex}.agenda-time{width:70px;color:var(--muted);flex:none}.agenda-text{flex-direction:column;display:flex}.todo+.todo{margin-top:12px}.todo-add,.inline-form{gap:8px;margin-bottom:8px;display:flex}.todo-items li{border-bottom:1px solid var(--line);align-items:center;gap:12px;padding:10px 0;display:flex}.todo-items li.done span{color:var(--muted);text-decoration:line-through}.search-bar{border:1px solid var(--line);background:var(--surface-2);border-radius:14px;align-items:center;gap:6px;margin-bottom:10px;padding:0 12px;display:flex}.entity-list{margin-top:6px}.entity-row{text-align:left;background:0 0;border:none;border-radius:12px;align-items:center;gap:12px;width:100%;padding:10px 8px;display:flex}.entity-row:hover{background:var(--icon-bg)}.entity-row-text{flex-direction:column;flex:1;min-width:0;display:flex}.entity-row-text>span{white-space:nowrap;text-overflow:ellipsis;overflow:hidden}.picker-box{border:1px solid var(--line);border-radius:16px;max-height:340px;margin-bottom:16px;padding:10px;overflow-y:auto}.device-line{align-items:center;gap:8px;display:flex}.device-line .entity-row{flex:1;min-width:0}.size-select{width:auto;min-height:36px;padding:4px 8px}.check-list{flex-direction:column;display:flex}.check-item{align-items:center;gap:12px;padding:8px 0;display:flex}.wizard{z-index:40;background:var(--page-bg);grid-template-columns:260px 1fr;display:grid;position:fixed;inset:0}.wizard-steps{border-right:1px solid var(--card-border);background:var(--card);-webkit-backdrop-filter:blur(18px);padding:22px 14px;overflow-y:auto}.brand{color:var(--accent);align-items:center;gap:10px;margin:0 10px 22px;font-size:1.3rem;font-weight:750;display:flex}.wizard-steps ol{margin:0;padding:0;list-style:none}.wstep{text-align:left;background:0 0;border:none;border-radius:12px;align-items:center;gap:10px;width:100%;min-height:44px;padding:8px 12px;font-weight:550;display:flex}.wstep:hover{background:var(--icon-bg)}.wstep.current{background:var(--accent);color:#fff}.wstep.done{color:var(--muted)}.wizard-main{flex-direction:column;min-width:0;height:100vh;display:flex}.wizard-progress{background:var(--line);height:4px}.wizard-progress div{background:var(--accent);height:100%;transition:width .3s}.wizard-head{padding:22px 32px 8px}.wizard-head h2{font-size:1.8rem}.wizard-body{flex:1;padding:8px 32px 24px;overflow-y:auto}.step{max-width:760px}.lead{color:var(--muted);margin-bottom:18px;font-size:1.05rem}.wizard-foot{border-top:1px solid var(--card-border);background:var(--card);-webkit-backdrop-filter:blur(18px);justify-content:space-between;align-items:center;gap:8px;padding:14px 32px;display:flex}@media (width<=760px){.wizard{grid-template-columns:1fr}.wizard-steps{display:none}.wizard-head,.wizard-body,.wizard-foot{padding-left:16px;padding-right:16px}}.room-list{flex-direction:column;gap:6px;display:flex}.room-item{border:1px solid var(--line);background:var(--surface);border-radius:16px;padding:6px}.room-row{align-items:center;gap:6px;margin-bottom:4px;display:flex}.room-row .input{flex:1;min-width:80px}.room-row>.small{text-overflow:ellipsis;text-align:right;flex:none;width:96px;overflow:hidden}.accordion{flex-direction:column;gap:8px;display:flex}.acc-item{border:1px solid var(--line);background:var(--surface);border-radius:16px;overflow:hidden}.acc-head{text-align:left;background:0 0;border:none;align-items:center;gap:12px;width:100%;padding:14px 16px;display:flex}.acc-title{flex:1;font-weight:600}.acc-body{padding:0 12px 14px}.choice-grid{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:22px;display:grid}.choice{border:2px solid var(--line);background:var(--surface);text-align:left;border-radius:18px;flex-direction:column;gap:6px;padding:12px;display:flex}.choice.selected{border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb, var(--accent) 20%, transparent)}.layout-preview{width:100%;height:auto}.pv-bg{fill:var(--surface-2)}.pv-tile{fill:var(--line)}.pv-accent{fill:var(--accent)}.bg-grid{grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px;display:grid}.bg-choice{border:2px solid var(--line);background:var(--surface);border-radius:14px;grid-template-columns:1fr 1fr;gap:4px;padding:6px;display:grid}.bg-choice .small{grid-column:1/-1}.bg-choice.selected{border-color:var(--accent)}.bg-swatch{border-radius:8px;height:40px}.bg-swatch.image{background:var(--surface-2);grid-column:1/-1;justify-content:center;align-items:center;display:flex}.review{grid-template-columns:max-content 1fr;gap:10px 20px;margin:0;display:grid}.review dt{color:var(--muted);font-weight:600}.review dd{margin:0}.settings{grid-template-columns:200px 1fr;gap:18px;display:grid}.settings-tabs{flex-direction:column;gap:2px;display:flex}.settings-body{min-width:0}@media (width<=700px){.settings{grid-template-columns:1fr}.settings-tabs{flex-direction:row;overflow-x:auto}.settings-tabs .wstep{white-space:nowrap;width:auto}}.centered{text-align:center;flex-direction:column;justify-content:center;align-items:center;gap:12px;min-height:100vh;padding:24px;display:flex}.welcome-card{border:1px solid var(--card-border);background:var(--card);-webkit-backdrop-filter:blur(20px);max-width:520px;box-shadow:var(--card-shadow);border-radius:28px;flex-direction:column;align-items:center;gap:14px;padding:36px 28px;display:flex}.welcome-card ha-icon{color:var(--accent)}.welcome-card h1{font-size:1.9rem}.spinner{border:3px solid var(--line);border-top-color:var(--accent);border-radius:50%;width:36px;height:36px;animation:.8s linear infinite spin}@keyframes spin{to{transform:rotate(360deg)}}.toast{z-index:60;color:#fff;background:#0f172a;border-radius:14px;max-width:calc(100% - 32px);padding:12px 18px;animation:.2s ease-out rise;position:fixed;bottom:96px;left:50%;transform:translate(-50%);box-shadow:0 10px 30px #0000004d}.toast.error{background:#b91c1c}.screensaver{z-index:100;color:#fff;cursor:none;background:#000;justify-content:center;align-items:center;display:flex;position:fixed;inset:0}.ss-clock .ss-content,.ss-clock{text-align:center}.ss-content{transition:transform 4s ease-in-out}.ss-clock{font-variant-numeric:tabular-nums;font-size:clamp(4rem,16vw,12rem);font-weight:200;line-height:1}.ss-date{opacity:.8;margin-top:8px;font-size:clamp(1.1rem,3vw,2rem)}.ss-extra{opacity:.85;flex-wrap:wrap;justify-content:center;gap:32px;margin-top:28px;font-size:clamp(1rem,2.4vw,1.6rem);display:flex}.ss-extra span{align-items:center;gap:10px;display:inline-flex}.ss-dim{color:#ffffff59}@media (width<=600px){.dashboard{padding:14px 12px 110px}.title{font-size:1.4rem}.clock{font-size:1.5rem}.df-root{--tile-min:140px;--tile-h:100px}.edit-bar{border-radius:18px;bottom:8px}.header-right{flex-wrap:nowrap;justify-content:space-between;width:100%}.header-chips{scrollbar-width:none;flex-wrap:nowrap;min-width:0;overflow-x:auto}.chip-btn,.header-chips .icon-btn{flex:none}.event-chip{max-width:180px}.room-row>.small{display:none}.room-row .icon-btn{width:36px;height:36px}}", zi = class extends HTMLElement {
+var Oa = ":host{height:100%;display:block}.df-mount,.df-root{height:100%}.df-root{--accent:#3b82f6;--radius:20px;--gap:14px;--tile-h:112px;--tile-min:150px;--text:#0f172a;--muted:#64748b;--card:#ffffffb8;--card-solid:#fff;--card-border:#0f172a0f;--card-shadow:0 1px 2px #0f172a0f, 0 8px 24px #0f172a0f;--chip:#fff9;--surface:#fff;--surface-2:#f1f5f9;--line:#0f172a1a;--icon-bg:#0f172a0f;--tile-active:var(--accent);--danger:#ef4444;--page-bg:#f4f4f5;box-sizing:border-box;min-height:100vh;color:var(--text);background:var(--page-bg);-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;background-attachment:fixed;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,sans-serif;font-size:15px;line-height:1.4;position:relative;overflow-y:auto}.df-root.dark{--text:#f1f5f9;--muted:#94a3b8;--card:#1e293b8c;--card-solid:#1e293b;--card-border:#ffffff12;--card-shadow:0 1px 2px #0000004d, 0 8px 24px #00000040;--chip:#1e293b99;--surface:#172033;--surface-2:#0f172a;--line:#ffffff1a;--icon-bg:#ffffff14}.df-root.density-compact{--gap:8px;--tile-h:92px;--tile-min:130px}*,:before,:after{box-sizing:border-box}button{font:inherit;color:inherit;cursor:pointer}button:focus-visible,[tabindex]:focus-visible,.input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}h1,h2,h3{letter-spacing:-.01em;margin:0;font-weight:650}p{margin:0 0 12px}.muted{color:var(--muted)}.small{font-size:.85em}.nowrap{white-space:nowrap}.ellipsis{white-space:nowrap;text-overflow:ellipsis;overflow:hidden}ha-icon{flex:none;display:inline-flex}.btn{border:1px solid var(--line);background:var(--surface);white-space:nowrap;border-radius:999px;align-items:center;gap:6px;min-height:40px;padding:8px 16px;font-weight:550;transition:background .15s,transform .1s;display:inline-flex}.btn:active{transform:scale(.97)}.btn:disabled{opacity:.45;cursor:default}.btn-primary{background:var(--accent);color:#fff;border-color:#0000}.btn-ghost{background:0 0;border-color:#0000}.btn-ghost:hover{background:var(--icon-bg)}.btn-danger{border-color:color-mix(in srgb, var(--danger) 40%, transparent);color:var(--danger);background:0 0}.btn-row{flex-wrap:wrap;align-items:center;gap:8px;display:flex}.icon-btn{background:0 0;border:none;border-radius:50%;justify-content:center;align-items:center;width:44px;height:44px;transition:background .15s;display:inline-flex}.icon-btn:hover{background:var(--icon-bg)}.icon-btn.active,.icon-btn.play{background:var(--accent);color:#fff}.icon-btn:disabled{opacity:.3;cursor:default}.btn-group{align-items:center;gap:4px;display:flex}.toggle{background:var(--line);border:none;border-radius:999px;flex:none;width:52px;height:30px;transition:background .2s;position:relative}.toggle .knob{background:#fff;border-radius:50%;width:24px;height:24px;transition:transform .2s;position:absolute;top:3px;left:3px;box-shadow:0 1px 3px #0000004d}.toggle.on{background:var(--accent)}.toggle.on .knob{transform:translate(22px)}.checkbox{border:2px solid var(--line);color:#fff;background:0 0;border-radius:7px;flex:none;justify-content:center;align-items:center;width:24px;height:24px;display:inline-flex}.checkbox.on{border-color:var(--accent);background:var(--accent)}.slider{--slider-color:var(--accent);background:var(--icon-bg);touch-action:none;cursor:pointer;-webkit-user-select:none;user-select:none;border-radius:12px;height:40px;position:relative;overflow:hidden}.slider-fill{background:var(--slider-color);opacity:.85;height:100%;transition:width .15s,height .15s;position:absolute;bottom:0;left:0}.slider.dragging .slider-fill{transition:none}.slider.vertical .slider-fill{width:100%}.slider-label{pointer-events:none;mix-blend-mode:normal;text-shadow:0 0 6px var(--card-solid);justify-content:center;align-items:center;font-size:.85em;font-weight:600;display:flex;position:absolute;inset:0}.slider.vertical{width:44px;height:100%;min-height:80px}.ct-slider{background:linear-gradient(90deg,#ffb46b,#fff4e5,#cfe3ff)}.ct-slider .slider-fill{border-right:3px solid var(--text);background:0 0}.segmented{background:var(--icon-bg);border-radius:14px;flex-wrap:wrap;gap:4px;padding:4px;display:inline-flex}.segmented button{background:0 0;border:none;border-radius:10px;align-items:center;gap:6px;min-height:36px;padding:6px 14px;font-weight:550;display:inline-flex}.segmented button.selected{background:var(--surface);box-shadow:0 1px 3px #0000001f}.input{border:1px solid var(--line);background:var(--surface);width:100%;min-height:42px;color:var(--text);font:inherit;border-radius:12px;padding:8px 12px}.input.bare{background:0 0;border:none;padding:8px 4px}.field{flex-direction:column;gap:6px;margin-bottom:16px;display:flex}.field-label,.labeled-label{letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-size:.8em;font-weight:650}.labeled-label{margin:18px 0 8px}.field-hint{color:var(--muted);font-size:.85em}.row{border-bottom:1px solid var(--line);align-items:center;gap:12px;padding:12px 0;display:flex}.row-text{flex:1;min-width:0}.row-label{font-weight:550}.row-hint{color:var(--muted);font-size:.85em}.chips{flex-wrap:wrap;gap:8px;display:flex}.chips.scroll{scrollbar-width:none;flex-wrap:nowrap;padding-bottom:4px;overflow-x:auto}.chip{border:1px solid var(--line);background:var(--surface);white-space:nowrap;border-radius:999px;align-items:center;gap:6px;min-height:36px;padding:6px 14px;display:inline-flex}.chip.selected{border-color:var(--accent);background:color-mix(in srgb, var(--accent) 15%, var(--surface));color:var(--accent);font-weight:600}.swatches{flex-wrap:wrap;gap:10px;display:flex}.swatch{border:2px solid var(--line);border-radius:50%;width:38px;height:38px;padding:0}.swatch.selected{outline:3px solid var(--text);outline-offset:2px}.color-input{background:conic-gradient(red,#ff0,#0f0,#0ff,#00f,#f0f,red);overflow:hidden}.color-input::-webkit-color-swatch-wrapper{opacity:0;padding:0}.icon-picker{flex-direction:column;gap:8px;margin-top:6px;display:flex}.icon-grid{grid-template-columns:repeat(auto-fill,minmax(42px,1fr));gap:6px;display:grid}.icon-choice{border:1px solid var(--line);background:var(--surface);border-radius:12px;justify-content:center;align-items:center;width:42px;height:42px;display:inline-flex}.icon-choice.selected{border-color:var(--accent);color:var(--accent)}.dashboard{max-width:1600px;margin:0 auto;padding:20px 24px 120px}.header{flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px 24px;margin-bottom:16px;display:flex}.header-left{align-items:center;gap:8px;min-width:0;display:flex}.title{font-size:1.75rem}.subtitle{color:var(--muted)}.header-right{flex-wrap:wrap;align-items:center;gap:12px;display:flex}.clock{white-space:nowrap;font-variant-numeric:tabular-nums;letter-spacing:-.02em;flex:none;font-size:2rem;font-weight:300}.header-chips{flex-wrap:wrap;align-items:center;gap:8px;display:flex}.chip-btn{border:1px solid var(--card-border);background:var(--chip);-webkit-backdrop-filter:blur(14px);border-radius:999px;align-items:center;gap:6px;max-width:260px;min-height:44px;padding:8px 14px;font-weight:550;display:inline-flex}.chip-btn .count{background:var(--accent);color:#fff;text-align:center;border-radius:999px;min-width:22px;padding:0 6px;font-size:.8em}.header-chips .icon-btn{background:var(--chip);-webkit-backdrop-filter:blur(14px);border:1px solid var(--card-border)}.scene-strip{scrollbar-width:none;gap:8px;margin-bottom:16px;display:flex;overflow-x:auto}.scene-chip{border:1px solid var(--card-border);background:var(--card);-webkit-backdrop-filter:blur(14px);border-radius:999px;flex:none;align-items:center;gap:8px;min-height:40px;padding:8px 16px;font-weight:550;transition:transform .1s;display:inline-flex}.scene-chip:active{transform:scale(.96)}.nav-pills{scrollbar-width:none;gap:8px;margin-bottom:18px;display:flex;overflow-x:auto}.nav-pills .nav-item{border:1px solid var(--card-border);background:var(--chip);-webkit-backdrop-filter:blur(14px);border-radius:999px;flex:none;align-items:center;gap:8px;min-height:42px;padding:8px 16px;font-weight:550;display:inline-flex}.nav-item.selected{color:#fff;background:var(--accent)!important;border-color:#0000!important}.nav-text{text-align:left;flex-direction:column;align-items:flex-start;display:flex}.nav-status{opacity:.75;font-size:.8em;font-weight:450}.layout-sidebar{grid-template-columns:240px 1fr;align-items:start;gap:24px;display:grid}.nav-vertical{border:1px solid var(--card-border);border-radius:var(--radius);background:var(--card);-webkit-backdrop-filter:blur(18px);flex-direction:column;gap:4px;padding:8px;display:flex;position:sticky;top:16px}.nav-vertical .nav-item{border-radius:calc(var(--radius) * .6);background:0 0;border:1px solid #0000;align-items:center;gap:12px;min-height:52px;padding:8px 12px;font-weight:550;display:flex}.nav-vertical .nav-item:hover{background:var(--icon-bg)}.section-title{align-items:center;gap:8px;margin:4px 0 14px;font-size:1.25rem;display:flex}.list-section{margin-bottom:28px}.layout-focus .focus-head{justify-content:center;align-items:center;gap:16px;display:flex}.focus-title{text-align:center;min-width:200px;font-size:2rem}.focus-dots{justify-content:center;gap:8px;margin:10px 0 22px;display:flex}.dot{background:var(--line);border:none;border-radius:50%;width:10px;height:10px;padding:0}.dot.on{background:var(--accent);border-radius:999px;width:26px}.layout-focus{--tile-h:140px;--tile-min:190px}.grid{grid-template-columns:repeat(auto-fill, minmax(var(--tile-min), 1fr));grid-auto-rows:var(--tile-h);grid-auto-flow:dense;gap:var(--gap);display:grid;container-type:inline-size}.cell{touch-action:manipulation;min-width:0}.cell.size-md{grid-column:span 2}.cell.size-lg{grid-area:span 2/span 2}.cell.size-wide{grid-area:span 2/span 3}@container (width<=520px){.cell.size-wide{grid-column:span 2}}@container (width<=300px){.cell.size-md,.cell.size-lg,.cell.size-wide{grid-column:span 1}}.grid.as-list{grid-template-columns:repeat(auto-fill,minmax(260px,1fr));grid-auto-rows:68px}.grid.as-list .tile{flex-direction:row;justify-content:flex-start;align-items:center;gap:12px;padding:10px 14px}.grid.as-list .tile-icon{width:42px;height:42px}.tile{border:1px solid var(--card-border);border-radius:var(--radius);background:var(--card-solid);height:100%;box-shadow:var(--card-shadow);cursor:pointer;-webkit-user-select:none;user-select:none;flex-direction:column;justify-content:space-between;padding:14px;transition:transform .12s,background .2s,box-shadow .2s;display:flex;position:relative;overflow:hidden}.cards-glass .tile{background:var(--card);-webkit-backdrop-filter:blur(18px)saturate(1.3)}.tile:active{transform:scale(.97)}.tile.active{background:color-mix(in srgb, var(--tile-active) 16%, var(--card-solid))}.cards-glass .tile.active{background:color-mix(in srgb, var(--tile-active) 20%, var(--card))}.tile.unavailable{opacity:.5}.tile-icon{background:var(--icon-bg);border-radius:50%;flex:none;justify-content:center;align-items:center;width:44px;height:44px;transition:background .2s,color .2s;display:inline-flex}.tile.active .tile-icon,.tile-icon.big.active{background:var(--tile-active);color:#fff}.tile-icon.big{width:64px;height:64px}.tile-text{min-width:0}.tile-name{white-space:nowrap;text-overflow:ellipsis;font-weight:600;overflow:hidden}.tile-state{color:var(--muted);white-space:nowrap;text-overflow:ellipsis;font-size:.88em;overflow:hidden}.tile-value{font-size:1.4rem;font-weight:650;line-height:1.1}.big-body{flex-direction:column;justify-content:space-between;gap:10px;height:100%;display:flex}.big-top{align-items:center;gap:12px;min-width:0;display:flex}.cover-row{flex:1;justify-content:space-between;align-items:stretch;gap:10px;min-height:0;display:flex}.cover-row .btn-group{flex-direction:column;justify-content:center}.cover-slider{min-height:0}.climate-ring{flex:1;justify-content:center;align-items:center;min-height:0;display:flex;position:relative}.climate-ring svg{width:auto;height:100%;max-height:170px}.climate-ring.big svg{max-height:240px}.ring-track,.ring-value{fill:none;stroke-width:10px;stroke-linecap:round}.ring-track{stroke:var(--icon-bg)}.ring-value{transition:stroke-dasharray .3s}.ring-center{pointer-events:none;flex-direction:column;justify-content:center;align-items:center;display:flex;position:absolute;inset:0}.ring-target{font-size:1.9rem;font-weight:650}.climate-ring.big .ring-target{font-size:2.6rem}.ring-target.range{font-size:1.4rem}.climate-ring.big .ring-target.range{font-size:2rem}.ring-current{color:var(--muted);font-size:.85em}.ring-buttons{justify-content:space-between;display:flex;position:absolute;bottom:0;left:0;right:0}.ring-buttons .icon-btn{background:var(--icon-bg)}.media-big{position:relative}.media-art-bg{filter:blur(28px)saturate(1.4);opacity:.35;pointer-events:none;background-position:50%;background-size:cover;position:absolute;inset:-20px}.media-big>*{position:relative}.media-art{object-fit:cover;border-radius:50%;width:100%;height:100%}.media-controls{flex-direction:column;gap:8px;display:flex}.media-controls .btn-group{justify-content:center}.camera-big{height:calc(100% + 28px);margin:-14px;position:relative}.camera-img{object-fit:cover;border-radius:inherit;background:#000;width:100%;height:100%;display:block}.controls .camera-img{border-radius:12px;height:auto}.camera-empty{height:100%;color:var(--muted);justify-content:center;align-items:center;display:flex}.camera-label{color:#fff;background:#0000008c;border-radius:999px;padding:4px 10px;font-size:.85em;font-weight:600;position:absolute;bottom:10px;left:12px}.sensor-big{justify-content:center}.sensor-value{font-size:2.4rem;font-weight:650;line-height:1}.empty{color:var(--muted);text-align:center;flex-direction:column;grid-column:1/-1;align-items:center;gap:8px;padding:40px 12px;display:flex}.big-empty{justify-content:center;min-height:50vh}@keyframes wiggle{0%,to{transform:rotate(-.6deg)}50%{transform:rotate(.6deg)}}.tile.editing{cursor:grab;animation:.28s ease-in-out infinite wiggle}.cell:nth-child(2n) .tile.editing{animation-delay:-.14s}@media (prefers-reduced-motion:reduce){.tile.editing{outline:2px dashed var(--line);animation:none}}.tile.dragging{opacity:.6;cursor:grabbing;animation:none;transform:scale(1.04);box-shadow:0 16px 40px #00000040}.is-editing{touch-action:none}.badge{z-index:2;border:none;border-radius:50%;justify-content:center;align-items:center;width:28px;height:28px;display:inline-flex;position:absolute;box-shadow:0 2px 6px #00000040}.badge-remove{background:var(--danger);color:#fff;top:6px;left:6px}.badge-resize{background:var(--surface);bottom:6px;right:6px}.add-tile{border:2px dashed var(--line);border-radius:var(--radius);color:var(--muted);background:0 0;flex-direction:column;justify-content:center;align-items:center;gap:6px;font-weight:600;display:flex}.edit-bar{z-index:20;border:1px solid var(--card-border);background:var(--surface);border-radius:24px;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;width:min(960px,100% - 24px);padding:10px;display:flex;position:fixed;bottom:18px;left:50%;transform:translate(-50%);box-shadow:0 12px 40px #00000040}.edit-bar-group{flex-wrap:wrap;gap:6px;display:flex}.modal-backdrop{z-index:50;background:#00000073;justify-content:center;align-items:center;padding:16px;animation:.15s ease-out fade;display:flex;position:fixed;inset:0}@keyframes fade{0%{opacity:0}}@keyframes rise{0%{opacity:0;transform:translateY(16px)}}.modal{background:var(--surface);border-radius:24px;flex-direction:column;width:min(480px,100%);max-height:min(88vh,900px);animation:.2s ease-out rise;display:flex;box-shadow:0 24px 64px #00000059}.modal.wide{width:min(820px,100%)}.modal-head{justify-content:space-between;align-items:center;gap:12px;padding:14px 14px 8px 22px;display:flex}.modal-head h2{white-space:nowrap;text-overflow:ellipsis;font-size:1.2rem;overflow:hidden}.modal-body{flex:1;padding:4px 22px 20px;overflow-y:auto}.modal-foot{border-top:1px solid var(--line);flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;padding:12px 18px;display:flex}.modal-foot>:only-child{margin-left:auto}@media (width<=600px){.modal-backdrop{align-items:flex-end;padding:0}.modal,.modal.wide{border-radius:24px 24px 0 0;width:100%;max-height:92vh}}.detail-head{flex-direction:column;align-items:center;gap:8px;margin:6px 0 18px;display:flex}.detail-state{font-size:1.15rem;font-weight:600}.controls{flex-direction:column;gap:14px;display:flex}.control-row{justify-content:space-between;align-items:center;gap:12px;font-weight:600;display:flex}.labeled .labeled-label{margin-top:0}.media-art-large{aspect-ratio:1;object-fit:cover;border-radius:16px;width:100%;max-width:260px;margin:0 auto}.media-meta{text-align:center;flex-direction:column;display:flex}.history-chart{width:100%;height:auto}.history-line{fill:none;stroke:var(--accent);stroke-width:2px;vector-effect:non-scaling-stroke}.history-area{fill:color-mix(in srgb, var(--accent) 18%, transparent)}.history-range{justify-content:space-between;font-size:.85em;display:flex}.weather-now{align-items:center;gap:16px;display:flex}.weather-temp{font-size:2.6rem;font-weight:300;line-height:1}.hourly{gap:6px;padding-bottom:6px;display:flex;overflow-x:auto}.hour{background:var(--surface-2);border-radius:14px;flex-direction:column;flex:none;align-items:center;gap:4px;width:64px;padding:10px 4px;font-size:.9em;display:flex}.precip{color:#3b82f6;font-size:.8em;font-weight:600}.daily{flex-direction:column;display:flex}.day{border-bottom:1px solid var(--line);grid-template-columns:1fr 32px 48px 90px;align-items:center;gap:8px;padding:10px 0;display:grid}.day-temps{text-align:right}.cal-head{justify-content:space-between;align-items:center;display:flex}.cal-grid{grid-template-columns:repeat(7,1fr);gap:4px;display:grid}.cal-dow{color:var(--muted);text-align:center;padding:4px 0;font-size:.8em;font-weight:600}.cal-day{background:var(--surface-2);border:none;border-radius:12px;flex-direction:column;justify-content:center;align-items:center;height:46px;display:flex}.cal-day.other{opacity:.4}.cal-day.today span:first-child{color:var(--accent);font-weight:700}.cal-day.selected{background:var(--accent);color:#fff}.cal-day.selected span:first-child{color:#fff}.cal-dots{letter-spacing:1px;color:var(--accent);font-size:.7em;line-height:1}.cal-day.selected .cal-dots{color:#fff}.agenda,.todo-items{margin:0;padding:0;list-style:none}.agenda li{border-bottom:1px solid var(--line);gap:14px;padding:10px 0;display:flex}.agenda-time{width:70px;color:var(--muted);flex:none}.agenda-text{flex-direction:column;display:flex}.todo+.todo{margin-top:12px}.todo-add,.inline-form{gap:8px;margin-bottom:8px;display:flex}.todo-items li{border-bottom:1px solid var(--line);align-items:center;gap:12px;padding:10px 0;display:flex}.todo-items li.done span{color:var(--muted);text-decoration:line-through}.search-bar{border:1px solid var(--line);background:var(--surface-2);border-radius:14px;align-items:center;gap:6px;margin-bottom:10px;padding:0 12px;display:flex}.entity-list{margin-top:6px}.entity-row{text-align:left;background:0 0;border:none;border-radius:12px;align-items:center;gap:12px;width:100%;padding:10px 8px;display:flex}.entity-row:hover{background:var(--icon-bg)}.entity-row-text{flex-direction:column;flex:1;min-width:0;display:flex}.entity-row-text>span{white-space:nowrap;text-overflow:ellipsis;overflow:hidden}.picker-box{border:1px solid var(--line);border-radius:16px;max-height:340px;margin-bottom:16px;padding:10px;overflow-y:auto}.device-line{align-items:center;gap:8px;display:flex}.device-line .entity-row{flex:1;min-width:0}.size-select{width:auto;min-height:36px;padding:4px 8px}.check-list{flex-direction:column;display:flex}.check-item{align-items:center;gap:12px;padding:8px 0;display:flex}.wizard{z-index:40;background:var(--page-bg);grid-template-columns:260px 1fr;display:grid;position:fixed;inset:0}.wizard-steps{border-right:1px solid var(--card-border);background:var(--card);-webkit-backdrop-filter:blur(18px);padding:22px 14px;overflow-y:auto}.brand{color:var(--accent);align-items:center;gap:10px;margin:0 10px 22px;font-size:1.3rem;font-weight:750;display:flex}.wizard-steps ol{margin:0;padding:0;list-style:none}.wstep{text-align:left;background:0 0;border:none;border-radius:12px;align-items:center;gap:10px;width:100%;min-height:44px;padding:8px 12px;font-weight:550;display:flex}.wstep:hover{background:var(--icon-bg)}.wstep.current{background:var(--accent);color:#fff}.wstep.done{color:var(--muted)}.wizard-main{flex-direction:column;min-width:0;height:100vh;display:flex}.wizard-progress{background:var(--line);height:4px}.wizard-progress div{background:var(--accent);height:100%;transition:width .3s}.wizard-head{padding:22px 32px 8px}.wizard-head h2{font-size:1.8rem}.wizard-body{flex:1;padding:8px 32px 24px;overflow-y:auto}.step{max-width:760px}.lead{color:var(--muted);margin-bottom:18px;font-size:1.05rem}.wizard-foot{border-top:1px solid var(--card-border);background:var(--card);-webkit-backdrop-filter:blur(18px);justify-content:space-between;align-items:center;gap:8px;padding:14px 32px;display:flex}@media (width<=760px){.wizard{grid-template-columns:1fr}.wizard-steps{display:none}.wizard-head,.wizard-body,.wizard-foot{padding-left:16px;padding-right:16px}}.room-list{flex-direction:column;gap:6px;display:flex}.room-item{border:1px solid var(--line);background:var(--surface);border-radius:16px;padding:6px}.room-row{align-items:center;gap:6px;margin-bottom:4px;display:flex}.room-row .input{flex:1;min-width:80px}.room-row>.small{text-overflow:ellipsis;text-align:right;flex:none;width:96px;overflow:hidden}.accordion{flex-direction:column;gap:8px;display:flex}.acc-item{border:1px solid var(--line);background:var(--surface);border-radius:16px;overflow:hidden}.acc-head{text-align:left;background:0 0;border:none;align-items:center;gap:12px;width:100%;padding:14px 16px;display:flex}.acc-title{flex:1;font-weight:600}.acc-body{padding:0 12px 14px}.choice-grid{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:22px;display:grid}.choice{border:2px solid var(--line);background:var(--surface);text-align:left;border-radius:18px;flex-direction:column;gap:6px;padding:12px;display:flex}.choice.selected{border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb, var(--accent) 20%, transparent)}.layout-preview{width:100%;height:auto}.pv-bg{fill:var(--surface-2)}.pv-tile{fill:var(--line)}.pv-accent{fill:var(--accent)}.bg-grid{grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px;display:grid}.bg-choice{border:2px solid var(--line);background:var(--surface);border-radius:14px;grid-template-columns:1fr 1fr;gap:4px;padding:6px;display:grid}.bg-choice .small{grid-column:1/-1}.bg-choice.selected{border-color:var(--accent)}.bg-swatch{border-radius:8px;height:40px}.bg-swatch.image{background:var(--surface-2);grid-column:1/-1;justify-content:center;align-items:center;display:flex}.review{grid-template-columns:max-content 1fr;gap:10px 20px;margin:0;display:grid}.review dt{color:var(--muted);font-weight:600}.review dd{margin:0}.settings{grid-template-columns:200px 1fr;gap:18px;display:grid}.settings-tabs{flex-direction:column;gap:2px;display:flex}.settings-body{min-width:0}@media (width<=700px){.settings{grid-template-columns:1fr}.settings-tabs{flex-direction:row;overflow-x:auto}.settings-tabs .wstep{white-space:nowrap;width:auto}}.centered{text-align:center;flex-direction:column;justify-content:center;align-items:center;gap:12px;min-height:100vh;padding:24px;display:flex}.welcome-card{border:1px solid var(--card-border);background:var(--card);-webkit-backdrop-filter:blur(20px);max-width:520px;box-shadow:var(--card-shadow);border-radius:28px;flex-direction:column;align-items:center;gap:14px;padding:36px 28px;display:flex}.welcome-card ha-icon{color:var(--accent)}.welcome-card h1{font-size:1.9rem}.spinner{border:3px solid var(--line);border-top-color:var(--accent);border-radius:50%;width:36px;height:36px;animation:.8s linear infinite spin}@keyframes spin{to{transform:rotate(360deg)}}.toast{z-index:60;color:#fff;background:#0f172a;border-radius:14px;max-width:calc(100% - 32px);padding:12px 18px;animation:.2s ease-out rise;position:fixed;bottom:96px;left:50%;transform:translate(-50%);box-shadow:0 10px 30px #0000004d}.toast.error{background:#b91c1c}.screensaver{z-index:100;color:#fff;cursor:none;background:#000;justify-content:center;align-items:center;display:flex;position:fixed;inset:0}.ss-clock .ss-content,.ss-clock{text-align:center}.ss-content{transition:transform 4s ease-in-out}.ss-clock{font-variant-numeric:tabular-nums;font-size:clamp(4rem,16vw,12rem);font-weight:200;line-height:1}.ss-date{opacity:.8;margin-top:8px;font-size:clamp(1.1rem,3vw,2rem)}.ss-extra{opacity:.85;flex-wrap:wrap;justify-content:center;gap:32px;margin-top:28px;font-size:clamp(1rem,2.4vw,1.6rem);display:flex}.ss-extra span{align-items:center;gap:10px;display:inline-flex}.ss-dim{color:#ffffff59}@media (width<=600px){.dashboard{padding:14px 12px 110px}.title{font-size:1.4rem}.clock{font-size:1.5rem}.df-root{--tile-min:140px;--tile-h:100px}.edit-bar{border-radius:18px;bottom:8px}.header-right{flex-wrap:nowrap;justify-content:space-between;width:100%}.header-chips{scrollbar-width:none;flex-wrap:nowrap;min-width:0;overflow-x:auto}.chip-btn,.header-chips .icon-btn{flex:none}.event-chip{max-width:180px}.room-row>.small{display:none}.room-row .icon-btn{width:36px;height:36px}}.style-apple{--tile-min:176px;--tile-h:74px;--gap:10px;font-family:-apple-system,BlinkMacSystemFont,SF Pro Text,system-ui,Segoe UI,Roboto,sans-serif}.style-apple.density-compact{--tile-h:64px;--tile-min:160px}.style-apple .tile{box-shadow:none;-webkit-backdrop-filter:blur(24px)saturate(1.6);background:#ffffff6b;border:none;flex-direction:row;justify-content:flex-start;align-items:center;gap:10px;padding:10px 12px}.style-apple.dark .tile{background:#3a3a408c}.style-apple .tile.active,.style-apple.dark .tile.active{color:#1c1c1e;background:#fffffff2}.style-apple .tile.active .tile-state{color:#6b6b70}.style-apple .tile-icon{background:#78788033;width:36px;height:36px}.style-apple .tile.active .tile-icon{background:color-mix(in srgb, var(--tile-active) 18%, transparent);color:var(--tile-active)}.style-apple .tile-name{font-size:.92em;font-weight:600}.style-apple .tile-state{font-size:.82em}.style-apple .tile-value{font-size:1.05rem}.style-apple .cell.size-lg .tile,.style-apple .cell.size-wide .tile,.style-apple .cell.size-md .tile{flex-direction:column;align-items:stretch}.style-apple .cell.size-md{grid-row:span 2}.style-apple .cell.size-lg,.style-apple .cell.size-wide{grid-row:span 3}.style-apple .nav-pills .nav-item,.style-apple .chip-btn,.style-apple .header-chips .icon-btn,.style-apple .scene-chip{-webkit-backdrop-filter:blur(24px)saturate(1.6);background:#fff6;border:none}.style-apple.dark .nav-pills .nav-item,.style-apple.dark .chip-btn,.style-apple.dark .header-chips .icon-btn,.style-apple.dark .scene-chip{background:#3a3a408c}.style-apple .title{font-size:2rem;font-weight:700}.style-apple .section-title,.style-apple .floor-title{font-weight:700}.style-homey{--tile-min:136px;--tile-h:136px;--gap:12px}.style-homey.density-compact{--tile-min:116px;--tile-h:116px}.style-homey .tile{text-align:center;background:var(--card-solid);border:none;justify-content:center;align-items:center;gap:10px}.style-homey.dark{--card-solid:#1e2027;--surface:#1e2027;--surface-2:#15171c;--card-border:#ffffff0a}.style-homey .tile-text{width:100%}.style-homey .tile-icon{background:color-mix(in srgb, var(--cat) 16%, transparent);width:56px;height:56px;color:var(--cat)}.style-homey .tile.active .tile-icon{background:var(--cat);color:#fff;box-shadow:0 0 0 6px color-mix(in srgb, var(--cat) 22%, transparent), 0 6px 20px color-mix(in srgb, var(--cat) 45%, transparent)}.style-homey .tile.active{background:var(--card-solid)}.style-homey .tile-name{font-size:.9em}.style-homey .tile-state{font-size:.8em}.style-homey .cell.size-md .tile,.style-homey .cell.size-lg .tile,.style-homey .cell.size-wide .tile{text-align:left;align-items:stretch}.style-homey .nav-item.selected{color:var(--text);box-shadow:inset 0 0 0 2px var(--accent);background:var(--card-solid)!important}.style-homey .nav-pills .nav-item,.style-homey .chip-btn,.style-homey .header-chips .icon-btn,.style-homey .scene-chip,.style-homey .nav-vertical{background:var(--card-solid);-webkit-backdrop-filter:none;backdrop-filter:none;border:none}.style-minimal .tile,.style-minimal .nav-vertical,.style-minimal .chip-btn,.style-minimal .header-chips .icon-btn,.style-minimal .nav-pills .nav-item,.style-minimal .scene-chip{box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;background:var(--card-solid);border:1px solid var(--line)}.style-minimal .tile.active{background:var(--card-solid);border-color:var(--text)}.style-minimal .tile-icon{background:0 0;width:32px;height:32px}.style-minimal .tile.active .tile-icon{color:var(--tile-active);background:0 0}.style-minimal .nav-item.selected{color:var(--card-solid);background:var(--text)!important}.live-dot{background:#ef4444;border-radius:50%;width:8px;height:8px;margin-right:6px;animation:1.6s ease-in-out infinite pulse;display:inline-block}@keyframes pulse{50%{opacity:.35}}.counter-row{justify-content:center;align-items:center;gap:18px;display:flex}.counter-value{font-variant-numeric:tabular-nums;font-size:2.4rem;font-weight:650}.counter-value.center{text-align:center}.line-chart{width:100%;display:block;overflow:visible}.chart-line{fill:none;stroke:var(--chart,var(--accent));stroke-width:2.5px;stroke-linejoin:round;vector-effect:non-scaling-stroke;filter:drop-shadow(0 0 6px color-mix(in srgb, var(--chart,var(--accent)) 60%, transparent))}.chart-dot{fill:var(--chart,var(--accent));stroke:var(--card-solid);stroke-width:2px;vector-effect:non-scaling-stroke}.tile .line-chart,.tile .chart-space{flex:1;height:100%;min-height:0}.tile{--chart:var(--cat)}.sensor-big.with-chart{justify-content:flex-start}.sensor-big .big-top .sensor-value{color:var(--cat);white-space:nowrap;margin-left:auto;font-size:1.6rem}.nav-group{letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:10px 12px 2px;font-size:.75em;font-weight:700}.nav-group:first-child{margin-top:4px}.floor-title{color:var(--muted);letter-spacing:.02em;font-size:1rem}.list-floor{text-transform:uppercase;letter-spacing:.08em;margin:8px 0 12px;font-size:.85rem}.floor-label{color:var(--muted);align-items:center;gap:6px;margin:8px 4px 2px;font-weight:650;display:flex}.room-list+.room-list{margin-top:10px}.room-item .floor-select{width:auto;min-height:34px;margin:0 0 4px 50px;padding:4px 10px;font-size:.9em}.sub-options{border-left:3px solid var(--line);margin:0 0 8px;padding:4px 0 8px 14px}.grow{flex:1;min-width:0}.plain-list{margin:0;padding-left:18px}.auto-swatch{background:var(--surface-2);justify-content:center;align-items:center;display:inline-flex}.room-controls{flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;margin:-6px 0 14px;display:flex}.room-status{color:var(--muted);font-weight:550}.room-lights{border:1px solid var(--card-border);background:var(--card-solid);border-radius:999px;align-items:center;gap:6px;min-height:38px;padding:6px 14px;font-weight:600;display:inline-flex}.room-lights.on{color:#fff;background:linear-gradient(135deg,#fbbf24,#f97316);border-color:#0000}.room-wallpaper{z-index:0;pointer-events:none;background-position:50%;background-size:cover;position:fixed;inset:0}.room-wallpaper:after{content:\"\";background:linear-gradient(#00000026,#00000073);position:absolute;inset:0}.dashboard{z-index:1;position:relative}.home-block{margin-bottom:22px}.summary{scrollbar-width:none;gap:10px;margin-bottom:22px;padding-bottom:2px;display:flex;overflow-x:auto}.summary-chip{border:1px solid var(--card-border);background:var(--card-solid);text-align:left;border-radius:18px;flex:none;align-items:center;gap:10px;min-height:56px;padding:8px 16px 8px 10px;display:flex}.cards-glass .summary-chip{background:var(--card);-webkit-backdrop-filter:blur(18px)}.summary-chip:disabled{cursor:default;opacity:1}.summary-chip ha-icon{background:var(--icon-bg);border-radius:50%;justify-content:center;align-items:center;display:inline-flex;width:38px!important;height:38px!important}.summary-chip.on ha-icon{color:#fff;background:linear-gradient(135deg,#fbbf24,#f97316)}.summary-chip.warn ha-icon{color:#fff;background:linear-gradient(135deg,#f43f5e,#c026d3)}.summary-text{flex-direction:column;display:flex}.summary-label{color:var(--muted);font-size:.78em;font-weight:650}.summary-value{white-space:nowrap;text-overflow:ellipsis;max-width:220px;font-weight:650;overflow:hidden}.room-grid{gap:var(--gap);grid-template-columns:repeat(auto-fill,minmax(190px,1fr));display:grid}.room-card{border:1px solid var(--card-border);border-radius:var(--radius);background:var(--card-solid);min-height:132px;box-shadow:var(--card-shadow);cursor:pointer;background-position:50%;background-size:cover;flex-direction:column;justify-content:space-between;padding:14px;transition:transform .12s;display:flex;position:relative}.room-card:active{transform:scale(.98)}.cards-glass .room-card:not(.has-bg){background-color:var(--card);-webkit-backdrop-filter:blur(18px)}.room-card.has-bg{color:#fff;border-color:#0000}.room-card-top{justify-content:space-between;align-items:flex-start;display:flex}.room-card-icon{background:var(--icon-bg);border-radius:14px;justify-content:center;align-items:center;width:44px;height:44px;display:inline-flex}.room-card-name{font-size:1.05rem;font-weight:700}.room-card-status{color:var(--muted);white-space:nowrap;text-overflow:ellipsis;font-size:.88em;overflow:hidden}.room-card.has-bg .room-card-status{color:#ffffffd9}.room-card .icon-btn{background:var(--icon-bg)}.room-card .icon-btn.active{background:linear-gradient(135deg,#fbbf24,#f97316)}.home-hint{align-items:center;gap:6px;display:flex}.irrigation{flex-direction:column;gap:16px;display:flex}.irr-status{border:1px solid var(--card-border);border-radius:var(--radius);background:var(--card-solid);box-shadow:var(--card-shadow);flex-direction:column;gap:14px;padding:18px;display:flex}.irr-status.running{color:#fff;background:linear-gradient(135deg,#0ea5e9 0%,#2563eb 60%,#4f46e5 100%);border-color:#0000}.irr-status-head{flex-wrap:wrap;align-items:center;gap:14px;display:flex}.irr-status-text{flex-direction:column;flex:1;min-width:160px;display:flex}.irr-status-text strong{font-size:1.2rem}.irr-status.running .irr-status-text span{color:#ffffffd9}.irr-progress{background:#ffffff40;border-radius:999px;height:8px;overflow:hidden}.irr-progress div{border-radius:inherit;background:#fff;height:100%;transition:width 1s linear}.irr-runall{flex-wrap:wrap;align-items:center;gap:10px;display:flex}.irr-status.running .chip{color:#fff;background:#ffffff2e;border-color:#0000}.irr-status.running .chip.selected{color:#1d4ed8;background:#fff}.irr-status.running .btn:not(.btn-primary){color:#fff;background:#ffffff2e;border-color:#0000}.zone-grid{gap:var(--gap);grid-template-columns:repeat(auto-fill,minmax(220px,1fr));display:grid}.zone{border:1px solid var(--card-border);border-radius:var(--radius);background:var(--card-solid);box-shadow:var(--card-shadow);flex-direction:column;gap:10px;padding:14px;display:flex}.zone.running,.zone.on{color:#fff;background:linear-gradient(135deg,#38bdf8 0%,#6366f1 100%);border-color:#0000}.zone.running .chip,.zone.on .chip{color:#fff;background:#fff3;border-color:#0000}.zone.unavailable{opacity:.5}.zone-head{align-items:center;gap:8px;font-weight:650;display:flex}.zone-num{background:var(--icon-bg);border-radius:50%;flex:none;justify-content:center;align-items:center;width:24px;height:24px;font-size:.8em;font-weight:700;display:inline-flex}.zone.running .zone-num,.zone.on .zone-num{background:#ffffff40}.zone-state{opacity:.85;font-size:.9em}.zone .chips{gap:6px}.zone .chip{min-height:34px;padding:4px 12px}.style-vivid{--tile-min:150px;--tile-h:116px;--gap:12px}.style-vivid.dark{--text:#f4f5f7;--muted:#9aa0ae;--card-solid:#1c1e26;--surface:#1c1e26;--surface-2:#14161c;--card-border:#ffffff0d;--card-shadow:0 1px 2px #0006;--icon-bg:#ffffff12;--line:#ffffff1a;--chip:#1c1e26}.style-vivid .tile{background:var(--card-solid);-webkit-backdrop-filter:none;backdrop-filter:none}.style-vivid .tile-icon{background:color-mix(in srgb, var(--cat) 18%, transparent);color:var(--cat)}.style-vivid .tile.active{background:var(--grad);color:#fff;box-shadow:0 12px 28px -12px var(--cat);border-color:#0000}.style-vivid .tile.active .tile-state,.style-vivid .tile.active .ring-current{color:#ffffffd9}.style-vivid .tile.active .tile-icon{color:#fff;background:#ffffff3d}.style-vivid .tile.active .slider,.style-vivid .tile.active .ring-buttons .icon-btn,.style-vivid .tile.active .icon-btn:not(.play){color:#fff;background:#ffffff38}.style-vivid .tile.active .slider{--slider-color:#ffffffeb}.style-vivid .tile.active .slider-label{color:#111827;text-shadow:0 0 6px #ffffffe6}.style-vivid .tile.active .ring-track{stroke:#ffffff40}.style-vivid .tile.active .ring-value{stroke:#fff!important}.style-vivid .tile.active .icon-btn.play{color:var(--cat);background:#fff}.style-vivid .cell.size-lg .tile:not(.active),.style-vivid .cell.size-wide .tile:not(.active),.style-vivid .cell.size-md .tile:not(.active){background:linear-gradient(160deg, color-mix(in srgb, var(--cat) 16%, var(--card-solid)) 0%, var(--card-solid) 70%)}.style-vivid .tile.d-weather{color:#fff;background:var(--grad)!important}.style-vivid .tile.d-weather .tile-state{color:#ffffffe6}.style-vivid .tile.d-weather .tile-icon{color:#fff;background:#ffffff3d}.style-vivid .nav-item.selected{box-shadow:0 8px 22px -10px var(--accent);background:linear-gradient(135deg, var(--accent) 0%, #ec4899 100%)!important}.style-vivid .nav-pills .nav-item,.style-vivid .chip-btn,.style-vivid .header-chips .icon-btn,.style-vivid .scene-chip,.style-vivid .nav-vertical,.style-vivid .summary-chip{border-color:var(--card-border);background:var(--card-solid);-webkit-backdrop-filter:none;backdrop-filter:none}.style-vivid .scene-chip ha-icon{color:#34d399}.style-vivid .room-card{background:var(--card-solid)}.style-vivid .room-card.lit:not(.has-bg){color:#fff;background:linear-gradient(135deg,#ec4899 0%,#8b5cf6 100%);border-color:#0000;box-shadow:0 14px 30px -14px #ec4899}.style-vivid .room-card.lit .room-card-status{color:#ffffffd9}.style-vivid .room-card.lit .room-card-icon,.style-vivid .room-card.lit .icon-btn{color:#fff;background:#ffffff38}.style-vivid .tile-value,.style-vivid .sensor-value{color:var(--cat)}.style-vivid .tile.active .tile-value{color:#fff}.style-dashforge .tile.active{background:color-mix(in srgb, var(--tile-active) 24%, var(--card-solid))}.style-dashforge.cards-glass .tile.active{background:color-mix(in srgb, var(--tile-active) 28%, var(--card))}.big-number{align-items:baseline;gap:8px;font-size:2.6rem;font-weight:650;line-height:1;display:flex}.big-number-label{opacity:.8;font-size:.85rem;font-weight:500}.weather-big-temp{margin-left:auto;font-size:2.2rem;font-weight:300}.weather-big-meta{opacity:.9;flex-wrap:wrap;gap:12px;font-size:.85em;display:flex}.weather-big-meta span{align-items:center;gap:4px;display:inline-flex}.zone.running .btn-danger,.irr-status.running .btn-danger{color:#dc2626;background:#fff;border-color:#0000}.irr-status.running .muted{color:#fffc}.style-minimal .slider{--slider-color:color-mix(in srgb, var(--accent) 30%, transparent)}", ka = class extends HTMLElement {
 	mount;
 	started = !1;
+	resize;
 	set hass(e) {
 		L.value = e, !this.started && this.isConnected && this.start();
 	}
 	set narrow(e) {
-		$t.value = e;
+		cn.value = e;
 	}
 	set route(e) {}
 	set panel(e) {}
 	connectedCallback() {
 		if (!this.shadowRoot) {
 			let e = this.attachShadow({ mode: "open" }), t = document.createElement("style");
-			t.textContent = Ri, this.mount = document.createElement("div"), this.mount.className = "df-mount", e.append(t, this.mount);
+			t.textContent = Oa, this.mount = document.createElement("div"), this.mount.className = "df-mount", e.append(t, this.mount);
 		}
-		xn(this), he(/* @__PURE__ */ U(Li, {}), this.mount), L.value && !this.started && this.start();
+		An(this), this.resize = new ResizeObserver((e) => {
+			let t = Math.round(e[0].contentRect.width);
+			t > 0 && t !== ln.value && (ln.value = t);
+		}), this.resize.observe(this), he(/* @__PURE__ */ U(Da, {}), this.mount), L.value && !this.started && this.start();
 	}
 	disconnectedCallback() {
-		this.mount && he(null, this.mount), pn(), this.started = !1;
+		this.mount && he(null, this.mount), this.resize?.disconnect(), Sn(), this.started = !1;
 	}
 	start() {
-		this.started = !0, fn();
+		this.started = !0, xn();
 	}
 };
-customElements.get("dashforge-panel") || customElements.define("dashforge-panel", zi);
+customElements.get("dashforge-panel") || customElements.define("dashforge-panel", ka);

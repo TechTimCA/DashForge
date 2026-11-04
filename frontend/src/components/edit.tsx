@@ -12,7 +12,8 @@ import {
 } from "../entities";
 import { cancelEditing, draft, finishEditing, hass, updateDraft, view } from "../store";
 import type { CardConfig, CardSize, Hass } from "../types";
-import { Button, Field, Icon, IconPicker, Modal, Segmented, TextInput } from "./ui";
+import { Button, Field, Icon, IconPicker, Modal, Row, Segmented, TextInput, Toggle } from "./ui";
+import { ACCENTS } from "../config";
 
 export const pickerFor = signal<string | null>(null);
 export const cardEditor = signal<{ sectionId: string; cardId: string } | null>(null);
@@ -222,6 +223,34 @@ export function CardEditorModal() {
       <Field label="Icon" hint="Leave empty to use the default icon.">
         <IconPicker value={card.icon ?? ""} onChange={(v) => set((c) => (c.icon = v || undefined))} />
       </Field>
+      <Field label="Colour" hint="Used when the device is on. Automatic picks a colour for the kind of device.">
+        <div class="swatches">
+          <button type="button" class={`swatch auto-swatch ${!card.color ? "selected" : ""}`} aria-label="Automatic" onClick={() => set((c) => (c.color = undefined))}>
+            <Icon icon="mdi:auto-fix" size={18} />
+          </button>
+          {[...ACCENTS, "#f43f5e", "#06b6d4", "#a855f7", "#fbbf24"].map((col) => (
+            <button type="button" class={`swatch ${card.color === col ? "selected" : ""}`} aria-label={col} style={`background:${col}`} onClick={() => set((c) => (c.color = col))} />
+          ))}
+          <input type="color" class="swatch color-input" aria-label="Custom colour" value={card.color ?? "#6366f1"} onInput={(e) => set((c) => (c.color = (e.target as HTMLInputElement).value))} />
+        </div>
+      </Field>
+      <Field label="When tapped">
+        <select class="input" value={card.tap ?? "auto"} onChange={(e) => set((c) => (c.tap = ((e.target as HTMLSelectElement).value as CardConfig["tap"]) ?? "auto"))}>
+          <option value="auto">Do the usual thing (toggle, run, play…)</option>
+          <option value="toggle">Toggle on and off</option>
+          <option value="details">Open DashForge controls</option>
+          <option value="more-info">Open Home Assistant details</option>
+          <option value="none">Do nothing</option>
+        </select>
+      </Field>
+      <Row label="Show on Home" hint="Pin this card to the Favourites on the Home screen">
+        <Toggle checked={!!card.favorite} onChange={(v) => set((c) => (c.favorite = v || undefined))} />
+      </Row>
+      {card.entity.startsWith("camera.") && (
+        <Row label="Live video" hint="Stream the camera instead of refreshing a picture every 10 seconds">
+          <Toggle checked={!!card.live} onChange={(v) => set((c) => (c.live = v || undefined))} />
+        </Row>
+      )}
       <Field label="Move to">
         <select
           class="input"
@@ -291,9 +320,9 @@ export function SectionEditorModal() {
 function SectionEditorInner({ ref_: ref }: { ref_: string }) {
   const cfg = draft.value!;
   const h = hass.value!;
-  const [form, setForm] = useState<{ name: string; icon: string; kind: "room" | "page"; areaId?: string } | null>(null);
+  const [form, setForm] = useState<{ name: string; icon: string; kind: "room" | "page"; areaId?: string; floorId?: string; background?: string } | null>(null);
   const existing = ref === "new" ? null : cfg.sections.find((s) => s.id === ref);
-  const f = form ?? (existing ? { name: existing.name, icon: existing.icon, kind: existing.kind, areaId: existing.areaId } : { name: "", icon: "mdi:home", kind: "room" as const });
+  const f = form ?? (existing ? { name: existing.name, icon: existing.icon, kind: existing.kind, areaId: existing.areaId, floorId: existing.floorId, background: existing.background } : { name: "", icon: "mdi:home", kind: "room" as const });
   const close = () => {
     setForm(null);
     sectionEditor.value = null;
@@ -304,9 +333,11 @@ function SectionEditorInner({ ref_: ref }: { ref_: string }) {
     updateDraft((c) => {
       if (existing) {
         const s = c.sections.find((x) => x.id === existing.id)!;
-        Object.assign(s, { name: f.name.trim(), icon: f.icon, kind: f.kind, areaId: f.areaId });
+        Object.assign(s, { name: f.name.trim(), icon: f.icon, kind: f.kind, areaId: f.areaId, floorId: f.floorId, background: f.background || undefined });
       } else {
         const s = newSection(f.kind, f.name.trim(), f.icon, f.areaId);
+        s.floorId = f.floorId;
+        s.background = f.background || undefined;
         c.sections.push(s);
         view.value = { type: "section", id: s.id };
       }
@@ -368,8 +399,23 @@ function SectionEditorInner({ ref_: ref }: { ref_: string }) {
           </select>
         </Field>
       )}
+      {f.kind === "room" && Object.keys(h.floors ?? {}).length > 0 && (
+        <Field label="Floor" hint="Rooms are grouped by floor on the Home screen and in the room list.">
+          <select class="input" value={f.floorId ?? ""} onChange={(e) => setForm({ ...f, floorId: (e.target as HTMLSelectElement).value || undefined })}>
+            <option value="">{f.areaId && h.areas?.[f.areaId]?.floor_id ? `Same as the area (${h.floors?.[h.areas[f.areaId].floor_id!]?.name})` : "No floor"}</option>
+            {Object.values(h.floors ?? {})
+              .sort((a, b) => (a.level ?? 0) - (b.level ?? 0))
+              .map((fl) => (
+                <option value={fl.floor_id}>{fl.name}</option>
+              ))}
+          </select>
+        </Field>
+      )}
       <Field label="Icon">
         <IconPicker value={f.icon} onChange={(icon) => setForm({ ...f, icon })} />
+      </Field>
+      <Field label="Wallpaper" hint="Optional picture behind this room, e.g. /local/living-room.jpg from your config/www folder.">
+        <TextInput value={f.background ?? ""} onInput={(background) => setForm({ ...f, background })} placeholder="/local/room.jpg" />
       </Field>
       {existing && cfg.sections.length > 1 && (
         <Field label="Order">

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "preact/hooks";
+import { LineChart, useHistory } from "./charts";
 import { domainOf, entityIcon, entityName, isActive, isUnavailable, stateLabel } from "../entities";
 import { call, hass, moreInfo } from "../store";
 import type { Hass, HassEntityState } from "../types";
@@ -229,9 +230,108 @@ function Controls({ h, s }: { h: Hass; s: HassEntityState }) {
     case "camera":
       return (
         <div class="controls">
-          <CameraImage h={h} entityId={id} />
+          <CameraImage h={h} entityId={id} live />
         </div>
       );
+    case "water_heater":
+      return (
+        <div class="controls">
+          {a.temperature != null && (
+            <Labeled label="Target temperature">
+              <Slider
+                value={a.temperature}
+                min={a.min_temp ?? 30}
+                max={a.max_temp ?? 70}
+                step={a.target_temp_step ?? 1}
+                format={(v) => `${v}°`}
+                onCommit={(v) => call("water_heater", "set_temperature", { entity_id: id, temperature: v })}
+              />
+            </Labeled>
+          )}
+          {a.operation_list?.length > 0 && <Chips label="Mode" value={a.operation_mode ?? s.state} options={a.operation_list} onPick={(v) => call("water_heater", "set_operation_mode", { entity_id: id, operation_mode: v })} />}
+          {a.away_mode !== undefined && (
+            <div class="control-row">
+              <span>Away mode</span>
+              <Toggle checked={a.away_mode === "on"} onChange={(v) => call("water_heater", "set_away_mode", { entity_id: id, away_mode: v })} />
+            </div>
+          )}
+          {a.current_temperature != null && <p class="muted">Water is {a.current_temperature}°</p>}
+        </div>
+      );
+    case "humidifier":
+      return (
+        <div class="controls">
+          <BigToggle s={s} />
+          {a.humidity != null && (
+            <Labeled label="Target humidity">
+              <Slider value={a.humidity} min={a.min_humidity ?? 0} max={a.max_humidity ?? 100} format={(v) => `${v}%`} onCommit={(v) => call("humidifier", "set_humidity", { entity_id: id, humidity: v })} />
+            </Labeled>
+          )}
+          {a.available_modes?.length > 0 && <Chips label="Mode" value={a.mode} options={a.available_modes} onPick={(v) => call("humidifier", "set_mode", { entity_id: id, mode: v })} />}
+          {a.current_humidity != null && <p class="muted">Now {a.current_humidity}%</p>}
+        </div>
+      );
+    case "lawn_mower":
+      return (
+        <div class="controls">
+          <div class="btn-row">
+            <Button icon="mdi:play" onClick={() => call("lawn_mower", "start_mowing", { entity_id: id })}>Start</Button>
+            <Button icon="mdi:pause" onClick={() => call("lawn_mower", "pause", { entity_id: id })}>Pause</Button>
+            <Button icon="mdi:home-import-outline" onClick={() => call("lawn_mower", "dock", { entity_id: id })}>Dock</Button>
+          </div>
+        </div>
+      );
+    case "counter":
+      return (
+        <div class="controls">
+          <div class="counter-row">
+            <Button icon="mdi:minus" onClick={() => call("counter", "decrement", { entity_id: id })}>Down</Button>
+            <span class="counter-value">{s.state}</span>
+            <Button icon="mdi:plus" onClick={() => call("counter", "increment", { entity_id: id })}>Up</Button>
+          </div>
+          <Button kind="ghost" icon="mdi:restore" onClick={() => call("counter", "reset", { entity_id: id })}>Reset</Button>
+        </div>
+      );
+    case "timer":
+      return (
+        <div class="controls">
+          <TimerLeft s={s} />
+          <div class="btn-row">
+            {s.state !== "active" ? (
+              <Button kind="primary" icon="mdi:play" onClick={() => call("timer", "start", { entity_id: id })}>Start</Button>
+            ) : (
+              <Button icon="mdi:pause" onClick={() => call("timer", "pause", { entity_id: id })}>Pause</Button>
+            )}
+            <Button icon="mdi:stop" onClick={() => call("timer", "cancel", { entity_id: id })}>Cancel</Button>
+            <Button icon="mdi:check" onClick={() => call("timer", "finish", { entity_id: id })}>Finish</Button>
+          </div>
+        </div>
+      );
+    case "input_text":
+    case "text":
+      return <TextControl s={s} />;
+    case "update":
+      return (
+        <div class="controls">
+          <p>
+            Installed <strong>{a.installed_version ?? "—"}</strong>
+            {s.state === "on" && (
+              <>
+                {" "}
+                · Available <strong>{a.latest_version}</strong>
+              </>
+            )}
+          </p>
+          {a.release_summary && <p class="muted small">{a.release_summary}</p>}
+          {s.state === "on" && (a.supported_features & 1) !== 0 && (
+            <Button kind="primary" icon="mdi:download" onClick={() => call("update", "install", { entity_id: id })}>
+              {a.in_progress ? "Installing…" : "Install update"}
+            </Button>
+          )}
+        </div>
+      );
+    case "image":
+      return a.entity_picture ? <img class="media-art-large" src={h.hassUrl(a.entity_picture)} alt="" /> : null;
     case "scene":
     case "script":
       return (
@@ -258,6 +358,42 @@ function Controls({ h, s }: { h: Hass; s: HassEntityState }) {
       }
       return null;
   }
+}
+
+function TimerLeft({ s }: { s: HassEntityState }) {
+  const [, tick] = useState(0);
+  useEffect(() => {
+    if (s.state !== "active") return;
+    const t = window.setInterval(() => tick((x) => x + 1), 1000);
+    return () => clearInterval(t);
+  }, [s.state]);
+  let text = s.attributes.remaining ?? s.attributes.duration ?? "";
+  if (s.state === "active" && s.attributes.finishes_at) {
+    const left = Math.max(0, Math.round((new Date(s.attributes.finishes_at).getTime() - Date.now()) / 1000));
+    const hh = Math.floor(left / 3600);
+    const mm = Math.floor((left % 3600) / 60);
+    const ss = left % 60;
+    text = `${hh ? hh + ":" : ""}${String(mm).padStart(hh ? 2 : 1, "0")}:${String(ss).padStart(2, "0")}`;
+  }
+  return <div class="counter-value center">{text}</div>;
+}
+
+function TextControl({ s }: { s: HassEntityState }) {
+  const [v, setV] = useState(s.state);
+  const d = domainOf(s.entity_id);
+  const save = () => call(d, "set_value", { entity_id: s.entity_id, value: v });
+  return (
+    <form
+      class="controls"
+      onSubmit={(e) => {
+        e.preventDefault();
+        save();
+      }}
+    >
+      <TextInput value={v} onInput={setV} type={s.attributes.mode === "password" ? "password" : "text"} />
+      <Button kind="primary" icon="mdi:check" onClick={save}>Save</Button>
+    </form>
+  );
 }
 
 function BigToggle({ s }: { s: HassEntityState }) {
@@ -325,63 +461,18 @@ function AlarmControls({ s }: { s: HassEntityState }) {
 
 /** 24-hour history line for numeric sensors. */
 function History({ h, entityId, unit }: { h: Hass; entityId: string; unit?: string }) {
-  const [points, setPoints] = useState<{ t: number; v: number }[] | null>(null);
-  useEffect(() => {
-    let alive = true;
-    const end = new Date();
-    const start = new Date(end.getTime() - 24 * 3600 * 1000);
-    h.callWS<Record<string, { s: string; lu: number }[]>>({
-      type: "history/history_during_period",
-      start_time: start.toISOString(),
-      end_time: end.toISOString(),
-      entity_ids: [entityId],
-      minimal_response: true,
-      no_attributes: true,
-    })
-      .then((res) => {
-        if (!alive) return;
-        const rows = (res[entityId] ?? [])
-          .map((r) => ({ t: r.lu * 1000, v: Number(r.s) }))
-          .filter((p) => !Number.isNaN(p.v));
-        setPoints(rows);
-      })
-      .catch(() => alive && setPoints([]));
-    return () => {
-      alive = false;
-    };
-  }, [entityId]);
-
+  const points = useHistory(h, entityId, 24, 5);
   if (points === null) return <p class="muted">Loading history…</p>;
   if (points.length < 2) return <p class="muted">No numeric history for the last 24 hours.</p>;
-  const W = 320;
-  const H = 120;
-  const t0 = points[0].t;
-  const t1 = Date.now();
   const vs = points.map((p) => p.v);
-  let lo = Math.min(...vs);
-  let hi = Math.max(...vs);
-  if (hi === lo) {
-    hi += 1;
-    lo -= 1;
-  }
-  const x = (t: number) => ((t - t0) / (t1 - t0)) * W;
-  const y = (v: number) => H - 8 - ((v - lo) / (hi - lo)) * (H - 16);
-  let d = `M${x(points[0].t)},${y(points[0].v)}`;
-  for (let i = 1; i < points.length; i++) {
-    d += ` H${x(points[i].t)} V${y(points[i].v)}`;
-  }
-  d += ` H${W}`;
   const round = (v: number) => (Math.abs(v) >= 100 ? Math.round(v) : Math.round(v * 10) / 10);
   return (
     <div class="history">
       <div class="labeled-label">Last 24 hours</div>
-      <svg viewBox={`0 0 ${W} ${H}`} class="history-chart" role="img" aria-label="24 hour history">
-        <path d={`${d} V${H} H${x(points[0].t)} Z`} class="history-area" />
-        <path d={d} class="history-line" />
-      </svg>
+      <LineChart points={points} height={140} class="history-chart" showDot />
       <div class="history-range muted">
-        <span>Low {round(lo)} {unit}</span>
-        <span>High {round(hi)} {unit}</span>
+        <span>Low {round(Math.min(...vs))} {unit}</span>
+        <span>High {round(Math.max(...vs))} {unit}</span>
       </div>
     </div>
   );

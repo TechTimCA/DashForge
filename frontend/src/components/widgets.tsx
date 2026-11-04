@@ -154,11 +154,14 @@ function useOpenMeteo(h: Hass, enabled: boolean): WeatherData | null {
 }
 
 export function useWeather(h: Hass, cfg: DashConfig): WeatherData | null {
-  const id = cfg.header.weatherEntity;
+  return useWeatherFor(h, cfg.header.weatherEntity, cfg.header.weatherFallback);
+}
+
+export function useWeatherFor(h: Hass, id: string | undefined, fallback: boolean): WeatherData | null {
   const s = id ? h.states[id] : undefined;
   const daily = useEntityForecast(h, id, "daily");
   const hourly = useEntityForecast(h, id, "hourly");
-  const meteo = useOpenMeteo(h, !s && cfg.header.weatherFallback);
+  const meteo = useOpenMeteo(h, !s && fallback);
   if (s) {
     return {
       source: "entity",
@@ -172,8 +175,8 @@ export function useWeather(h: Hass, cfg: DashConfig): WeatherData | null {
   return meteo;
 }
 
-export function WeatherModal({ data, lang, h24 }: { data: WeatherData; lang: string; h24: boolean }) {
-  const close = () => (openWidget.value = null);
+export function WeatherModal({ data, lang, h24, onClose }: { data: WeatherData; lang: string; h24: boolean; onClose?: () => void }) {
+  const close = onClose ?? (() => (openWidget.value = null));
   return (
     <Modal title="Weather" onClose={close} wide>
       <div class="weather-now">
@@ -274,7 +277,7 @@ export function eventTime(e: CalEvent, lang: string, h24: boolean) {
   return formatTime(e.start, h24, lang);
 }
 
-export function CalendarModal({ cfg, lang }: { cfg: DashConfig; lang: string }) {
+export function CalendarModal({ cfg, lang, calendars, onClose }: { cfg: DashConfig; lang: string; calendars?: string[]; onClose?: () => void }) {
   const h = hass.value!;
   const [month, setMonth] = useState(() => {
     const d = new Date();
@@ -291,7 +294,7 @@ export function CalendarModal({ cfg, lang }: { cfg: DashConfig; lang: string }) 
     e.setDate(e.getDate() + 42);
     return e;
   }, [gridStart]);
-  const events = useEvents(h, cfg.header.calendars, gridStart, gridEnd);
+  const events = useEvents(h, calendars ?? cfg.header.calendars, gridStart, gridEnd);
   const byDay = new Map<string, CalEvent[]>();
   for (const e of events) {
     // multi-day events appear on each day they cover
@@ -313,7 +316,7 @@ export function CalendarModal({ cfg, lang }: { cfg: DashConfig; lang: string }) 
   const dayEvents = byDay.get(selected) ?? [];
   const shift = (n: number) => setMonth(new Date(month.getFullYear(), month.getMonth() + n, 1));
   return (
-    <Modal title="Calendar" onClose={() => (openWidget.value = null)} wide>
+    <Modal title="Calendar" onClose={onClose ?? (() => (openWidget.value = null))} wide>
       <div class="cal-head">
         <IconButton icon="mdi:chevron-left" label="Previous month" onClick={() => shift(-1)} />
         <strong>{month.toLocaleDateString(lang, { month: "long", year: "numeric" })}</strong>
@@ -445,10 +448,10 @@ function TodoList({ entityId }: { entityId: string }) {
   );
 }
 
-export function TodoModal({ cfg }: { cfg: DashConfig }) {
+export function TodoModal({ cfg, lists, onClose }: { cfg: DashConfig; lists?: string[]; onClose?: () => void }) {
   return (
-    <Modal title="Reminders" onClose={() => (openWidget.value = null)} wide>
-      {cfg.header.todoLists.map((id) => (
+    <Modal title="Reminders" onClose={onClose ?? (() => (openWidget.value = null))} wide>
+      {(lists ?? cfg.header.todoLists).map((id) => (
         <TodoList entityId={id} />
       ))}
     </Modal>

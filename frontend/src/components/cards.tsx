@@ -1,6 +1,9 @@
 import { signal } from "@preact/signals";
 import { useEffect, useRef, useState } from "preact/hooks";
 import {
+  CATEGORY_COLORS,
+  CATEGORY_GRADIENTS,
+  categoryOf,
   domainOf,
   entityIcon,
   entityName,
@@ -9,12 +12,15 @@ import {
   stateLabel,
   tapAction,
 } from "../entities";
-import { call, hass, showToast } from "../store";
+import { call, hass, moreInfo, showToast } from "../store";
 import type { CardConfig, Hass, HassEntityState } from "../types";
 import { Icon, IconButton, Slider, useLongPress } from "./ui";
+import { LineChart, useHistory } from "./charts";
 
 export const detail = signal<{ entity: string; card?: CardConfig; room?: string } | null>(null);
 export const confirmLock = signal<string | null>(null);
+/** A weather, calendar or to-do card that was tapped. */
+export const entityWidget = signal<{ kind: "weather" | "calendar" | "todo"; entity: string } | null>(null);
 
 export function activeColor(s?: HassEntityState): string | undefined {
   if (!s) return undefined;
@@ -39,18 +45,38 @@ export function activeColor(s?: HassEntityState): string | undefined {
 
 export function runTap(h: Hass, entityId: string, card?: CardConfig, room?: string) {
   const s = h.states[entityId];
-  if (isUnavailable(s) && tapAction(entityId) !== "details") {
+  const override = card?.tap ?? "auto";
+  if (override === "none") return;
+  if (override === "details") {
+    detail.value = { entity: entityId, card, room };
+    return;
+  }
+  if (override === "more-info") {
+    moreInfo(entityId);
+    return;
+  }
+  const action = override === "toggle" ? "toggle" : tapAction(entityId, s);
+  if (isUnavailable(s) && action !== "details") {
     showToast(`${entityName(h, entityId, card)} is unavailable`, "error");
     return;
   }
   const d = domainOf(entityId);
-  switch (tapAction(entityId)) {
+  switch (action) {
     case "toggle":
       if (d === "cover" || d === "valve") {
         call(d, s.state === "open" || s.state === "opening" ? `close_${d}` : `open_${d}`, {
           entity_id: entityId,
         });
-      } else call(d, "toggle", { entity_id: entityId });
+      } else if (d === "lock") {
+        if (s.state === "locked") confirmLock.value = entityId;
+        else call("lock", "lock", { entity_id: entityId });
+      } else if (h.services[d]?.toggle) call(d, "toggle", { entity_id: entityId });
+      else call("homeassistant", "toggle", { entity_id: entityId });
+      return;
+    case "weather":
+    case "calendar":
+    case "todo":
+      entityWidget.value = { kind: action, entity: entityId };
       return;
     case "activate":
       call(d, "turn_on", { entity_id: entityId });
@@ -87,7 +113,12 @@ export function Tile(props: TileProps) {
   const { card } = props;
   const s = h.states[card.entity];
   const active = isActive(s);
-  const color = activeColor(s);
+  const cat = categoryOf(card.entity, s);
+  const color = card.color ?? activeColor(s);
+  const catColor = card.color ?? CATEGORY_COLORS[cat];
+  const grad = card.color
+    ? `linear-gradient(135deg,${card.color} 0%,color-mix(in srgb,${card.color} 60%,#000) 100%)`
+    : CATEGORY_GRADIENTS[cat];
   const name = entityName(h, card.entity, card, props.room);
   const domain = domainOf(card.entity);
   const press = useLongPress(
@@ -99,6 +130,7 @@ export function Tile(props: TileProps) {
     "tile",
     `size-${card.size}`,
     `d-${domain}`,
+    `cat-${cat}`,
     active ? "active" : "",
     isUnavailable(s) ? "unavailable" : "",
     props.editing ? "editing" : "",
@@ -109,7 +141,7 @@ export function Tile(props: TileProps) {
     <div
       class={cls}
       data-index={props.index}
-      style={color ? `--tile-active:${color}` : undefined}
+      style={`--cat:${catColor};--grad:${grad};${color ? `--tile-active:${color};` : ""}`}
       role="button"
       tabIndex={0}
       aria-label={`${name}, ${stateLabel(h, s)}`}
@@ -214,6 +246,10 @@ function BigBody(p: BodyProps) {
       return <CameraBig {...p} />;
     case "sensor":
       return <SensorBig {...p} />;
+    case "water_heater":
+      return <WaterHeaterBig {...p} />;
+    case "weather":
+      return <WeatherBig {...p} />;
     default:
       return (
         <div class="big-body">
@@ -451,13 +487,31 @@ function MediaBig(p: BodyProps) {
   );
 }
 
-export function CameraImage({ h, entityId }: { h: Hass; entityId: string }) {
+/**
+ * Camera picture. Live mode streams MJPEG from Home Assistant's camera proxy,
+ * which works for nearly every camera integration; otherwise it refreshes a snapshot.
+ */
+export function CameraImage({ h, entityId, live }: { h: Hass; entityId: string; live?: boolean }) {
   const [tick, setTick] = useState(0);
+  const [liveFailed, setLiveFailed] = useState(false);
   useEffect(() => {
+    if (live && !liveFailed) return;
     const t = window.setInterval(() => document.visibilityState === "visible" && setTick((x) => x + 1), 10_000);
     return () => clearInterval(t);
-  }, []);
-  const pic = h.states[entityId]?.attributes.entity_picture;
+  }, [live, liveFailed]);
+  const s = h.states[entityId];
+  const pic = s?.attributes.entity_picture;
+  const token = s?.attributes.access_token;
+  if (live && !liveFailed && token) {
+    return (
+      <img
+        class="camera-img"
+        src={h.hassUrl(`/api/camera_proxy_stream/${entityId}?token=${token}`)}
+        alt=""
+        onError={() => setLiveFailed(true)}
+      />
+    );
+  }
   if (!pic) return <div class="camera-empty"><Icon icon="mdi:cctv-off" /></div>;
   const url = h.hassUrl(pic) + (pic.includes("?") ? "&" : "?") + `t=${tick}`;
   return <img class="camera-img" src={url} alt="" loading="lazy" />;
@@ -466,20 +520,85 @@ export function CameraImage({ h, entityId }: { h: Hass; entityId: string }) {
 function CameraBig(p: BodyProps) {
   return (
     <div class="big-body camera-big">
-      <CameraImage h={p.h} entityId={p.card.entity} />
-      <div class="camera-label">{p.name}</div>
+      <CameraImage h={p.h} entityId={p.card.entity} live={p.card.live} />
+      <div class="camera-label">
+        {p.card.live && <span class="live-dot" />}
+        {p.name}
+      </div>
     </div>
   );
 }
 
 function SensorBig(p: BodyProps) {
+  const numeric = p.s && !Number.isNaN(Number(p.s.state));
   return (
-    <div class="big-body sensor-big">
-      <div class="tile-icon">
-        <Icon icon={entityIcon(p.h, p.card.entity, p.card)} />
+    <div class={`big-body sensor-big ${numeric ? "with-chart" : ""}`}>
+      <div class="big-top">
+        <div class="tile-icon">
+          <Icon icon={entityIcon(p.h, p.card.entity, p.card)} />
+        </div>
+        <div class="tile-text">
+          <div class="tile-name">{p.name}</div>
+          <div class="tile-state">Last 24 hours</div>
+        </div>
+        <div class="sensor-value">{stateLabel(p.h, p.s)}</div>
       </div>
-      <div class="sensor-value">{stateLabel(p.h, p.s)}</div>
-      <div class="tile-name">{p.name}</div>
+      {numeric && <SensorChart h={p.h} entityId={p.card.entity} now={Number(p.s!.state)} />}
     </div>
   );
+}
+
+function WaterHeaterBig(p: BodyProps) {
+  const a = p.s?.attributes ?? {};
+  return (
+    <div class="big-body">
+      <div class="big-top">
+        <TileHead {...p} />
+      </div>
+      <div class="big-number">
+        {a.current_temperature != null ? `${Math.round(a.current_temperature)}°` : a.temperature != null ? `${a.temperature}°` : "—"}
+        <span class="big-number-label">{a.current_temperature != null ? "Water now" : "Target"}</span>
+      </div>
+      {a.temperature != null && !isUnavailable(p.s) && (
+        <Slider
+          value={a.temperature}
+          min={a.min_temp ?? 30}
+          max={a.max_temp ?? 70}
+          step={a.target_temp_step ?? 1}
+          label="Target temperature"
+          format={(v) => `Target ${v}°`}
+          onCommit={(v) => call("water_heater", "set_temperature", { entity_id: p.card.entity, temperature: v })}
+        />
+      )}
+    </div>
+  );
+}
+
+function WeatherBig(p: BodyProps) {
+  const a = p.s?.attributes ?? {};
+  return (
+    <div class="big-body weather-big">
+      <div class="big-top">
+        <div class="tile-icon">
+          <Icon icon={entityIcon(p.h, p.card.entity, p.card)} />
+        </div>
+        <div class="tile-text">
+          <div class="tile-name">{p.name}</div>
+          <div class="tile-state">{stateLabel(p.h, p.s).split(" · ")[1] ?? ""}</div>
+        </div>
+        <div class="weather-big-temp">{a.temperature != null ? `${Math.round(a.temperature)}°` : ""}</div>
+      </div>
+      <div class="weather-big-meta">
+        {a.humidity != null && <span><Icon icon="mdi:water-percent" size={16} /> {a.humidity}%</span>}
+        {a.wind_speed != null && <span><Icon icon="mdi:weather-windy" size={16} /> {Math.round(a.wind_speed)} {a.wind_speed_unit ?? ""}</span>}
+        <span class="muted-on">Tap for forecast</span>
+      </div>
+    </div>
+  );
+}
+
+function SensorChart({ h, entityId, now }: { h: Hass; entityId: string; now: number }) {
+  const points = useHistory(h, entityId, 24, 5);
+  if (!points) return <div class="chart-space" />;
+  return <LineChart points={points} now={now} class="tile-chart" showDot />;
 }

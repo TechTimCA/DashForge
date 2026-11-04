@@ -81,8 +81,10 @@ export interface Hass {
 
 // ---------- DashForge configuration ----------
 
-export type LayoutId = "grid" | "sidebar" | "list" | "focus";
+export type LayoutId = "auto" | "grid" | "sidebar" | "list" | "focus";
 export type CardSize = "sm" | "md" | "lg" | "wide";
+export type StyleId = "vivid" | "dashforge" | "apple" | "homey" | "minimal";
+export type TapOverride = "auto" | "toggle" | "details" | "more-info" | "none";
 
 export interface CardConfig {
   id: string;
@@ -91,6 +93,10 @@ export interface CardConfig {
   icon?: string;
   size: CardSize;
   hidden?: boolean;
+  color?: string;
+  tap?: TapOverride;
+  favorite?: boolean;
+  live?: boolean; // cameras: live MJPEG view instead of snapshots
 }
 
 export interface SectionConfig {
@@ -99,10 +105,13 @@ export interface SectionConfig {
   name: string;
   icon: string;
   areaId?: string;
+  floorId?: string;
+  background?: string; // image URL shown behind this room
   cards: CardConfig[];
 }
 
 export interface ThemeConfig {
+  style: StyleId;
   mode: "auto" | "light" | "dark";
   accent: string;
   background: string; // preset id or "image"
@@ -134,9 +143,23 @@ export interface TabletConfig {
 }
 
 export interface BuiltinPages {
+  home: boolean;
   media: boolean;
   security: boolean;
   scenes: boolean;
+  irrigation: boolean;
+}
+
+export interface HomeConfig {
+  summary: boolean;
+  favorites: boolean;
+  rooms: boolean;
+}
+
+export interface IrrigationConfig {
+  zones: string[];
+  minutes: number;
+  presets: number[];
 }
 
 export interface DashConfig {
@@ -149,5 +172,7 @@ export interface DashConfig {
   header: HeaderConfig;
   tablet: TabletConfig;
   builtinPages: BuiltinPages;
+  home: HomeConfig;
+  irrigation: IrrigationConfig;
   sections: SectionConfig[];
 }

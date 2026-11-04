@@ -32,6 +32,23 @@ export const DASH_DOMAINS = new Set([
   "person",
   "automation",
   "water_heater",
+  "lawn_mower",
+  "remote",
+  "counter",
+  "timer",
+  "input_text",
+  "text",
+  "input_datetime",
+  "date",
+  "time",
+  "datetime",
+  "update",
+  "device_tracker",
+  "event",
+  "group",
+  "image",
+  "todo",
+  "calendar",
 ]);
 
 const TOGGLE_DOMAINS = new Set([
@@ -42,6 +59,7 @@ const TOGGLE_DOMAINS = new Set([
   "siren",
   "humidifier",
   "automation",
+  "remote",
 ]);
 
 const CONTROL_DOMAINS = new Set([
@@ -54,6 +72,7 @@ const CONTROL_DOMAINS = new Set([
   "valve",
   "alarm_control_panel",
   "water_heater",
+  "lawn_mower",
 ]);
 
 export const isUnavailable = (s?: HassEntityState) =>
@@ -75,6 +94,12 @@ export function isActive(s?: HassEntityState): boolean {
       return s.state === "playing";
     case "vacuum":
       return s.state === "cleaning";
+    case "lawn_mower":
+      return s.state === "mowing";
+    case "timer":
+      return s.state === "active";
+    case "device_tracker":
+      return s.state === "home";
     case "alarm_control_panel":
       return s.state.startsWith("armed") || s.state === "triggered";
     case "person":
@@ -86,17 +111,38 @@ export function isActive(s?: HassEntityState): boolean {
     case "input_number":
     case "select":
     case "input_select":
+    case "counter":
+    case "input_text":
+    case "text":
+    case "input_datetime":
+    case "date":
+    case "time":
+    case "datetime":
+    case "event":
+    case "image":
+    case "todo":
       return false;
     default:
       return s.state === "on";
   }
 }
 
-export type TapAction = "toggle" | "activate" | "press" | "lock" | "media" | "details";
+export type TapAction =
+  | "toggle"
+  | "activate"
+  | "press"
+  | "lock"
+  | "media"
+  | "details"
+  | "todo"
+  | "calendar"
+  | "weather";
 
-export function tapAction(entityId: string): TapAction {
+export function tapAction(entityId: string, state?: HassEntityState): TapAction {
   const d = domainOf(entityId);
   if (TOGGLE_DOMAINS.has(d) || d === "cover" || d === "valve") return "toggle";
+  if (d === "group") return state && (state.state === "on" || state.state === "off") ? "toggle" : "details";
+  if (d === "todo" || d === "calendar" || d === "weather") return d;
   if (d === "scene" || d === "script") return "activate";
   if (d === "button" || d === "input_button") return "press";
   if (d === "lock") return "lock";
@@ -135,7 +181,127 @@ const DOMAIN_ICONS: Record<string, [string, string?]> = {
   weather: ["mdi:weather-partly-cloudy"],
   person: ["mdi:account", "mdi:account-outline"],
   automation: ["mdi:robot", "mdi:robot-off"],
+  lawn_mower: ["mdi:robot-mower", "mdi:robot-mower-outline"],
+  remote: ["mdi:remote", "mdi:remote-off"],
+  counter: ["mdi:counter"],
+  timer: ["mdi:timer-outline", "mdi:timer-off-outline"],
+  input_text: ["mdi:form-textbox"],
+  text: ["mdi:form-textbox"],
+  input_datetime: ["mdi:calendar-clock"],
+  date: ["mdi:calendar"],
+  time: ["mdi:clock-outline"],
+  datetime: ["mdi:calendar-clock"],
+  update: ["mdi:package-up", "mdi:package"],
+  device_tracker: ["mdi:map-marker", "mdi:map-marker-off"],
+  event: ["mdi:gesture-tap"],
+  group: ["mdi:google-circles-communities"],
+  image: ["mdi:image"],
+  todo: ["mdi:clipboard-list"],
+  calendar: ["mdi:calendar"],
 };
+
+/** Device categories, used for the colour-coded Homey style. */
+export const CATEGORY_COLORS: Record<string, string> = {
+  light: "#f5b400",
+  power: "#22c55e",
+  climate: "#f97316",
+  cover: "#14b8a6",
+  water: "#3b82f6",
+  security: "#ef4444",
+  media: "#a855f7",
+  robot: "#84cc16",
+  sensor: "#64748b",
+  scene: "#6366f1",
+  info: "#0ea5e9",
+};
+
+/** Bright gradients for the Vivid style, one per device category. */
+export const CATEGORY_GRADIENTS: Record<string, string> = {
+  light: "linear-gradient(135deg,#fbbf24 0%,#f97316 100%)",
+  power: "linear-gradient(135deg,#34d399 0%,#06b6d4 100%)",
+  climate: "linear-gradient(135deg,#fb923c 0%,#ef4444 100%)",
+  cover: "linear-gradient(135deg,#22d3ee 0%,#3b82f6 100%)",
+  water: "linear-gradient(135deg,#38bdf8 0%,#6366f1 100%)",
+  security: "linear-gradient(135deg,#f43f5e 0%,#c026d3 100%)",
+  media: "linear-gradient(135deg,#a855f7 0%,#ec4899 100%)",
+  robot: "linear-gradient(135deg,#a3e635 0%,#10b981 100%)",
+  sensor: "linear-gradient(135deg,#64748b 0%,#334155 100%)",
+  scene: "linear-gradient(135deg,#818cf8 0%,#a855f7 100%)",
+  info: "linear-gradient(135deg,#38bdf8 0%,#2563eb 100%)",
+};
+
+export function categoryOf(entityId: string, s?: HassEntityState): string {
+  const d = domainOf(entityId);
+  switch (d) {
+    case "light":
+      return "light";
+    case "switch":
+    case "input_boolean":
+    case "remote":
+    case "group":
+    case "automation":
+    case "siren":
+      return "power";
+    case "fan":
+    case "climate":
+    case "water_heater":
+    case "humidifier":
+      return "climate";
+    case "cover":
+      return "cover";
+    case "valve":
+      return "water";
+    case "lock":
+    case "alarm_control_panel":
+    case "camera":
+      return "security";
+    case "binary_sensor": {
+      const dc = s?.attributes.device_class;
+      if (["door", "window", "garage_door", "opening", "motion", "occupancy", "smoke", "safety", "lock", "tamper"].includes(dc)) return "security";
+      if (dc === "moisture") return "water";
+      return "sensor";
+    }
+    case "media_player":
+      return "media";
+    case "vacuum":
+    case "lawn_mower":
+      return "robot";
+    case "scene":
+    case "script":
+    case "button":
+    case "input_button":
+      return "scene";
+    case "weather":
+    case "calendar":
+    case "todo":
+    case "person":
+    case "device_tracker":
+    case "update":
+      return "info";
+    case "sensor": {
+      const dc = s?.attributes.device_class;
+      if (dc === "temperature") return "climate";
+      if (dc === "humidity" || dc === "moisture" || dc === "water" || dc === "precipitation") return "water";
+      if (dc === "power" || dc === "energy" || dc === "voltage" || dc === "current" || dc === "battery") return "power";
+      return "sensor";
+    }
+    default:
+      return "sensor";
+  }
+}
+
+const IRRIGATION_WORDS = /zone|sprinkler|irrigat|drip|lawn|garden|hose|station|water(ing)?/i;
+const IRRIGATION_DOMAINS = new Set(["switch", "valve", "input_boolean"]);
+
+/** Switches or valves that look like watering zones. Only a suggestion; the user decides. */
+export function isIrrigationCandidate(hass: Hass, entityId: string): boolean {
+  const d = domainOf(entityId);
+  if (!IRRIGATION_DOMAINS.has(d)) return false;
+  const s = hass.states[entityId];
+  if (d === "valve" && s?.attributes.device_class === "water") return true;
+  const name = `${entityId} ${s?.attributes.friendly_name ?? ""}`;
+  return IRRIGATION_WORDS.test(name);
+}
 
 const SENSOR_CLASS_ICONS: Record<string, string> = {
   temperature: "mdi:thermometer",
@@ -169,6 +335,18 @@ const BINARY_CLASS_ICONS: Record<string, [string, string]> = {
   plug: ["mdi:power-plug", "mdi:power-plug-off"],
 };
 
+const COVER_CLASS_ICONS: Record<string, [string, string]> = {
+  garage: ["mdi:garage-open", "mdi:garage"],
+  door: ["mdi:door-open", "mdi:door-closed"],
+  gate: ["mdi:gate-open", "mdi:gate"],
+  blind: ["mdi:blinds-open", "mdi:blinds"],
+  curtain: ["mdi:curtains", "mdi:curtains-closed"],
+  shade: ["mdi:roller-shade", "mdi:roller-shade-closed"],
+  shutter: ["mdi:window-shutter-open", "mdi:window-shutter"],
+  window: ["mdi:window-open", "mdi:window-closed"],
+  awning: ["mdi:awning-outline", "mdi:awning-outline"],
+};
+
 export function entityIcon(hass: Hass, entityId: string, card?: CardConfig): string {
   if (card?.icon) return card.icon;
   const entry = hass.entities?.[entityId];
@@ -178,6 +356,10 @@ export function entityIcon(hass: Hass, entityId: string, card?: CardConfig): str
   const d = domainOf(entityId);
   const dc = s?.attributes.device_class;
   if (d === "sensor" && dc && SENSOR_CLASS_ICONS[dc]) return SENSOR_CLASS_ICONS[dc];
+  if (d === "cover" && dc && COVER_CLASS_ICONS[dc]) {
+    const [open, closed] = COVER_CLASS_ICONS[dc];
+    return s?.state === "closed" ? closed : open;
+  }
   if (d === "binary_sensor" && dc && BINARY_CLASS_ICONS[dc]) {
     const [on, off] = BINARY_CLASS_ICONS[dc];
     return s?.state === "on" ? on : off;
@@ -255,6 +437,20 @@ export function stateLabel(hass: Hass, s?: HassEntityState): string {
   }
   if (d === "scene" || d === "script" || d === "button" || d === "input_button") {
     return d === "script" && s.state === "on" ? "Running" : "Tap to run";
+  }
+  if (d === "todo") {
+    const n = Number(s.state) || 0;
+    return n === 0 ? "All done" : n === 1 ? "1 to do" : `${n} to do`;
+  }
+  if (d === "calendar") {
+    return s.state === "on" ? `Now: ${s.attributes.message ?? "event"}` : s.attributes.message ? `Next: ${s.attributes.message}` : "No events";
+  }
+  if (d === "weather" && s.attributes.temperature != null) {
+    const cond = s.state === "partlycloudy" ? "Partly cloudy" : titleCase(s.state.replace(/-/g, " "));
+    return `${Math.round(s.attributes.temperature)}° · ${cond}`;
+  }
+  if (d === "update") {
+    return s.state === "on" ? `Update to ${s.attributes.latest_version ?? "new version"}` : "Up to date";
   }
   if (hass.formatEntityState) {
     try {
@@ -359,7 +555,8 @@ export function byImportance(hass: Hass) {
 export function defaultCardSize(entityId: string): CardSize {
   const d = domainOf(entityId);
   if (d === "camera" || d === "media_player") return "wide";
-  if (d === "climate") return "lg";
+  if (d === "climate" || d === "water_heater") return "lg";
+  if (d === "weather") return "md";
   return "sm";
 }
 
@@ -392,4 +589,21 @@ export const DOMAIN_LABELS: Record<string, string> = {
   person: "People",
   automation: "Automations",
   water_heater: "Water heaters",
+  lawn_mower: "Lawn mowers",
+  remote: "Remotes",
+  counter: "Counters",
+  timer: "Timers",
+  input_text: "Text",
+  text: "Text",
+  input_datetime: "Date & time",
+  date: "Date & time",
+  time: "Date & time",
+  datetime: "Date & time",
+  update: "Updates",
+  device_tracker: "Device trackers",
+  event: "Events",
+  group: "Groups",
+  image: "Images",
+  todo: "To-do lists",
+  calendar: "Calendars",
 };

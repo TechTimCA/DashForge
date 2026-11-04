@@ -4,6 +4,8 @@ import type { DashConfig, Hass } from "./types";
 
 export const hass = signal<Hass | null>(null);
 export const narrow = signal(false);
+/** Width of the dashboard in CSS pixels, used by the Auto layout. */
+export const width = signal(typeof window !== "undefined" ? window.innerWidth : 1200);
 
 export interface Info {
   version: string;
@@ -22,10 +24,12 @@ export const editMode = computed(() => draft.value !== null);
 export const config = computed<DashConfig | null>(() => draft.value ?? saved.value);
 
 export type View =
+  | { type: "home" }
   | { type: "section"; id: string }
   | { type: "media" }
   | { type: "security" }
-  | { type: "scenes" };
+  | { type: "scenes" }
+  | { type: "irrigation" };
 
 export const view = signal<View | null>(null);
 export const settingsOpen = signal(false);
