@@ -3,6 +3,7 @@ import { App } from "./app";
 import { hass, loadAll, narrow, setPanelElement, stopSync, width } from "./store";
 import type { Hass } from "./types";
 import styles from "./styles.css?inline";
+import { installFonts } from "./fonts";
 
 class DashForgePanel extends HTMLElement {
   private mount?: HTMLDivElement;
@@ -23,6 +24,7 @@ class DashForgePanel extends HTMLElement {
   set panel(_v: unknown) {}
 
   connectedCallback() {
+    installFonts();
     if (!this.shadowRoot) {
       const root = this.attachShadow({ mode: "open" });
       const style = document.createElement("style");

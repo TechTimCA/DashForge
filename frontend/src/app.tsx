@@ -1,4 +1,5 @@
 import { BACKGROUNDS } from "./config";
+import { fontStack } from "./fonts";
 import { CardEditorModal, EditBar, HiddenTray, PickerModal, SectionEditorModal } from "./components/edit";
 import { DetailSheet, LockConfirm } from "./components/details";
 import { Header, Layout, SceneStrip } from "./components/layout";
@@ -22,7 +23,7 @@ function themeStyle(cfg: DashConfig, dark: boolean): string {
     const preset = BACKGROUNDS.find((b) => b.id === t.background) ?? BACKGROUNDS[0];
     bg = dark ? preset.dark : preset.light;
   }
-  return `--accent:${t.accent};--radius:${t.radius}px;--page-bg:${bg};`;
+  return `--accent:${t.accent};--radius:${t.radius}px;--page-bg:${bg};--font:${fontStack(t.font).replace(/"/g, "'")};`;
 }
 
 function Themed({ cfg, children }: { cfg: DashConfig; children: any }) {

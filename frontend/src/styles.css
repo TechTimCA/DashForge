@@ -36,7 +36,7 @@
   color: var(--text);
   background: var(--page-bg);
   background-attachment: fixed;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  font-family: var(--font, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif);
   font-size: 15px;
   line-height: 1.4;
   -webkit-font-smoothing: antialiased;
@@ -2134,7 +2134,6 @@ ha-icon {
   --tile-min: 176px;
   --tile-h: 74px;
   --gap: 10px;
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, "Segoe UI", Roboto, sans-serif;
 }
 
 .style-apple.density-compact {
@@ -3089,4 +3088,66 @@ ha-icon {
 
 .style-minimal .slider {
   --slider-color: color-mix(in srgb, var(--accent) 30%, transparent);
+}
+
+/* ---------- Typeface ---------- */
+
+.font-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 10px;
+}
+
+.font-choice {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px;
+  border: 2px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+  text-align: left;
+}
+
+.font-choice.selected {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+.font-sample {
+  font-size: 1.9rem;
+  font-weight: 650;
+  line-height: 1.1;
+}
+
+/* Titles and numbers carry the typeface's personality */
+.title,
+.focus-title,
+.wizard-head h2,
+.welcome-card h1 {
+  font-weight: 750;
+  letter-spacing: -0.025em;
+}
+
+.clock,
+.ss-clock,
+.weather-big-temp,
+.weather-temp {
+  font-weight: 350;
+  letter-spacing: -0.03em;
+}
+
+.tile-name,
+.room-card-name,
+.nav-item,
+.summary-value {
+  letter-spacing: -0.005em;
+}
+
+.tile-value,
+.sensor-value,
+.ring-target,
+.big-number,
+.counter-value {
+  letter-spacing: -0.02em;
 }

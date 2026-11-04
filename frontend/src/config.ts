@@ -66,31 +66,31 @@ export const STYLE_PRESETS: {
     id: "vivid",
     name: "Vivid",
     desc: "Dark and colourful: bright gradient tiles that pop when devices are on.",
-    theme: { style: "vivid", mode: "dark", background: "midnight", cardStyle: "solid", radius: 22, accent: "#6366f1" },
+    theme: { style: "vivid", font: "sora", mode: "dark", background: "midnight", cardStyle: "solid", radius: 22, accent: "#6366f1" },
   },
   {
     id: "dashforge",
     name: "DashForge",
     desc: "Soft gradients and frosted cards with live colour.",
-    theme: { style: "dashforge", background: "aurora", cardStyle: "glass", radius: 20, accent: "#3b82f6" },
+    theme: { style: "dashforge", font: "manrope", background: "aurora", cardStyle: "glass", radius: 20, accent: "#3b82f6" },
   },
   {
     id: "apple",
     name: "Apple Home style",
     desc: "Compact frosted tiles that turn white when on, over a wallpaper.",
-    theme: { style: "apple", background: "dusk", cardStyle: "glass", radius: 18, accent: "#ff9f0a" },
+    theme: { style: "apple", font: "system", background: "dusk", cardStyle: "glass", radius: 18, accent: "#ff9f0a" },
   },
   {
     id: "homey",
     name: "Homey style",
     desc: "Dark, square tiles with colour-coded device icons.",
-    theme: { style: "homey", mode: "dark", background: "homey", cardStyle: "solid", radius: 22, accent: "#3b82f6" },
+    theme: { style: "homey", font: "nunito", mode: "dark", background: "homey", cardStyle: "solid", radius: 22, accent: "#3b82f6" },
   },
   {
     id: "minimal",
     name: "Minimal",
     desc: "Flat, quiet and high contrast. Lots of space.",
-    theme: { style: "minimal", background: "plain", cardStyle: "solid", radius: 12, accent: "#18181b" },
+    theme: { style: "minimal", font: "dmsans", background: "plain", cardStyle: "solid", radius: 12, accent: "#18181b" },
   },
 ];
 
@@ -114,6 +114,7 @@ export function defaultConfig(): DashConfig {
     layout: "auto",
     theme: {
       style: "vivid",
+      font: "sora",
       mode: "dark",
       accent: "#6366f1",
       background: "midnight",

@@ -11,6 +11,7 @@ import {
   isRecommended,
 } from "../entities";
 import { floorGroups } from "./home";
+import { FONTS, fontStack } from "../fonts";
 import { hass } from "../store";
 import type { CardSize, DashConfig, Hass, LayoutId, SectionConfig, StyleId } from "../types";
 import { EntityRow, EntitySearch } from "./edit";
@@ -626,6 +627,23 @@ export function ThemeStep({ cfg, set }: StepProps) {
               <StylePreview id={p.id} />
               <strong>{p.name}</strong>
               <span class="muted small">{p.desc}</span>
+            </button>
+          ))}
+        </div>
+      </Field>
+      <Field label="Typeface">
+        <div class="font-grid">
+          {FONTS.map((f) => (
+            <button
+              type="button"
+              class={`font-choice ${t.font === f.id ? "selected" : ""}`}
+              aria-pressed={t.font === f.id}
+              style={`font-family:${fontStack(f.id).replace(/"/g, "'")}`}
+              onClick={() => set((c) => (c.theme.font = f.id))}
+            >
+              <span class="font-sample">Aa</span>
+              <strong>{f.name}</strong>
+              <span class="muted small">{f.note}</span>
             </button>
           ))}
         </div>

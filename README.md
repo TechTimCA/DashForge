@@ -39,6 +39,7 @@ Everything is included, for everyone, with no limits on rooms or devices.
 
 **Looks like you want it to**
 - Five styles to start from: **Vivid** (dark with bright gradient tiles), **Apple Home style** (frosted tiles that turn white when on), **Homey style** (dark with colour-coded device icons), **DashForge** (soft gradients) and **Minimal**.
+- Its own typefaces, built in and working offline: Sora, Manrope, Lexend, Nunito and DM Sans, or your device's font.
 - Then change anything: light, dark or match Home Assistant; any accent colour; eight backgrounds or your own image; frosted or solid cards; corner roundness; spacing.
 - Per card: colour, icon, name, size, what a tap does, and whether it shows on Home. Per room: icon, floor and wallpaper.
 
@@ -165,5 +166,7 @@ Contributions, bug reports and translations are welcome. Please open an [issue](
 ## License
 
 [MIT](LICENSE). Free to use, change and share.
+
+The bundled typefaces (Sora, Manrope, Lexend, Nunito and DM Sans) are under the SIL Open Font License 1.1; their licences are in `custom_components/dashforge/frontend/fonts`.
 
 DashForge is an independent project and is not affiliated with Home Assistant, Nabu Casa or the Open Home Foundation.

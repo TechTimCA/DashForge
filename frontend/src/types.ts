@@ -84,6 +84,7 @@ export interface Hass {
 export type LayoutId = "auto" | "grid" | "sidebar" | "list" | "focus";
 export type CardSize = "sm" | "md" | "lg" | "wide";
 export type StyleId = "vivid" | "dashforge" | "apple" | "homey" | "minimal";
+export type FontId = "sora" | "manrope" | "lexend" | "nunito" | "dmsans" | "system";
 export type TapOverride = "auto" | "toggle" | "details" | "more-info" | "none";
 
 export interface CardConfig {
@@ -112,6 +113,7 @@ export interface SectionConfig {
 
 export interface ThemeConfig {
   style: StyleId;
+  font: FontId;
   mode: "auto" | "light" | "dark";
   accent: string;
   background: string; // preset id or "image"
