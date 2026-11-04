@@ -11,6 +11,7 @@ export interface HassEntityState {
 export interface HassArea {
   area_id: string;
   name: string;
+  aliases?: string[];
   icon?: string | null;
   picture?: string | null;
   floor_id?: string | null;

@@ -9,7 +9,7 @@ import { CalendarModal, TodoModal, WeatherModal, openWidget, useWeather, useWeat
 import { entityWidget } from "./components/cards";
 import { LightsOffConfirm } from "./components/home";
 import { IrrigationSync } from "./components/irrigation";
-import { SettingsModal, Wizard, previewConfig, startWizard } from "./components/wizard";
+import { QuickStart, SettingsModal, Wizard, previewConfig } from "./components/wizard";
 import { config, editMode, hass, info, loadAll, loadError, saved, settingsOpen, toast, wizardOpen } from "./store";
 import type { DashConfig, Hass } from "./types";
 
@@ -123,21 +123,18 @@ export function App() {
   if (!cfg || !cfg.setupComplete) {
     const base = fallback ?? defaultConfig();
     return (
-      <Themed cfg={base}>
-        <Centered>
-          <div class="welcome-card">
-            <Icon icon="mdi:anvil" size={56} />
-            <h1>Welcome to DashForge</h1>
-            {info.value.can_edit ? (
-              <>
-                <p>Let's build a dashboard that fits your home. The setup asks you about your rooms, devices, layout and look, one step at a time. It takes about five minutes, and you can change everything afterwards.</p>
-                <Button kind="primary" icon="mdi:arrow-right" onClick={startWizard}>Start setup</Button>
-              </>
-            ) : (
+      <Themed cfg={previewConfig.value ?? base}>
+        {info.value.can_edit ? (
+          <QuickStart />
+        ) : (
+          <Centered>
+            <div class="welcome-card">
+              <Icon icon="mdi:anvil" size={56} />
+              <h1>Welcome to DashForge</h1>
               <p>This dashboard hasn't been set up yet. Ask an administrator of this Home Assistant to open DashForge and finish the setup.</p>
-            )}
-          </div>
-        </Centered>
+            </div>
+          </Centered>
+        )}
       </Themed>
     );
   }

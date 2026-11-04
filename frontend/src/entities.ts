@@ -497,6 +497,119 @@ export function entitiesWithoutArea(hass: Hass): string[] {
     .sort(byImportance(hass));
 }
 
+// ---------- Placing devices by name ----------
+
+/** Common room names, longest first so "master bedroom" wins over "bedroom". */
+const ROOM_WORDS = [
+  "primary bedroom",
+  "master bedroom",
+  "guest bedroom",
+  "living room",
+  "family room",
+  "great room",
+  "dining room",
+  "media room",
+  "games room",
+  "laundry room",
+  "powder room",
+  "guest room",
+  "front yard",
+  "back yard",
+  "backyard",
+  "front door",
+  "kids room",
+  "playroom",
+  "bedroom",
+  "kitchen",
+  "bathroom",
+  "ensuite",
+  "nursery",
+  "office",
+  "study",
+  "den",
+  "garage",
+  "basement",
+  "attic",
+  "laundry",
+  "mudroom",
+  "hallway",
+  "hall",
+  "entry",
+  "foyer",
+  "porch",
+  "patio",
+  "deck",
+  "garden",
+  "driveway",
+  "shed",
+  "gym",
+  "theatre",
+  "theater",
+  "loft",
+  "pantry",
+  "lounge",
+  "stairs",
+].sort((a, b) => b.length - a.length);
+
+const norm = (s: string) => ` ${s.toLowerCase().replace(/[_\-.]+/g, " ").replace(/\s+/g, " ").trim()} `;
+
+/** Every name a device goes by: friendly name, entity ID and its device's name. */
+function searchableName(hass: Hass, entityId: string): string {
+  const s = hass.states[entityId];
+  const entry = hass.entities?.[entityId];
+  const dev = entry?.device_id ? hass.devices?.[entry.device_id] : undefined;
+  return norm([s?.attributes.friendly_name, entityId.split(".")[1], dev?.name_by_user, dev?.name].filter(Boolean).join(" | "));
+}
+
+function nameMatches(haystack: string, phrase: string): boolean {
+  const p = norm(phrase);
+  if (p.trim().length < 3) return false;
+  return haystack.includes(p) || haystack.includes(` ${p.trim().replace(/ /g, "")} `);
+}
+
+export interface RoomRef {
+  key: string;
+  name: string;
+  aliases?: string[];
+}
+
+/** Which of these rooms a device belongs to by its name (longest matching name wins). */
+export function roomByName(hass: Hass, entityId: string, rooms: RoomRef[]): string | null {
+  const hay = searchableName(hass, entityId);
+  let best: { key: string; len: number } | null = null;
+  for (const r of rooms) {
+    for (const n of [r.name, ...(r.aliases ?? [])]) {
+      if (nameMatches(hay, n) && (!best || n.length > best.len)) best = { key: r.key, len: n.length };
+    }
+  }
+  return best?.key ?? null;
+}
+
+/** Room names found in device names, for homes whose devices aren't in areas. */
+export function roomsFromNames(hass: Hass, entityIds: string[]): Map<string, string[]> {
+  const found = new Map<string, string[]>();
+  for (const id of entityIds) {
+    const hay = searchableName(hass, id);
+    const word = ROOM_WORDS.find((w) => nameMatches(hay, w));
+    if (!word) continue;
+    const name = word.replace(/\b\w/g, (c) => c.toUpperCase());
+    found.set(name, [...(found.get(name) ?? []), id]);
+  }
+  return found;
+}
+
+/**
+ * Suggestions for a room: devices in its area, plus devices with no area whose
+ * name mentions the room (when no other room is a better match).
+ */
+export function entitiesForRoom(hass: Hass, room: { areaId?: string; name: string }, allRooms: RoomRef[] = []): string[] {
+  const inArea = room.areaId ? entitiesInArea(hass, room.areaId) : [];
+  const me: RoomRef = { key: "__me", name: room.name, aliases: room.areaId ? hass.areas?.[room.areaId]?.aliases : undefined };
+  const others = allRooms.filter((r) => r.name.toLowerCase() !== room.name.toLowerCase());
+  const byName = entitiesWithoutArea(hass).filter((id) => roomByName(hass, id, [me, ...others]) === "__me");
+  return [...inArea, ...byName.filter((id) => !inArea.includes(id))].sort(byImportance(hass));
+}
+
 const RECOMMENDED_SENSORS = new Set(["temperature", "humidity", "carbon_dioxide", "pm25"]);
 const RECOMMENDED_BINARY = new Set([
   "door",

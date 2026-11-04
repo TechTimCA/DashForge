@@ -32,10 +32,10 @@ One dashboard adapts to every screen, with nothing extra to build:
 
 Everything is included, for everyone, with no limits on rooms or devices.
 
-**Setup wizard**
-- Ten short steps: welcome, rooms, devices, scenes and media, header widgets, layout, look and feel, pages, wall tablet, review.
-- Your Home Assistant areas, floors and devices are offered as suggestions you confirm, untick or rearrange. Rooms without an area and devices from anywhere can be added too.
-- Run it again at any time from Settings.
+**Set up in one tap**
+- **Quick start**: open DashForge and it shows the rooms and devices it found. Pick a look, tap **Create my dashboard**, done. No YAML, no cards to build.
+- Rooms come from your Home Assistant areas and floors. Devices that aren't in an area are placed by their names ("Kitchen Pendant" goes in Kitchen), and if your home has no areas at all, DashForge works out rooms from device names.
+- Prefer to choose everything? The step-by-step wizard walks through rooms, devices, scenes, widgets, layout, look, pages and wall-tablet settings, and you can run it again any time from Settings.
 
 **Looks like you want it to: mix and match every part**
 - Start from a ready-made style (**Vivid**, **Daylight**, **Blocks**, **Console**, **Apple Home style**, **Homey style**, **DashForge**, **Minimal**), then change any part of it on its own.

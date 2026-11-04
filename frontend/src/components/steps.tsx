@@ -4,9 +4,13 @@ import {
   DOMAIN_LABELS,
   defaultCardSize,
   domainOf,
+  entitiesForRoom,
   entitiesInArea,
   entitiesWithoutArea,
   entityName,
+  roomByName,
+  roomsFromNames,
+  type RoomRef,
   isIrrigationCandidate,
   isRecommended,
 } from "../entities";
@@ -51,15 +55,26 @@ const ICON_GUESSES: [RegExp, string][] = [
 
 export const guessIcon = (name: string) => ICON_GUESSES.find(([re]) => re.test(name))?.[1] ?? "mdi:home";
 
-function seedRoom(h: Hass, areaId: string, name: string, icon?: string | null): SectionConfig {
+export function roomRefs(h: Hass, sections: SectionConfig[]): RoomRef[] {
+  return sections
+    .filter((s) => s.kind === "room")
+    .map((s) => ({ key: s.id, name: s.name, aliases: s.areaId ? h.areas?.[s.areaId]?.aliases : undefined }));
+}
+
+/** A room with its recommended devices ticked: those in its area, plus unplaced devices named after it. */
+function seedRoom(h: Hass, areaId: string | undefined, name: string, icon?: string | null, others: RoomRef[] = []): SectionConfig {
   const s = newSection("room", name, icon || guessIcon(name), areaId);
-  s.cards = entitiesInArea(h, areaId)
+  s.cards = entitiesForRoom(h, { areaId, name }, others)
     .filter((id) => isRecommended(h, id))
     .map((id) => newCard(id, defaultCardSize(id)));
   return s;
 }
 
-/** First run: suggest every area that has devices. The user reviews this on the Rooms step. */
+/**
+ * First run: one room per Home Assistant area with devices, then rooms guessed
+ * from device names for anything left (so homes without areas still get rooms).
+ * Everything is a suggestion the user reviews.
+ */
 export function seedFirstRun(h: Hass, cfg: DashConfig) {
   if (cfg.sections.length) return;
   const floors = h.floors ?? {};
@@ -67,8 +82,20 @@ export function seedFirstRun(h: Hass, cfg: DashConfig) {
     (a, b) =>
       (floors[a.floor_id ?? ""]?.level ?? 99) - (floors[b.floor_id ?? ""]?.level ?? 99) || a.name.localeCompare(b.name),
   );
+  const areaRefs: RoomRef[] = areas.map((a) => ({ key: a.area_id, name: a.name, aliases: a.aliases }));
   for (const a of areas) {
-    if (entitiesInArea(h, a.area_id).length) cfg.sections.push(seedRoom(h, a.area_id, a.name, a.icon));
+    const room = seedRoom(h, a.area_id, a.name, a.icon, areaRefs);
+    if (room.cards.length || entitiesInArea(h, a.area_id).length) cfg.sections.push(room);
+  }
+  // Devices nobody has placed yet: look for room names in their names.
+  const placed = new Set(cfg.sections.flatMap((s) => s.cards.map((c) => c.entity)));
+  const leftovers = entitiesWithoutArea(h).filter((id) => !placed.has(id) && isRecommended(h, id) && !roomByName(h, id, areaRefs));
+  const minDevices = areas.length ? 2 : 1;
+  for (const [name, ids] of roomsFromNames(h, leftovers)) {
+    if (ids.length < minDevices) continue;
+    const s = newSection("room", name, guessIcon(name));
+    s.cards = ids.map((id) => newCard(id, defaultCardSize(id)));
+    cfg.sections.push(s);
   }
   const weather = Object.keys(h.states).find((id) => domainOf(id) === "weather");
   if (weather) cfg.header.weatherEntity = weather;
@@ -179,7 +206,7 @@ export function RoomsStep({ cfg, set }: StepProps) {
           <div class="labeled-label">Add an area from Home Assistant</div>
           <div class="chips">
             {available.map((a) => (
-              <button type="button" class="chip" onClick={() => set((c) => c.sections.push(seedRoom(h, a.area_id, a.name, a.icon)))}>
+              <button type="button" class="chip" onClick={() => set((c) => c.sections.push(seedRoom(h, a.area_id, a.name, a.icon, roomRefs(h, c.sections))))}>
                 <Icon icon="mdi:plus" size={16} /> {a.name}
                 <span class="muted small">{entitiesInArea(h, a.area_id).length}</span>
               </button>
@@ -193,7 +220,7 @@ export function RoomsStep({ cfg, set }: StepProps) {
         onSubmit={(e) => {
           e.preventDefault();
           if (!newName.trim()) return;
-          set((c) => c.sections.push(newSection("room", newName.trim(), guessIcon(newName))));
+          set((c) => c.sections.push(seedRoom(h, undefined, newName.trim(), guessIcon(newName), roomRefs(h, c.sections))));
           setNewName("");
         }}
       >
@@ -202,7 +229,7 @@ export function RoomsStep({ cfg, set }: StepProps) {
           icon="mdi:plus"
           disabled={!newName.trim()}
           onClick={() => {
-            set((c) => c.sections.push(newSection("room", newName.trim(), guessIcon(newName))));
+            set((c) => c.sections.push(seedRoom(h, undefined, newName.trim(), guessIcon(newName), roomRefs(h, c.sections))));
             setNewName("");
           }}
         >
@@ -222,7 +249,9 @@ export function DevicesStep({ cfg, set }: StepProps) {
   const rooms = cfg.sections.filter((s) => s.kind === "room");
   const [open, setOpen] = useState<string | null>(rooms[0]?.id ?? null);
   const [adding, setAdding] = useState<string | null>(null);
-  const unassigned = entitiesWithoutArea(h).length;
+  const refs = roomRefs(h, cfg.sections);
+  const placedAnywhere = new Set(cfg.sections.flatMap((s) => s.cards.map((c) => c.entity)));
+  const unassigned = entitiesWithoutArea(h).filter((id) => !placedAnywhere.has(id) && !roomByName(h, id, refs)).length;
 
   const toggle = (roomId: string, eid: string) =>
     set((c) => {
@@ -238,12 +267,12 @@ export function DevicesStep({ cfg, set }: StepProps) {
       <p class="lead">Pick the devices for each room. Suggestions are ticked; untick anything you don't want, choose a card size, or add devices from anywhere in your home.</p>
       {unassigned > 0 && (
         <p class="muted small">
-          <Icon icon="mdi:information-outline" size={16} /> {unassigned} devices aren't in any Home Assistant area. Use “Add other devices” to place them.
+          <Icon icon="mdi:information-outline" size={16} /> {unassigned} devices aren't in a room yet. Devices named after a room are suggested there automatically; use “Add other devices” for the rest.
         </p>
       )}
       <div class="accordion">
         {rooms.map((r) => {
-          const inArea = r.areaId ? entitiesInArea(h, r.areaId) : [];
+          const inArea = entitiesForRoom(h, { areaId: r.areaId, name: r.name }, refs);
           const extra = r.cards.map((c) => c.entity).filter((e) => !inArea.includes(e));
           const list = [...inArea, ...extra];
           const groups = new Map<string, string[]>();
@@ -524,7 +553,59 @@ export function LayoutStep({ cfg, set }: StepProps) {
 
 // ---------- 7. Look & feel ----------
 
-function StylePreview({ id }: { id: StyleId }) {
+export function StylePreview({ id }: { id: StyleId }) {
+  if (id === "daylight") {
+    return (
+      <svg viewBox="0 0 100 64" class="layout-preview" aria-hidden="true">
+        <defs>
+          <linearGradient id="pv-day" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#cfe0f5" />
+            <stop offset=".5" stop-color="#e8e4f3" />
+            <stop offset="1" stop-color="#f8e3d6" />
+          </linearGradient>
+        </defs>
+        <rect width="100" height="64" rx="6" fill="url(#pv-day)" />
+        <rect x="7" y="7" width="38" height="7" rx="2" fill="#1d2433" />
+        {[0, 1, 2, 3].map((i) => (
+          <g>
+            <rect x={7 + (i % 2) * 44} y={20 + Math.floor(i / 2) * 20} width="41" height="16" rx="6" fill={i === 0 ? "#fdecc8" : "rgba(255,255,255,.7)"} />
+            <circle cx={15 + (i % 2) * 44} cy={28 + Math.floor(i / 2) * 20} r="4.5" fill={i === 0 ? "#f59e0b" : "rgba(29,36,51,.12)"} />
+            <rect x={23 + (i % 2) * 44} y={26 + Math.floor(i / 2) * 20} width="18" height="3" rx="1.5" fill="#1d2433" opacity=".55" />
+          </g>
+        ))}
+      </svg>
+    );
+  }
+  if (id === "blocks") {
+    const fills = ["#ffc21a", "#ffffff", "#34c3ff", "#ffffff", "#ff7a30", "#ffffff"];
+    return (
+      <svg viewBox="0 0 100 64" class="layout-preview" aria-hidden="true">
+        <rect width="100" height="64" rx="6" fill="#eceef2" />
+        {fills.map((f, i) => (
+          <g>
+            <rect x={6 + (i % 3) * 30} y={7 + Math.floor(i / 3) * 28} width="27" height="24" rx="6" fill={f} />
+            <circle cx={27 + (i % 3) * 30} cy={13 + Math.floor(i / 3) * 28} r="3" fill="none" stroke={f === "#ffffff" ? "#9aa0ae" : "#15171c"} stroke-width="1.6" />
+            <rect x={10 + (i % 3) * 30} y={23 + Math.floor(i / 3) * 28} width="14" height="3.5" rx="1" fill="#15171c" opacity={f === "#ffffff" ? 0.5 : 0.9} />
+          </g>
+        ))}
+      </svg>
+    );
+  }
+  if (id === "console") {
+    return (
+      <svg viewBox="0 0 100 64" class="layout-preview" aria-hidden="true">
+        <rect width="100" height="64" rx="6" fill="#0e1424" />
+        {[0, 1, 2, 3].map((i) => (
+          <g>
+            <rect x={6 + (i % 2) * 45} y={7 + Math.floor(i / 2) * 19} width="43" height="16" rx="5" fill="#131a2c" stroke={i === 0 ? "#ffb23e" : i === 3 ? "#3fd8ff" : "#26304a"} stroke-width=".8" />
+            <circle cx={14 + (i % 2) * 45} cy={15 + Math.floor(i / 2) * 19} r="4.5" fill="none" stroke={i === 0 ? "#ffb23e" : i === 3 ? "#3fd8ff" : "#3b4560"} stroke-width="1.4" />
+          </g>
+        ))}
+        <rect x="22" y="50" width="56" height="9" rx="4.5" fill="#131a2c" stroke="#26304a" stroke-width=".8" />
+        {[0, 1, 2, 3, 4].map((i) => <circle cx={30 + i * 10} cy="54.5" r="1.8" fill={i === 1 ? "#3fd8ff" : "#5b6680"} />)}
+      </svg>
+    );
+  }
   if (id === "vivid") {
     const g: [string, string][] = [
       ["#fbbf24", "#f97316"],
@@ -872,9 +953,10 @@ function BackgroundPicker({ cfg, set }: StepProps) {
 
 export function ThemeStep({ cfg, set }: StepProps) {
   const t = cfg.theme;
+  const [more, setMore] = useState(false);
   return (
     <div class="step">
-      <p class="lead">Mix and match every part of the look. Start from a ready-made style if you like, then change anything. The dashboard behind updates as you choose.</p>
+      <p class="lead">Pick a style and a background. That's all most people need. Under “More options” you can change every other part of the look.</p>
       <Field label="Start from a style">
         <div class="choice-grid">
           {STYLE_PRESETS.map((p) => (
@@ -894,6 +976,31 @@ export function ThemeStep({ cfg, set }: StepProps) {
       <Field label="Background">
         <BackgroundPicker cfg={cfg} set={set} />
       </Field>
+      <Field label="Appearance">
+        <Segmented
+          value={t.mode}
+          options={[
+            { value: "auto", label: "Match Home Assistant", icon: "mdi:theme-light-dark" },
+            { value: "light", label: "Light", icon: "mdi:white-balance-sunny" },
+            { value: "dark", label: "Dark", icon: "mdi:weather-night" },
+          ]}
+          onChange={(v) => set((c) => (c.theme.mode = v))}
+        />
+      </Field>
+      <Field label="Accent colour">
+        <div class="swatches">
+          {ACCENTS.map((a) => (
+            <button type="button" class={`swatch ${t.accent === a ? "selected" : ""}`} aria-label={a} style={`background:${a}`} onClick={() => set((c) => (c.theme.accent = a))} />
+          ))}
+          <input type="color" class="swatch color-input" aria-label="Custom colour" value={t.accent} onInput={(e) => set((c) => (c.theme.accent = (e.target as HTMLInputElement).value))} />
+        </div>
+      </Field>
+      <button type="button" class="more-toggle" aria-expanded={more} onClick={() => setMore(!more)}>
+        <Icon icon={more ? "mdi:chevron-up" : "mdi:chevron-down"} size={20} />
+        {more ? "Fewer options" : "More options: card shape, colours when on, icons, typeface, titles, corners"}
+      </button>
+      {more && (
+        <div class="more-options">
       <Field label="Card shape">
         <OptionGrid value={t.shape} options={SHAPES} onPick={(v) => set((c) => (c.theme.shape = v))} preview={(id) => <ShapePreview id={id} />} />
       </Field>
@@ -930,25 +1037,6 @@ export function ThemeStep({ cfg, set }: StepProps) {
       <Field label="Titles">
         <OptionGrid value={t.titles} options={TITLES} small onPick={(v) => set((c) => (c.theme.titles = v))} preview={(id) => <span class={`title-preview tp-${id}`}>Kitchen</span>} />
       </Field>
-      <Field label="Appearance">
-        <Segmented
-          value={t.mode}
-          options={[
-            { value: "auto", label: "Match Home Assistant", icon: "mdi:theme-light-dark" },
-            { value: "light", label: "Light", icon: "mdi:white-balance-sunny" },
-            { value: "dark", label: "Dark", icon: "mdi:weather-night" },
-          ]}
-          onChange={(v) => set((c) => (c.theme.mode = v))}
-        />
-      </Field>
-      <Field label="Accent colour">
-        <div class="swatches">
-          {ACCENTS.map((a) => (
-            <button type="button" class={`swatch ${t.accent === a ? "selected" : ""}`} aria-label={a} style={`background:${a}`} onClick={() => set((c) => (c.theme.accent = a))} />
-          ))}
-          <input type="color" class="swatch color-input" aria-label="Custom colour" value={t.accent} onInput={(e) => set((c) => (c.theme.accent = (e.target as HTMLInputElement).value))} />
-        </div>
-      </Field>
       <Field label="Card surface">
         <Segmented
           value={t.cardStyle}
@@ -962,6 +1050,8 @@ export function ThemeStep({ cfg, set }: StepProps) {
       <Field label="Corner roundness">
         <Slider value={t.radius} min={4} max={32} format={(v) => `${v}px`} onCommit={(v) => set((c) => (c.theme.radius = v))} />
       </Field>
+        </div>
+      )}
     </div>
   );
 }

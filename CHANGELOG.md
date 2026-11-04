@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+- Quick start: one screen, pick a look, tap Create my dashboard.
+- Devices without an area are placed by name; homes with no areas get rooms from device names.
+- Mix-and-match look: card shape, on-colour, navigation (tabs, side list, bottom dock), icons, titles, typeface.
+- 19 backgrounds and photo upload.
+- Hide or show the Home Assistant menu from the dashboard.
+
 ## 0.2.0
 
 - New styles: Vivid (the new default), Apple Home style, Homey style and Minimal.

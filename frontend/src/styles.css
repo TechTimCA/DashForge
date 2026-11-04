@@ -3936,3 +3936,126 @@ ha-icon {
 
 /* glow defaults per category also apply to other shapes */
 .color-glow .cat-light { --glow: #ffb23e; }
+
+/* ---------- Quick start ---------- */
+
+.quickstart {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 40px 24px 60px;
+}
+
+.qs-head {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.qs-head .df-icon,
+.qs-head ha-icon {
+  color: var(--accent);
+}
+
+.qs-head h1 {
+  font-size: clamp(1.9rem, 4vw, 2.8rem);
+  font-weight: 750;
+  letter-spacing: -0.03em;
+}
+
+.qs-head .lead {
+  max-width: 62ch;
+  margin: 0;
+  color: var(--text);
+  opacity: 0.85;
+}
+
+.qs-rooms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.qs-room {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 1px solid var(--card-border);
+  border-radius: 999px;
+  background: var(--card-solid);
+  font-weight: 600;
+}
+
+.qs-label {
+  margin-top: 8px;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.qs-styles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 12px;
+}
+
+.qs-styles .choice {
+  padding: 10px;
+}
+
+.qs-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.qs-name {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: min(360px, 100%);
+}
+
+.qs-actions {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 0 6px;
+}
+
+.qs-create {
+  min-height: 52px;
+  padding: 12px 26px;
+  font-size: 1.05rem;
+}
+
+.more-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  margin: 6px 0 14px;
+  padding: 12px 14px;
+  border: 1px dashed var(--line);
+  border-radius: 14px;
+  background: transparent;
+  color: var(--text);
+  font-weight: 600;
+  text-align: left;
+}
+
+.more-options {
+  padding-left: 14px;
+  border-left: 3px solid var(--line);
+}
+
+.titles-big .floor-title,
+.titles-bold .floor-title {
+  font-size: 1.1rem;
+  letter-spacing: 0;
+}

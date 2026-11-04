@@ -1,9 +1,11 @@
 import { signal } from "@preact/signals";
 import { useState } from "preact/hooks";
-import { clone, defaultConfig, normalizeConfig } from "../config";
+import { STYLE_PRESETS, clone, defaultConfig, normalizeConfig } from "../config";
 import { hass, saveConfig, saved, settingsOpen, showToast, view, wizardOpen } from "../store";
 import type { DashConfig } from "../types";
+import { isIrrigationCandidate } from "../entities";
 import {
+  StylePreview,
   DevicesStep,
   LayoutStep,
   PagesStep,
@@ -37,11 +39,113 @@ const STEPS: { id: string; title: string; icon: string; C: (p: StepProps) => any
 ];
 
 export function startWizard() {
-  const base = saved.value ? clone(saved.value) : defaultConfig();
-  if (!saved.value) seedFirstRun(hass.value!, base);
+  const base = previewConfig.value ?? (saved.value ? clone(saved.value) : defaultConfig());
+  if (!saved.value && !base.sections.length) seedFirstRun(hass.value!, base);
   previewConfig.value = base;
   settingsOpen.value = false;
   wizardOpen.value = true;
+}
+
+const STRONG_IRRIGATION = /sprinkler|irrigat|drip|zone/i;
+
+/** A ready-to-use first dashboard from what's already in Home Assistant. */
+function quickConfig(): DashConfig {
+  const h = hass.value!;
+  const c = defaultConfig();
+  seedFirstRun(h, c);
+  const zones = Object.keys(h.states).filter(
+    (id) => isIrrigationCandidate(h, id) && STRONG_IRRIGATION.test(`${id} ${h.states[id].attributes.friendly_name ?? ""}`),
+  );
+  if (zones.length) {
+    c.builtinPages.irrigation = true;
+    c.irrigation.zones = zones;
+  }
+  c.header.calendars = Object.keys(h.states).filter((id) => id.startsWith("calendar.")).slice(0, 3);
+  c.header.todoLists = Object.keys(h.states).filter((id) => id.startsWith("todo.")).slice(0, 2);
+  const firstName = (h.user?.name ?? "").trim().split(/\s+/)[0];
+  if (firstName) c.userName = firstName;
+  return c;
+}
+
+/**
+ * First screen for a new install: shows what DashForge found, lets you pick a
+ * look, and creates the dashboard in one tap. The step-by-step wizard is optional.
+ */
+export function QuickStart() {
+  const [busy, setBusy] = useState(false);
+  if (!previewConfig.value) previewConfig.value = quickConfig();
+  const cfg = previewConfig.value;
+  const set = makeSetter(() => previewConfig.value!, (c) => (previewConfig.value = c));
+  const rooms = cfg.sections.filter((s) => s.kind === "room");
+  const devices = cfg.sections.reduce((n, s) => n + s.cards.length, 0);
+  const create = async () => {
+    setBusy(true);
+    const ok = await saveConfig({ ...cfg, setupComplete: true });
+    setBusy(false);
+    if (ok) {
+      previewConfig.value = null;
+      view.value = null;
+      showToast("Your dashboard is ready. Tap the pencil any time to change it.");
+    }
+  };
+  return (
+    <div class="quickstart">
+      <div class="qs-head">
+        <Icon icon="mdi:anvil" size={40} />
+        <h1>Welcome to DashForge</h1>
+        {rooms.length ? (
+          <p class="lead">
+            We found <strong>{rooms.length} {rooms.length === 1 ? "room" : "rooms"}</strong> and <strong>{devices} devices</strong> in your Home Assistant. Pick a look and your dashboard is ready. You can change anything later.
+          </p>
+        ) : (
+          <p class="lead">Your devices aren't in rooms in Home Assistant yet, so let's set up your rooms together. It only takes a few minutes.</p>
+        )}
+      </div>
+      {rooms.length > 0 && (
+        <>
+          <div class="qs-rooms">
+            {rooms.map((r) => (
+              <span class="qs-room">
+                <Icon icon={r.icon} size={18} />
+                {r.name}
+                <span class="muted small">{r.cards.length}</span>
+              </span>
+            ))}
+          </div>
+          <div class="qs-label">Pick a look</div>
+          <div class="qs-styles">
+            {STYLE_PRESETS.map((p) => (
+              <button
+                type="button"
+                class={`choice ${cfg.theme.style === p.id ? "selected" : ""}`}
+                aria-pressed={cfg.theme.style === p.id}
+                onClick={() => set((c) => Object.assign(c.theme, p.theme))}
+              >
+                <StylePreview id={p.id} />
+                <strong>{p.name}</strong>
+              </button>
+            ))}
+          </div>
+          <div class="qs-row">
+            <label class="qs-name">
+              <span class="muted small">Your name, for the greeting</span>
+              <TextInput value={cfg.userName} onInput={(v) => set((c) => (c.userName = v))} placeholder="Optional" />
+            </label>
+          </div>
+        </>
+      )}
+      <div class="qs-actions">
+        {rooms.length > 0 && (
+          <Button kind="primary" icon="mdi:check" disabled={busy} onClick={create} class="qs-create">
+            Create my dashboard
+          </Button>
+        )}
+        <Button kind={rooms.length ? "ghost" : "primary"} icon="mdi:wizard-hat" onClick={startWizard}>
+          {rooms.length ? "Choose everything step by step" : "Set up my rooms"}
+        </Button>
+      </div>
+    </div>
+  );
 }
 
 export function Wizard() {
