@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Final
 
 DOMAIN: Final = "dashforge"
-VERSION: Final = "0.2.0"
+VERSION: Final = "0.3.0-beta.1"
 
 PANEL_URL_PATH: Final = "dashforge"
 PANEL_COMPONENT: Final = "dashforge-panel"

@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.3.0-beta.1
 
 - Quick start: one screen, pick a look, tap Create my dashboard.
 - Devices without an area are placed by name; homes with no areas get rooms from device names.
