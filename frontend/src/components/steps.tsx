@@ -13,7 +13,7 @@ import {
 import { floorGroups } from "./home";
 import { FONTS, fontStack } from "../fonts";
 import { hass } from "../store";
-import type { CardSize, DashConfig, Hass, LayoutId, SectionConfig, StyleId } from "../types";
+import type { CardShape, CardSize, DashConfig, Hass, LayoutId, OnColor, SectionConfig, StyleId, TitleStyle } from "../types";
 import { EntityRow, EntitySearch } from "./edit";
 import { Button, Checkbox, Field, Icon, IconButton, IconPicker, Modal, Row, Segmented, Slider, TextInput, Toggle } from "./ui";
 
@@ -496,6 +496,18 @@ export function LayoutStep({ cfg, set }: StepProps) {
           </button>
         ))}
       </div>
+      <Field label="Navigation" hint="How you move between rooms. Auto uses tabs on phones and tablets and a side list on big screens.">
+        <Segmented
+          value={cfg.theme.nav ?? "auto"}
+          options={[
+            { value: "auto", label: "Auto" },
+            { value: "tabs", label: "Tabs on top" },
+            { value: "side", label: "Side list" },
+            { value: "dock", label: "Bottom dock" },
+          ]}
+          onChange={(v) => set((c) => (c.theme.nav = v))}
+        />
+      </Field>
       <Field label="Card spacing">
         <Segmented
           value={cfg.theme.density}
@@ -610,12 +622,260 @@ function StylePreview({ id }: { id: StyleId }) {
   );
 }
 
+// ---------- Previews for each look option ----------
+
+function ShapePreview({ id }: { id: CardShape }) {
+  const on = "#f59e0b";
+  const off = "var(--line)";
+  const box = (x: number, y: number, w: number, hh: number, fill: string, r = 4) => <rect x={x} y={y} width={w} height={hh} rx={r} fill={fill} />;
+  return (
+    <svg viewBox="0 0 100 60" class="option-preview" aria-hidden="true">
+      {id === "tiles" && [0, 1, 2, 3, 4, 5].map((i) => (
+        <g>
+          {box(6 + (i % 3) * 30, 6 + Math.floor(i / 3) * 26, 27, 22, i === 1 ? "color-mix(in srgb,#f59e0b 30%,transparent)" : off, 5)}
+          <circle cx={13 + (i % 3) * 30} cy={13 + Math.floor(i / 3) * 26} r="3.5" fill={i === 1 ? on : "var(--muted)"} />
+        </g>
+      ))}
+      {id === "rows" && [0, 1, 2, 3].map((i) => (
+        <g>
+          {box(6, 6 + i * 13, 88, 10, i === 1 ? "color-mix(in srgb,#f59e0b 30%,transparent)" : off, 5)}
+          <circle cx="13" cy={11 + i * 13} r="3.3" fill={i === 1 ? on : "var(--muted)"} />
+          {box(20, 10 + i * 13, 28, 2.4, "var(--muted)", 1)}
+        </g>
+      ))}
+      {id === "blocks" && [0, 1, 2, 3, 4, 5].map((i) => (
+        <g>
+          {box(6 + (i % 3) * 30, 6 + Math.floor(i / 3) * 26, 27, 22, i === 1 ? "#ffc21a" : i === 3 ? "#3156ff" : off, 6)}
+          <circle cx={27 + (i % 3) * 30} cy={12 + Math.floor(i / 3) * 26} r="3" fill="none" stroke={i === 1 || i === 3 ? "#15171c" : "var(--muted)"} stroke-width="1.6" />
+          {box(9 + (i % 3) * 30, 22 + Math.floor(i / 3) * 26, 14, 3, i === 1 || i === 3 ? "#15171c" : "var(--muted)", 1)}
+        </g>
+      ))}
+      {id === "dials" && [0, 1, 2].map((i) => (
+        <g>
+          {box(6, 6 + i * 17, 88, 14, off, 5)}
+          <circle cx="15" cy={13 + i * 17} r="4.6" fill="none" stroke={i === 0 ? "#ffb23e" : "var(--muted)"} stroke-width="1.6" />
+          {box(24, 12 + i * 17, 30, 2.4, "var(--muted)", 1)}
+        </g>
+      ))}
+      {id === "pills" && [0, 1, 2, 3, 4, 5].map((i) => (
+        <g>
+          {box(6 + (i % 2) * 45, 6 + Math.floor(i / 2) * 17, 42, 13, i === 0 ? "#ffffff" : off, 5)}
+          <circle cx={13 + (i % 2) * 45} cy={12.5 + Math.floor(i / 2) * 17} r="3" fill={i === 0 ? on : "var(--muted)"} />
+        </g>
+      ))}
+      {id === "squares" && [0, 1, 2, 3, 4, 5].map((i) => (
+        <g>
+          {box(6 + (i % 3) * 30, 6 + Math.floor(i / 3) * 26, 27, 22, off, 5)}
+          <circle cx={19.5 + (i % 3) * 30} cy={15 + Math.floor(i / 3) * 26} r="5" fill={i < 2 ? ["#f5b400", "#22c55e"][i] : "none"} stroke={["#f5b400", "#22c55e", "#f97316", "#3b82f6", "#a855f7", "#ef4444"][i]} stroke-width="1.4" />
+        </g>
+      ))}
+    </svg>
+  );
+}
+
+const ON_LOOKS: Record<OnColor, { on: string; off: string; ring?: string; border?: string }> = {
+  gradient: { on: "linear-gradient(135deg,#fbbf24,#f97316)", off: "#1c1e26" },
+  flat: { on: "#ffc21a", off: "#ffffff" },
+  glow: { on: "radial-gradient(circle at 25% 50%,rgba(255,178,62,.35),#131a2c 60%)", off: "#131a2c", ring: "#ffb23e" },
+  soft: { on: "linear-gradient(90deg,#fde7c2,#ffffff 75%)", off: "rgba(255,255,255,.7)" },
+  white: { on: "#ffffff", off: "rgba(120,120,128,.35)" },
+  tint: { on: "color-mix(in srgb,#f59e0b 26%,#ffffff)", off: "#ffffff" },
+  ring: { on: "#1e2027", off: "#1e2027", ring: "#f5b400" },
+  outline: { on: "#ffffff", off: "#ffffff", border: "#18181b" },
+};
+
+function OnPreview({ id }: { id: OnColor }) {
+  const l = ON_LOOKS[id];
+  return (
+    <span class="on-preview">
+      <span class="on-tile" style={`background:${l.off};`} />
+      <span
+        class="on-tile"
+        style={`background:${l.on};${l.ring ? `box-shadow:inset 0 0 0 2px ${l.ring},0 0 14px ${l.ring}55;` : ""}${l.border ? `outline:2px solid ${l.border};outline-offset:-2px;` : ""}`}
+      />
+    </span>
+  );
+}
+
+const SHAPES: { id: CardShape; name: string; note: string }[] = [
+  { id: "tiles", name: "Tiles", note: "Classic squares" },
+  { id: "rows", name: "Rows", note: "Wide, calm rows" },
+  { id: "blocks", name: "Blocks", note: "Big icon, bold name" },
+  { id: "dials", name: "Dials", note: "Round glowing dials" },
+  { id: "pills", name: "Pills", note: "Compact, Apple-like" },
+  { id: "squares", name: "Squares", note: "Centred icons" },
+];
+
+const ON_COLORS: { id: OnColor; name: string }[] = [
+  { id: "gradient", name: "Bright gradient" },
+  { id: "flat", name: "Flat colour" },
+  { id: "glow", name: "Glow" },
+  { id: "soft", name: "Soft wash" },
+  { id: "white", name: "Turns white" },
+  { id: "tint", name: "Light tint" },
+  { id: "ring", name: "Colour ring" },
+  { id: "outline", name: "Outline" },
+];
+
+const TITLES: { id: TitleStyle; name: string }[] = [
+  { id: "normal", name: "Regular" },
+  { id: "big", name: "Big" },
+  { id: "bold", name: "Extra bold" },
+  { id: "light", name: "Light" },
+];
+
+function OptionGrid<T extends string>(props: {
+  value: T;
+  options: { id: T; name: string; note?: string }[];
+  onPick: (v: T) => void;
+  preview: (id: T) => any;
+  small?: boolean;
+}) {
+  return (
+    <div class={`option-grid ${props.small ? "small" : ""}`}>
+      {props.options.map((o) => (
+        <button type="button" class={`option ${props.value === o.id ? "selected" : ""}`} aria-pressed={props.value === o.id} onClick={() => props.onPick(o.id)}>
+          {props.preview(o.id)}
+          <strong>{o.name}</strong>
+          {o.note && <span class="muted small">{o.note}</span>}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+// ---------- Background pictures ----------
+
+interface MediaFile {
+  name: string;
+  url: string;
+}
+
+async function resizeForBackground(file: File): Promise<Blob> {
+  try {
+    const bmp = await createImageBitmap(file);
+    const scale = Math.min(1, 2560 / Math.max(bmp.width, bmp.height));
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.round(bmp.width * scale);
+    canvas.height = Math.round(bmp.height * scale);
+    canvas.getContext("2d")!.drawImage(bmp, 0, 0, canvas.width, canvas.height);
+    const blob = await new Promise<Blob | null>((ok) => canvas.toBlob(ok, "image/jpeg", 0.86));
+    return blob ?? file;
+  } catch {
+    return file;
+  }
+}
+
+function BackgroundPicker({ cfg, set }: StepProps) {
+  const h = hass.value!;
+  const t = cfg.theme;
+  const [photos, setPhotos] = useState<MediaFile[] | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const load = () =>
+    h
+      .callWS<{ files: MediaFile[] }>({ type: "dashforge/media/list" })
+      .then((r) => setPhotos(r.files))
+      .catch(() => setPhotos([]));
+  if (photos === null) load();
+
+  const upload = async (file: File) => {
+    setBusy(true);
+    setError(null);
+    try {
+      const body = new FormData();
+      body.append("file", await resizeForBackground(file), "background.jpg");
+      const res = h.fetchWithAuth
+        ? await h.fetchWithAuth("/api/dashforge/upload", { method: "POST", body })
+        : await fetch("/api/dashforge/upload", { method: "POST", body, headers: { Authorization: `Bearer ${h.auth?.data?.access_token ?? ""}` } });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.message ?? "Upload failed");
+      set((c) => {
+        c.theme.background = "image";
+        c.theme.backgroundImage = json.url;
+      });
+      load();
+    } catch (err: any) {
+      setError(err?.message ?? "Upload failed");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const remove = async (p: MediaFile) => {
+    if (!confirm("Delete this picture?")) return;
+    await h.callWS({ type: "dashforge/media/delete", name: p.name }).catch(() => undefined);
+    if (t.backgroundImage === p.url) set((c) => (c.theme.background = "midnight"));
+    load();
+  };
+
+  return (
+    <>
+      <div class="bg-grid">
+        {BACKGROUNDS.map((b) => (
+          <button type="button" class={`bg-choice ${t.background === b.id ? "selected" : ""}`} onClick={() => set((c) => (c.theme.background = b.id))}>
+            <span class="bg-swatch" style={`background:${b.light}`} />
+            <span class="bg-swatch" style={`background:${b.dark}`} />
+            <span class="small">{b.name}</span>
+          </button>
+        ))}
+      </div>
+      <div class="labeled-label">Your pictures</div>
+      <div class="photo-grid">
+        <label class={`photo-upload ${busy ? "busy" : ""}`}>
+          <input
+            type="file"
+            accept="image/jpeg,image/png,image/webp,image/*"
+            onChange={(e) => {
+              const f = (e.target as HTMLInputElement).files?.[0];
+              if (f) upload(f);
+              (e.target as HTMLInputElement).value = "";
+            }}
+          />
+          <Icon icon={busy ? "mdi:upload" : "mdi:plus"} size={26} />
+          <span class="small">{busy ? "Uploading…" : "Upload a picture"}</span>
+        </label>
+        {(photos ?? []).map((p) => (
+          <div class={`photo ${t.background === "image" && t.backgroundImage === p.url ? "selected" : ""}`}>
+            <button
+              type="button"
+              class="photo-pick"
+              aria-label="Use this picture"
+              style={`background-image:url("${p.url}")`}
+              onClick={() =>
+                set((c) => {
+                  c.theme.background = "image";
+                  c.theme.backgroundImage = p.url;
+                })
+              }
+            />
+            <IconButton icon="mdi:close" label="Delete picture" class="photo-delete" onClick={() => remove(p)} />
+          </div>
+        ))}
+      </div>
+      {error && <p class="error-text">{error}</p>}
+      <Field label="Or use a picture from a web address" hint="For example /local/wallpaper.jpg from your config/www folder, or any https:// address.">
+        <TextInput
+          value={t.background === "image" ? (t.backgroundImage ?? "") : ""}
+          onInput={(v) =>
+            set((c) => {
+              c.theme.backgroundImage = v;
+              if (v) c.theme.background = "image";
+            })
+          }
+          placeholder="/local/wallpaper.jpg"
+        />
+      </Field>
+    </>
+  );
+}
+
 export function ThemeStep({ cfg, set }: StepProps) {
   const t = cfg.theme;
   return (
     <div class="step">
-      <p class="lead">Make it yours. Start from a style, then change anything you like. The preview updates as you choose.</p>
-      <Field label="Style">
+      <p class="lead">Mix and match every part of the look. Start from a ready-made style if you like, then change anything. The dashboard behind updates as you choose.</p>
+      <Field label="Start from a style">
         <div class="choice-grid">
           {STYLE_PRESETS.map((p) => (
             <button
@@ -630,6 +890,25 @@ export function ThemeStep({ cfg, set }: StepProps) {
             </button>
           ))}
         </div>
+      </Field>
+      <Field label="Background">
+        <BackgroundPicker cfg={cfg} set={set} />
+      </Field>
+      <Field label="Card shape">
+        <OptionGrid value={t.shape} options={SHAPES} onPick={(v) => set((c) => (c.theme.shape = v))} preview={(id) => <ShapePreview id={id} />} />
+      </Field>
+      <Field label="How cards look when a device is on">
+        <OptionGrid value={t.color} options={ON_COLORS} small onPick={(v) => set((c) => (c.theme.color = v))} preview={(id) => <OnPreview id={id} />} />
+      </Field>
+      <Field label="Icons">
+        <Segmented
+          value={t.icons}
+          options={[
+            { value: "dashforge", label: "DashForge outline icons" },
+            { value: "ha", label: "Home Assistant icons" },
+          ]}
+          onChange={(v) => set((c) => (c.theme.icons = v))}
+        />
       </Field>
       <Field label="Typeface">
         <div class="font-grid">
@@ -647,6 +926,9 @@ export function ThemeStep({ cfg, set }: StepProps) {
             </button>
           ))}
         </div>
+      </Field>
+      <Field label="Titles">
+        <OptionGrid value={t.titles} options={TITLES} small onPick={(v) => set((c) => (c.theme.titles = v))} preview={(id) => <span class={`title-preview tp-${id}`}>Kitchen</span>} />
       </Field>
       <Field label="Appearance">
         <Segmented
@@ -667,27 +949,7 @@ export function ThemeStep({ cfg, set }: StepProps) {
           <input type="color" class="swatch color-input" aria-label="Custom colour" value={t.accent} onInput={(e) => set((c) => (c.theme.accent = (e.target as HTMLInputElement).value))} />
         </div>
       </Field>
-      <Field label="Background">
-        <div class="bg-grid">
-          {BACKGROUNDS.map((b) => (
-            <button type="button" class={`bg-choice ${t.background === b.id ? "selected" : ""}`} onClick={() => set((c) => (c.theme.background = b.id))}>
-              <span class="bg-swatch" style={`background:${b.light}`} />
-              <span class="bg-swatch" style={`background:${b.dark}`} />
-              <span class="small">{b.name}</span>
-            </button>
-          ))}
-          <button type="button" class={`bg-choice ${t.background === "image" ? "selected" : ""}`} onClick={() => set((c) => (c.theme.background = "image"))}>
-            <span class="bg-swatch image"><Icon icon="mdi:image" size={18} /></span>
-            <span class="small">Your image</span>
-          </button>
-        </div>
-      </Field>
-      {t.background === "image" && (
-        <Field label="Image URL" hint="For example /local/wallpaper.jpg (a file in your config/www folder) or any https:// address.">
-          <TextInput value={t.backgroundImage ?? ""} onInput={(v) => set((c) => (c.theme.backgroundImage = v))} placeholder="/local/wallpaper.jpg" />
-        </Field>
-      )}
-      <Field label="Card style">
+      <Field label="Card surface">
         <Segmented
           value={t.cardStyle}
           options={[

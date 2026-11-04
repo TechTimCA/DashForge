@@ -388,8 +388,20 @@ export function viewTitle(cfg: DashConfig, v: View) {
  * side list on big screens; any layout still adapts its grid to the space it has.
  */
 export function effectiveLayout(cfg: DashConfig) {
+  if (cfg.layout === "list" || cfg.layout === "focus") return cfg.layout;
+  const nav = cfg.theme.nav ?? "auto";
+  if (nav === "side") return "sidebar";
+  if (nav === "tabs" || nav === "dock") return "grid";
   if (cfg.layout !== "auto") return cfg.layout;
   return width.value >= 1100 ? "sidebar" : "grid";
+}
+
+/** How rooms are shown: tabs across the top, a side list, or an app-style dock. */
+export function effectiveNav(cfg: DashConfig): "tabs" | "side" | "dock" | "none" {
+  const layout = effectiveLayout(cfg);
+  if (layout === "list" || layout === "focus") return "none";
+  if (cfg.theme.nav === "dock") return "dock";
+  return layout === "sidebar" && width.value >= 720 ? "side" : "tabs";
 }
 
 export function Layout({ cfg }: { cfg: DashConfig }) {
@@ -461,6 +473,7 @@ export function Layout({ cfg }: { cfg: DashConfig }) {
       {wallpaper}
       <Nav cfg={cfg} current={current} />
       <main class="content">
+        {(cfg.theme.nav === "dock" || cfg.theme.titles === "big" || cfg.theme.titles === "bold") && <h2 class="section-title page-title">{viewTitle(cfg, v)}</h2>}
         <ViewContent cfg={cfg} v={v} />
       </main>
     </div>

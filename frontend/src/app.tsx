@@ -1,8 +1,8 @@
-import { BACKGROUNDS } from "./config";
+import { BACKGROUNDS, defaultConfig } from "./config";
 import { fontStack } from "./fonts";
 import { CardEditorModal, EditBar, HiddenTray, PickerModal, SectionEditorModal } from "./components/edit";
 import { DetailSheet, LockConfirm } from "./components/details";
-import { Header, Layout, SceneStrip } from "./components/layout";
+import { Header, Layout, SceneStrip, effectiveNav } from "./components/layout";
 import { SidebarControl, TabletBehaviour } from "./components/tablet";
 import { Button, Icon, IconStyle } from "./components/ui";
 import { CalendarModal, TodoModal, WeatherModal, openWidget, useWeather, useWeatherFor } from "./components/widgets";
@@ -16,26 +16,33 @@ import type { DashConfig, Hass } from "./types";
 function themeStyle(cfg: DashConfig, dark: boolean): string {
   const t = cfg.theme;
   let bg: string;
+  let panel: Record<string, string> = {};
   if (t.background === "image" && t.backgroundImage) {
     const url = t.backgroundImage.replace(/["\\]/g, "");
     bg = `center / cover no-repeat url("${url}")`;
   } else {
     const preset = BACKGROUNDS.find((b) => b.id === t.background) ?? BACKGROUNDS[0];
     bg = dark ? preset.dark : preset.light;
+    panel = (dark ? preset.panel?.dark : preset.panel?.light) ?? {};
   }
-  return `--accent:${t.accent};--radius:${t.radius}px;--page-bg:${bg};--font:${fontStack(t.font).replace(/"/g, "'")};`;
+  const vars = Object.entries(panel)
+    .map(([k, v]) => `${k}:${v};`)
+    .join("");
+  return `${vars}--accent:${t.accent};--radius:${t.radius}px;--page-bg:${bg};--font:${fontStack(t.font).replace(/"/g, "'")};`;
 }
 
-const LINE_ICON_STYLES: Record<string, number> = { daylight: 1.75, blocks: 2.4, console: 1.5 };
+const ICON_STROKE: Record<string, number> = { blocks: 2.4, dials: 1.5, squares: 2 };
 
 function Themed({ cfg, children }: { cfg: DashConfig; children: any }) {
   const h = hass.value!;
   const dark = cfg.theme.mode === "dark" || (cfg.theme.mode === "auto" && !!h.themes?.darkMode);
-  const stroke = LINE_ICON_STYLES[cfg.theme.style];
+  const t = cfg.theme;
+  const stroke = ICON_STROKE[t.shape] ?? 1.75;
+  const nav = effectiveNav(cfg);
   return (
-    <IconStyle.Provider value={{ line: stroke !== undefined, stroke: stroke ?? 2 }}>
+    <IconStyle.Provider value={{ line: t.icons !== "ha", stroke }}>
     <div
-      class={`df-root ${dark ? "dark" : "light"} style-${cfg.theme.style ?? "dashforge"} cards-${cfg.theme.cardStyle} density-${cfg.theme.density} ${editMode.value ? "editing" : ""}`}
+      class={`df-root ${dark ? "dark" : "light"} shape-${t.shape} color-${t.color} titles-${t.titles} nav-${nav} cards-${t.cardStyle} density-${cfg.theme.density} ${editMode.value ? "editing" : ""}`}
       style={themeStyle(cfg, dark)}
     >
       {children}
@@ -114,7 +121,7 @@ export function App() {
 
   const cfg = config.value;
   if (!cfg || !cfg.setupComplete) {
-    const base = fallback ?? ({ theme: { mode: "auto", accent: "#3b82f6", background: "aurora", cardStyle: "glass", radius: 20, density: "comfortable" }, layout: "grid" } as DashConfig);
+    const base = fallback ?? defaultConfig();
     return (
       <Themed cfg={base}>
         <Centered>

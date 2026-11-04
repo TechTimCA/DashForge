@@ -75,6 +75,8 @@ export interface Hass {
   ): Promise<unknown>;
   callWS<T>(msg: Record<string, unknown>): Promise<T>;
   callApi<T>(method: "GET" | "POST", path: string, body?: unknown): Promise<T>;
+  fetchWithAuth?(path: string, init?: RequestInit): Promise<Response>;
+  auth?: { data?: { access_token?: string } };
   hassUrl(path?: string): string;
   formatEntityState?(stateObj: HassEntityState, state?: string): string;
 }
@@ -84,6 +86,11 @@ export interface Hass {
 export type LayoutId = "auto" | "grid" | "sidebar" | "list" | "focus";
 export type CardSize = "sm" | "md" | "lg" | "wide";
 export type StyleId = "vivid" | "daylight" | "blocks" | "console" | "dashforge" | "apple" | "homey" | "minimal";
+export type CardShape = "tiles" | "rows" | "blocks" | "dials" | "pills" | "squares";
+export type OnColor = "gradient" | "flat" | "glow" | "soft" | "white" | "tint" | "ring" | "outline";
+export type IconSet = "dashforge" | "ha";
+export type TitleStyle = "normal" | "big" | "bold" | "light";
+export type NavStyle = "auto" | "tabs" | "side" | "dock";
 export type FontId = "sora" | "manrope" | "lexend" | "nunito" | "dmsans" | "system";
 export type TapOverride = "auto" | "toggle" | "details" | "more-info" | "none";
 
@@ -112,8 +119,13 @@ export interface SectionConfig {
 }
 
 export interface ThemeConfig {
-  style: StyleId;
+  style: StyleId; // the preset it started from
   font: FontId;
+  shape: CardShape;
+  color: OnColor;
+  icons: IconSet;
+  titles: TitleStyle;
+  nav: NavStyle;
   mode: "auto" | "light" | "dark";
   accent: string;
   background: string; // preset id or "image"

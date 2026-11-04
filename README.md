@@ -37,10 +37,16 @@ Everything is included, for everyone, with no limits on rooms or devices.
 - Your Home Assistant areas, floors and devices are offered as suggestions you confirm, untick or rearrange. Rooms without an area and devices from anywhere can be added too.
 - Run it again at any time from Settings.
 
-**Looks like you want it to**
-- Five styles to start from: **Vivid** (dark with bright gradient tiles), **Apple Home style** (frosted tiles that turn white when on), **Homey style** (dark with colour-coded device icons), **DashForge** (soft gradients) and **Minimal**.
-- Its own typefaces, built in and working offline: Sora, Manrope, Lexend, Nunito and DM Sans, or your device's font.
-- Then change anything: light, dark or match Home Assistant; any accent colour; eight backgrounds or your own image; frosted or solid cards; corner roundness; spacing.
+**Looks like you want it to: mix and match every part**
+- Start from a ready-made style (**Vivid**, **Daylight**, **Blocks**, **Console**, **Apple Home style**, **Homey style**, **DashForge**, **Minimal**), then change any part of it on its own.
+- **Background**: 19 built-in backgrounds, or **upload your own photos** straight from the dashboard (they are resized and kept in your Home Assistant), or use any picture address. Panels and text adjust to suit the background.
+- **Card shape**: tiles, rows, blocks, dials, pills or squares.
+- **How cards look when on**: bright gradient, flat colour, glow, soft wash, turns white, light tint, colour ring or outline.
+- **Navigation**: tabs on top, a side list, or an app-style bottom dock.
+- **Icons**: DashForge's own outline icons, or Home Assistant's.
+- **Typeface**: Sora, Manrope, Lexend, Nunito or DM Sans (built in, work offline), or your device's font. **Titles**: regular, big, extra bold or light.
+- Light, dark or match Home Assistant; any accent colour; frosted or solid cards; corner roundness; spacing.
+- Hide or show the Home Assistant menu with one button; each device remembers its choice.
 - Per card: colour, icon, name, size, what a tap does, and whether it shows on Home. Per room: icon, floor and wallpaper.
 
 **One dashboard for every screen**

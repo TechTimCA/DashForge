@@ -10,7 +10,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant, ServiceCall
 from homeassistant.helpers import config_validation as cv
 
-from . import websocket
+from . import media, websocket
 from .irrigation import MAX_MINUTES, IrrigationController
 from .const import (
     CONF_SIDEBAR_ICON,
@@ -40,12 +40,19 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     # Static paths and websocket commands cannot be unregistered, so they are
     # registered once per Home Assistant run and survive integration reloads.
     if not hass.data.get(DATA_STATIC_REGISTERED):
+        folder = media.media_dir(hass)
+        await hass.async_add_executor_job(lambda: folder.mkdir(parents=True, exist_ok=True))
         await hass.http.async_register_static_paths(
-            [StaticPathConfig(STATIC_URL_BASE, str(FRONTEND_DIR), False)]
+            [
+                StaticPathConfig(STATIC_URL_BASE, str(FRONTEND_DIR), False),
+                StaticPathConfig(media.MEDIA_URL, str(folder), True),
+            ]
         )
+        hass.http.register_view(media.DashForgeUploadView())
         hass.data[DATA_STATIC_REGISTERED] = True
     if not hass.data.get(DATA_WS_REGISTERED):
         websocket.async_register(hass)
+        media.async_register_ws(hass)
         hass.data[DATA_WS_REGISTERED] = True
 
     await panel_custom.async_register_panel(
