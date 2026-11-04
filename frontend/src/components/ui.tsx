@@ -1,7 +1,31 @@
-import type { ComponentChildren } from "preact";
-import { useEffect, useRef, useState } from "preact/hooks";
+import { createContext, createElement, type ComponentChildren } from "preact";
+import { useContext, useEffect, useRef, useState } from "preact/hooks";
+import { lineIcon } from "../icons";
+
+/** Which icon set the current style uses: Home Assistant's, or DashForge's own outline icons. */
+export const IconStyle = createContext<{ line: boolean; stroke: number }>({ line: false, stroke: 2 });
 
 export function Icon({ icon, size = 24, class: cls }: { icon: string; size?: number; class?: string }) {
+  const style = useContext(IconStyle);
+  const node = style.line ? lineIcon(icon) : undefined;
+  if (node) {
+    return (
+      <svg
+        class={`df-icon ${cls ?? ""}`}
+        width={size}
+        height={size}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width={style.stroke}
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        {node.map(([tag, attrs]) => createElement(tag, attrs as Record<string, unknown>))}
+      </svg>
+    );
+  }
   return <ha-icon icon={icon} class={cls} style={`--mdc-icon-size:${size}px;width:${size}px;height:${size}px`} />;
 }
 

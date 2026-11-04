@@ -83,7 +83,7 @@ export interface Hass {
 
 export type LayoutId = "auto" | "grid" | "sidebar" | "list" | "focus";
 export type CardSize = "sm" | "md" | "lg" | "wide";
-export type StyleId = "vivid" | "dashforge" | "apple" | "homey" | "minimal";
+export type StyleId = "vivid" | "daylight" | "blocks" | "console" | "dashforge" | "apple" | "homey" | "minimal";
 export type FontId = "sora" | "manrope" | "lexend" | "nunito" | "dmsans" | "system";
 export type TapOverride = "auto" | "toggle" | "details" | "more-info" | "none";
 

@@ -4,7 +4,7 @@ import { CardEditorModal, EditBar, HiddenTray, PickerModal, SectionEditorModal }
 import { DetailSheet, LockConfirm } from "./components/details";
 import { Header, Layout, SceneStrip } from "./components/layout";
 import { SidebarControl, TabletBehaviour } from "./components/tablet";
-import { Button, Icon } from "./components/ui";
+import { Button, Icon, IconStyle } from "./components/ui";
 import { CalendarModal, TodoModal, WeatherModal, openWidget, useWeather, useWeatherFor } from "./components/widgets";
 import { entityWidget } from "./components/cards";
 import { LightsOffConfirm } from "./components/home";
@@ -26,10 +26,14 @@ function themeStyle(cfg: DashConfig, dark: boolean): string {
   return `--accent:${t.accent};--radius:${t.radius}px;--page-bg:${bg};--font:${fontStack(t.font).replace(/"/g, "'")};`;
 }
 
+const LINE_ICON_STYLES: Record<string, number> = { daylight: 1.75, blocks: 2.4, console: 1.5 };
+
 function Themed({ cfg, children }: { cfg: DashConfig; children: any }) {
   const h = hass.value!;
   const dark = cfg.theme.mode === "dark" || (cfg.theme.mode === "auto" && !!h.themes?.darkMode);
+  const stroke = LINE_ICON_STYLES[cfg.theme.style];
   return (
+    <IconStyle.Provider value={{ line: stroke !== undefined, stroke: stroke ?? 2 }}>
     <div
       class={`df-root ${dark ? "dark" : "light"} style-${cfg.theme.style ?? "dashforge"} cards-${cfg.theme.cardStyle} density-${cfg.theme.density} ${editMode.value ? "editing" : ""}`}
       style={themeStyle(cfg, dark)}
@@ -41,6 +45,7 @@ function Themed({ cfg, children }: { cfg: DashConfig; children: any }) {
         </div>
       )}
     </div>
+    </IconStyle.Provider>
   );
 }
 

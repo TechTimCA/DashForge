@@ -131,6 +131,7 @@ export function Tile(props: TileProps) {
     `size-${card.size}`,
     `d-${domain}`,
     `cat-${cat}`,
+    card.color ? "custom-color" : "",
     active ? "active" : "",
     isUnavailable(s) ? "unavailable" : "",
     props.editing ? "editing" : "",

@@ -42,6 +42,24 @@ export const BACKGROUNDS: { id: string; name: string; light: string; dark: strin
   },
   { id: "plain", name: "Plain", light: "#f4f4f5", dark: "#111113" },
   {
+    id: "daybreak",
+    name: "Daybreak",
+    light: "linear-gradient(170deg,#cfe0f5 0%,#e8e4f3 45%,#f8e3d6 100%)",
+    dark: "linear-gradient(170deg,#1b2640 0%,#2c2a45 50%,#45303a 100%)",
+  },
+  {
+    id: "paper",
+    name: "Paper",
+    light: "#eceef2",
+    dark: "#17181d",
+  },
+  {
+    id: "night",
+    name: "Night",
+    light: "linear-gradient(180deg,#e7ecf6 0%,#dfe5f1 100%)",
+    dark: "radial-gradient(ellipse at 50% -20%,#1a2747 0%,#0e1424 55%,#0a0f1c 100%)",
+  },
+  {
     id: "dusk",
     name: "Dusk",
     light: "linear-gradient(160deg,#f7d9c9 0%,#d5dcf2 55%,#ece3f6 100%)",
@@ -67,6 +85,24 @@ export const STYLE_PRESETS: {
     name: "Vivid",
     desc: "Dark and colourful: bright gradient tiles that pop when devices are on.",
     theme: { style: "vivid", font: "sora", mode: "dark", background: "midnight", cardStyle: "solid", radius: 22, accent: "#6366f1" },
+  },
+  {
+    id: "daylight",
+    name: "Daylight",
+    desc: "Calm and airy over a dawn sky. Big room names, devices in soft rows.",
+    theme: { style: "daylight", font: "manrope", mode: "light", background: "daybreak", cardStyle: "glass", radius: 26, accent: "#f59e0b" },
+  },
+  {
+    id: "blocks",
+    name: "Blocks",
+    desc: "Flat, saturated colour blocks and bold type. Playful and easy to read.",
+    theme: { style: "blocks", font: "sora", mode: "light", background: "paper", cardStyle: "solid", radius: 28, accent: "#3156ff" },
+  },
+  {
+    id: "console",
+    name: "Console",
+    desc: "A night-blue instrument panel with glowing dials and an app-style dock.",
+    theme: { style: "console", font: "lexend", mode: "dark", background: "night", cardStyle: "solid", radius: 22, accent: "#3fd8ff" },
   },
   {
     id: "dashforge",
