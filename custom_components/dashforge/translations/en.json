@@ -1,0 +1,30 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Add DashForge",
+        "description": "DashForge adds a dashboard to your sidebar. After adding it, open it from the sidebar and the setup wizard will walk you through building your dashboard.",
+        "data": {
+          "sidebar_title": "Sidebar title",
+          "sidebar_icon": "Sidebar icon",
+          "require_admin_edit": "Only administrators can edit the dashboard"
+        }
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "DashForge is already added. Open it from the sidebar."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "DashForge options",
+        "data": {
+          "sidebar_title": "Sidebar title",
+          "sidebar_icon": "Sidebar icon",
+          "require_admin_edit": "Only administrators can edit the dashboard"
+        }
+      }
+    }
+  }
+}

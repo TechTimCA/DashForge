@@ -1,0 +1,139 @@
+import { BACKGROUNDS } from "./config";
+import { CardEditorModal, EditBar, HiddenTray, PickerModal, SectionEditorModal } from "./components/edit";
+import { DetailSheet, LockConfirm } from "./components/details";
+import { Header, Layout, SceneStrip } from "./components/layout";
+import { TabletBehaviour } from "./components/tablet";
+import { Button, Icon } from "./components/ui";
+import { CalendarModal, TodoModal, WeatherModal, openWidget, useWeather } from "./components/widgets";
+import { SettingsModal, Wizard, previewConfig, startWizard } from "./components/wizard";
+import { config, editMode, hass, info, loadAll, loadError, saved, settingsOpen, toast, wizardOpen } from "./store";
+import type { DashConfig, Hass } from "./types";
+
+function themeStyle(cfg: DashConfig, dark: boolean): string {
+  const t = cfg.theme;
+  let bg: string;
+  if (t.background === "image" && t.backgroundImage) {
+    const url = t.backgroundImage.replace(/["\\]/g, "");
+    bg = `center / cover no-repeat url("${url}")`;
+  } else {
+    const preset = BACKGROUNDS.find((b) => b.id === t.background) ?? BACKGROUNDS[0];
+    bg = dark ? preset.dark : preset.light;
+  }
+  return `--accent:${t.accent};--radius:${t.radius}px;--page-bg:${bg};`;
+}
+
+function Themed({ cfg, children }: { cfg: DashConfig; children: any }) {
+  const h = hass.value!;
+  const dark = cfg.theme.mode === "dark" || (cfg.theme.mode === "auto" && !!h.themes?.darkMode);
+  return (
+    <div
+      class={`df-root ${dark ? "dark" : "light"} cards-${cfg.theme.cardStyle} density-${cfg.theme.density} layout-${cfg.layout} ${editMode.value ? "editing" : ""}`}
+      style={themeStyle(cfg, dark)}
+    >
+      {children}
+      {toast.value && (
+        <div class={`toast ${toast.value.kind}`} role="status">
+          {toast.value.text}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function Centered({ children }: { children: any }) {
+  return <div class="centered">{children}</div>;
+}
+
+function Widgets({ cfg, h }: { cfg: DashConfig; h: Hass }) {
+  const weather = useWeather(h, cfg);
+  const lang = h.locale?.language ?? h.language;
+  return (
+    <>
+      {openWidget.value === "weather" && weather && <WeatherModal data={weather} lang={lang} h24={cfg.header.clock24h} />}
+      {openWidget.value === "calendar" && <CalendarModal cfg={cfg} lang={lang} />}
+      {openWidget.value === "todo" && <TodoModal cfg={cfg} />}
+    </>
+  );
+}
+
+export function App() {
+  const h = hass.value;
+  if (!h) return null;
+
+  const fallback = previewConfig.value ?? saved.value;
+  if (loadError.value) {
+    return (
+      <div class="df-root light">
+        <Centered>
+          <Icon icon="mdi:alert-circle-outline" size={48} />
+          <h2>DashForge couldn't load</h2>
+          <p class="muted">{loadError.value}</p>
+          <Button kind="primary" onClick={loadAll}>Try again</Button>
+        </Centered>
+      </div>
+    );
+  }
+  if (!info.value) {
+    return (
+      <div class="df-root light">
+        <Centered>
+          <div class="spinner" aria-label="Loading" />
+        </Centered>
+      </div>
+    );
+  }
+
+  if (wizardOpen.value && previewConfig.value) {
+    return (
+      <Themed cfg={previewConfig.value}>
+        <Wizard />
+      </Themed>
+    );
+  }
+
+  const cfg = config.value;
+  if (!cfg || !cfg.setupComplete) {
+    const base = fallback ?? ({ theme: { mode: "auto", accent: "#3b82f6", background: "aurora", cardStyle: "glass", radius: 20, density: "comfortable" }, layout: "grid" } as DashConfig);
+    return (
+      <Themed cfg={base}>
+        <Centered>
+          <div class="welcome-card">
+            <Icon icon="mdi:anvil" size={56} />
+            <h1>Welcome to DashForge</h1>
+            {info.value.can_edit ? (
+              <>
+                <p>Let's build a dashboard that fits your home. The setup asks you about your rooms, devices, layout and look, one step at a time. It takes about five minutes, and you can change everything afterwards.</p>
+                <Button kind="primary" icon="mdi:arrow-right" onClick={startWizard}>Start setup</Button>
+              </>
+            ) : (
+              <p>This dashboard hasn't been set up yet. Ask an administrator of this Home Assistant to open DashForge and finish the setup.</p>
+            )}
+          </div>
+        </Centered>
+      </Themed>
+    );
+  }
+
+  // While Settings is open, the dashboard behind it previews the changes.
+  const live = settingsOpen.value && previewConfig.value ? previewConfig.value : cfg;
+
+  return (
+    <Themed cfg={live}>
+      <div class="dashboard">
+        <Header cfg={live} />
+        <SceneStrip cfg={live} />
+        <Layout cfg={live} />
+      </div>
+      <EditBar />
+      <DetailSheet />
+      <LockConfirm />
+      <PickerModal />
+      <CardEditorModal />
+      <SectionEditorModal />
+      <HiddenTray />
+      <Widgets cfg={live} h={h} />
+      {settingsOpen.value && <SettingsModal />}
+      {!editMode.value && <TabletBehaviour cfg={live} />}
+    </Themed>
+  );
+}
