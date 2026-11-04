@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "preact/hooks";
-import { hass, view } from "../store";
+import { hass, sidebarHidden, view } from "../store";
 import type { DashConfig } from "../types";
 import { Icon } from "./ui";
 import { conditionIcon, eventTime, formatTime, useEvents, useNow, useWeather } from "./widgets";
@@ -29,7 +29,6 @@ export function TabletBehaviour({ cfg }: { cfg: DashConfig }) {
   const [saver, setSaver] = useState(false);
   useIdle(() => setSaver(true), cfg.tablet.screensaverMinutes, cfg.tablet.screensaver && !saver);
   useIdle(() => (view.value = null), cfg.tablet.returnHomeMinutes, cfg.tablet.returnHomeMinutes > 0);
-  useSidebarHidden(cfg.tablet.hideSidebar);
   if (!saver) return null;
   return <Screensaver cfg={cfg} onWake={() => setSaver(false)} />;
 }
@@ -82,6 +81,12 @@ function Screensaver({ cfg, onWake }: { cfg: DashConfig; onWake: () => void }) {
       )}
     </div>
   );
+}
+
+/** Applies this device's sidebar choice; always mounted, including in edit mode. */
+export function SidebarControl({ cfg }: { cfg: DashConfig }) {
+  useSidebarHidden(sidebarHidden(cfg.tablet.hideSidebar));
+  return null;
 }
 
 /**

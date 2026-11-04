@@ -891,7 +891,7 @@ export function TabletStep({ cfg, set }: StepProps) {
           onChange={(v) => set((c) => (c.tablet.returnHomeMinutes = Number(v)))}
         />
       </Row>
-      <Row label="Hide the Home Assistant sidebar" hint="Full-screen dashboard. Add ?menu to the address to show it again on one device.">
+      <Row label="Hide the Home Assistant sidebar" hint="The starting choice for every device. Anyone can still hide or show it on their own device with the button at the top of the dashboard.">
         <Toggle checked={t.hideSidebar} onChange={(v) => set((c) => (c.tablet.hideSidebar = v))} />
       </Row>
     </div>

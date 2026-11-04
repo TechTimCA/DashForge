@@ -7,6 +7,8 @@ import {
   info,
   narrow,
   panelElement,
+  setSidebarHidden,
+  sidebarHidden,
   width,
   startEditing,
   updateDraft,
@@ -117,7 +119,8 @@ export function Header({ cfg }: { cfg: DashConfig }) {
   const events = useEvents(h, cfg.header.calendars, dayStart, horizon, Math.floor(now.getTime() / 600_000));
   const next = events.find((e) => e.end > now);
   const todos = openTodoCount(h, cfg.header.todoLists);
-  const showMenu = narrow.value && !cfg.tablet.hideSidebar;
+  const menuHidden = sidebarHidden(cfg.tablet.hideSidebar);
+  const showMenu = narrow.value && !menuHidden;
   const player = cfg.header.mediaPlayer ? h.states[cfg.header.mediaPlayer] : undefined;
 
   return (
@@ -172,6 +175,16 @@ export function Header({ cfg }: { cfg: DashConfig }) {
               <Icon icon="mdi:pause" size={20} />
               <span class="ellipsis">{player.attributes.media_title ?? entityName(h, player.entity_id)}</span>
             </button>
+          )}
+          {!narrow.value && (
+            <IconButton
+              icon={menuHidden ? "mdi:dock-left" : "mdi:fullscreen"}
+              label={menuHidden ? "Show the Home Assistant menu" : "Hide the Home Assistant menu"}
+              onClick={() => setSidebarHidden(!menuHidden)}
+            />
+          )}
+          {narrow.value && menuHidden && (
+            <IconButton icon="mdi:dock-left" label="Show the Home Assistant menu" onClick={() => setSidebarHidden(false)} />
           )}
           {info.value?.can_edit && !editMode.value && (
             <>

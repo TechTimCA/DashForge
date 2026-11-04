@@ -32,6 +32,29 @@ export type View =
   | { type: "irrigation" };
 
 export const view = signal<View | null>(null);
+
+/** This device's choice for the Home Assistant sidebar; null follows the dashboard setting. */
+function readSidebarPref(): "hidden" | "shown" | null {
+  try {
+    const v = localStorage.getItem("dashforge.sidebar");
+    return v === "hidden" || v === "shown" ? v : null;
+  } catch {
+    return null;
+  }
+}
+export const sidebarPref = signal<"hidden" | "shown" | null>(readSidebarPref());
+export function setSidebarHidden(hidden: boolean) {
+  const v = hidden ? "hidden" : "shown";
+  sidebarPref.value = v;
+  try {
+    localStorage.setItem("dashforge.sidebar", v);
+  } catch {
+    /* private mode: the choice lasts until the page reloads */
+  }
+}
+export function sidebarHidden(settingHidden: boolean): boolean {
+  return sidebarPref.value ? sidebarPref.value === "hidden" : settingHidden;
+}
 export const settingsOpen = signal(false);
 export const wizardOpen = signal(false);
 export const toast = signal<{ text: string; kind: "info" | "error" } | null>(null);

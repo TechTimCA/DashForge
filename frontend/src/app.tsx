@@ -3,7 +3,7 @@ import { fontStack } from "./fonts";
 import { CardEditorModal, EditBar, HiddenTray, PickerModal, SectionEditorModal } from "./components/edit";
 import { DetailSheet, LockConfirm } from "./components/details";
 import { Header, Layout, SceneStrip } from "./components/layout";
-import { TabletBehaviour } from "./components/tablet";
+import { SidebarControl, TabletBehaviour } from "./components/tablet";
 import { Button, Icon } from "./components/ui";
 import { CalendarModal, TodoModal, WeatherModal, openWidget, useWeather, useWeatherFor } from "./components/widgets";
 import { entityWidget } from "./components/cards";
@@ -152,6 +152,7 @@ export function App() {
       <Widgets cfg={live} h={h} />
       {settingsOpen.value && <SettingsModal />}
       {!editMode.value && <TabletBehaviour cfg={live} />}
+      <SidebarControl cfg={live} />
     </Themed>
   );
 }
